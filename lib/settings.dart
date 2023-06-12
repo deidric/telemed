@@ -7,6 +7,14 @@ class TelemedStrings{
   static String pleaseWait = "Please wait...";
   static String patient = "Patient";
   static String doctor = "Doctor";
+  static String signIn = "Sign In";
+  static String signOut = "Sign out";
+  static String createAccount = "Create account";
+  static String pleaseEnterText = "Please enter text";
+  static String email = "Email";
+  static String password = "Password";
+  static String here2SeeYou = "Here2SeeU";
+  static String signInToYourAccount = "Sign in to your account";
 }
 
 class TelemedImage{

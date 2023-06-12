@@ -15,7 +15,7 @@ class TelemedDataProvider with ChangeNotifier, DiagnosticableTreeMixin{
   bool get isLoading => _isLoading;
 
   void setLoading(isLoading) {
-    this._isLoading = isLoading;
+    _isLoading = isLoading;
     notifyListeners();
   }
 }

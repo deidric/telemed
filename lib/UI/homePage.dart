@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -132,8 +133,8 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
-                            // Navigator.pushNamedAndRemoveUntil(context,
-                            //     SignUpPage.route, (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                SignInPage.route, (route) => false);
                           },
                           label: Text(TelemedStrings.patient),
                         ),
@@ -149,8 +150,8 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
-                            // Navigator.pushNamedAndRemoveUntil(context,
-                            //     SignUpPage.route, (route) => false);
+                            Navigator.pushNamed(context,
+                                SignInPage.route,);
                           },
                           label: Text(TelemedStrings.doctor),
                         ),
