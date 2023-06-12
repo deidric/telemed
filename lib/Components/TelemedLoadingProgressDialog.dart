@@ -38,7 +38,7 @@ class _TelemedLoadingProgressDialogState
             padding: EdgeInsets.only(right: 16.0),
             child:Icon(Icons.medical_information)
           ),
-          Text(TelemedSettings.loading),
+          Text(TelemedStrings.loading),
         ],
       ),
       content: Column(
@@ -54,7 +54,7 @@ class _TelemedLoadingProgressDialogState
               child: const Icon(Icons.medical_information),
             ),
           ),
-          Text(TelemedSettings.pleaseWait),
+          Text(TelemedStrings.pleaseWait),
         ],
       ),
     );

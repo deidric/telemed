@@ -16,9 +16,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> imgList = [
-    TelemedImage.doctorImage,
-    TelemedImage.clockImage,
+  final List<HomePageContent> imgList = [
+    HomePageContent(
+      imageURI: TelemedImage.doctorImage,
+      title: "Video consult top doctors from the comfort of your home",
+      description:
+          "These are the Specialists in their respective fields, which includes Brain & Nervous system",
+    ),
+    HomePageContent(
+      imageURI: TelemedImage.clockImage,
+      title: "Communicate in the best & effective way possible",
+      description:
+      "Time & health are two precious assets that we don't compromise on",
+    ),
   ];
   List<Widget> imageSliders = [];
   int _current = 0;
@@ -28,70 +38,39 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       imageSliders = imgList
-          .map((item) => Container(
-                margin: const EdgeInsets.all(5.0),
+          .map((item) => SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Image.asset(item.imageURI),
                     Row(
                       children: [
-                        Image.asset(item),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Video consult top doctors from the comfort of your home',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            item.title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ],
                     ),
                     Row(
                       children: [
-                        Text(
-                          'These are the Specialists in their respective fields, which includes Brain & Nervous system',
-                          style: Theme.of(context).textTheme.titleSmall!,
+                        Expanded(
+                          child: Text(
+                            item.description,
+                            style: Theme.of(context).textTheme.titleSmall!,
+                          ),
                         ),
                       ],
                     ),
-                    // Positioned(
-                    //   bottom: 0.0,
-                    //   left: 0.0,
-                    //   right: 0.0,
-                    //   child: Container(
-                    //     decoration: const BoxDecoration(
-                    //       gradient: LinearGradient(
-                    //         colors: [
-                    //           Color.fromARGB(200, 0, 0, 0),
-                    //           Color.fromARGB(0, 0, 0, 0)
-                    //         ],
-                    //         begin: Alignment.bottomCenter,
-                    //         end: Alignment.topCenter,
-                    //       ),
-                    //     ),
-                    //     padding: const EdgeInsets.symmetric(
-                    //         vertical: 10.0, horizontal: 20.0),
-                    //     child: Text(
-                    //       'No. ${imgList.indexOf(item)} image',
-                    //       style: const TextStyle(
-                    //         color: Colors.white,
-                    //         fontSize: 20.0,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ))
           .toList();
-
-      super.initState();
     });
+    super.initState();
   }
 
   @override
@@ -100,43 +79,96 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
-          : Column(children: [
-            CarouselSlider(
-              items: imageSliders,
-              carouselController: _controller,
-              options: CarouselOptions(
-                  autoPlay: false,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 1,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                    });
-                  }),
+          : ListView(
+              padding: const EdgeInsets.all(8.0),
+              shrinkWrap: true,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CarouselSlider(
+                      items: imageSliders,
+                      carouselController: _controller,
+                      options: CarouselOptions(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          autoPlay: false,
+                          enableInfiniteScroll: false,
+                          viewportFraction: 1,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: imgList.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () => _controller.animateToPage(entry.key),
+                      child: Container(
+                        width: 12.0,
+                        height: 12.0,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                (Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black)
+                                    .withOpacity(
+                                        _current == entry.key ? 0.9 : 0.4)),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.account_circle),
+                          onPressed: () {
+                            // Navigator.pushNamedAndRemoveUntil(context,
+                            //     SignUpPage.route, (route) => false);
+                          },
+                          label: Text(TelemedStrings.patient),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.account_circle),
+                          onPressed: () {
+                            // Navigator.pushNamedAndRemoveUntil(context,
+                            //     SignUpPage.route, (route) => false);
+                          },
+                          label: Text(TelemedStrings.doctor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imgList.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () => _controller.animateToPage(entry.key),
-                  child: Container(
-                    width: 12.0,
-                    height: 12.0,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 4.0),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: (Theme.of(context).brightness ==
-                            Brightness.dark
-                            ? Colors.white
-                            : Colors.black)
-                            .withOpacity(
-                            _current == entry.key ? 0.9 : 0.4)),
-                  ),
-                );
-              }).toList(),
-            ),
-          ],),
     );
   }
+}
+
+class HomePageContent {
+  String imageURI;
+  String title;
+  String description;
+
+  HomePageContent(
+      {required this.imageURI, required this.title, required this.description});
 }
