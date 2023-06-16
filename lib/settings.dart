@@ -144,9 +144,6 @@ class TelemedStrings{
   static String answerhpQ1 = "";
   static String change = "Change";
   static String answer = "";
-  static String test = "test";
-
-
 
 
 
