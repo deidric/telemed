@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
@@ -32,6 +33,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool rememberFor30days = false;
 
   @override
   void initState() {
@@ -71,13 +73,6 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(TelemedSettings.appName),
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context, false);
-          },
-        ),
       ),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
@@ -92,16 +87,27 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                       turns: _animation,
                       child: const Icon(Icons.medical_information),
                     ),
-                    Text(TelemedStrings.here2SeeYou,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontWeight: FontWeight.bold)),
-                    Text(TelemedStrings.signInToYourAccount,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall!
-                            .copyWith(fontWeight: FontWeight.bold)),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(TelemedStrings.here2SeeYou,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(fontWeight: FontWeight.bold)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(TelemedStrings.signInToYourAccount,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(fontWeight: FontWeight.bold)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(TelemedStrings.welcomeBack,
+                          style: Theme.of(context).textTheme.titleLarge!),
+                    ),
                     Form(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: _formKey,
@@ -121,10 +127,10 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                 },
                                 controller: emailController,
                                 decoration: InputDecoration(
-                                    labelText: TelemedStrings.email,
-                                    border: const OutlineInputBorder(),
-                                    suffixIcon:
-                                        const Icon(Icons.account_circle)),
+                                  labelText: TelemedStrings.email,
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.mail_outline),
+                                ),
                               ),
                             ),
                             Padding(
@@ -141,6 +147,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                 decoration: InputDecoration(
                                     labelText: TelemedStrings.password,
                                     border: const OutlineInputBorder(),
+                                    prefixIcon: const Icon(Icons.lock_open),
                                     suffixIcon: InkWell(
                                       onTap: () {
                                         setState(() {
@@ -156,27 +163,83 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                     )),
                               ),
                             ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CheckboxListTile(
+                                      title: Text(TelemedStrings.remember),
+                                      value: rememberFor30days,
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          rememberFor30days = newValue!;
+                                        });
+                                      }),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: Text(TelemedStrings.forgotPassword),
+                                ),
+                              ],
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton.icon(
-                                icon: const Icon(Icons.lock),
-                                onPressed: () {
-                                  signIn(context);
-                                },
-                                label:
-                                    Text(TelemedStrings.signIn.toUpperCase()),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        signIn(context);
+                                      },
+                                      child: Text(TelemedStrings.signIn),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton.icon(
-                                icon: const Icon(Icons.account_circle),
-                                onPressed: () {
-                                  // Navigator.pushNamedAndRemoveUntil(context,
-                                  //     SignUpPage.route, (route) => false);
-                                },
-                                label: Text(
-                                    TelemedStrings.createAccount.toUpperCase()),
+                              child: Row(
+                                children: [
+                                  const Expanded(child: Divider()),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, right: 8.0),
+                                    child: Text(TelemedStrings.signInWith),
+                                  ),
+                                  const Expanded(child: Divider()),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SignInButton(
+                                      Buttons.Google,
+                                      onPressed: () {},
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, right: 8.0),
+                                    child: Text(TelemedStrings.noAccount),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: Text(TelemedStrings.signUp),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

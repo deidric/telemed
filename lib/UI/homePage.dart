@@ -133,8 +133,8 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(context,
-                                SignInPage.route, (route) => false);
+                            Navigator.pushNamed(context,
+                                SignInPage.route,);
                           },
                           label: Text(TelemedStrings.patient),
                         ),
