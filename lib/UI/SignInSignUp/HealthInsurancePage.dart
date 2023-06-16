@@ -3,18 +3,17 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/SignInSignUp/HealthInsurancePage.dart';
 import 'package:telemed/settings.dart';
 
-class BasicInformationPage extends StatefulWidget {
-  const BasicInformationPage({Key? key}) : super(key: key);
-  static const String route = '/basicInformation';
+class HealthInsurancePage extends StatefulWidget {
+  const HealthInsurancePage({Key? key}) : super(key: key);
+  static const String route = '/healthInsurance';
 
   @override
-  BasicInformationPageState createState() => BasicInformationPageState();
+  HealthInsurancePageState createState() => HealthInsurancePageState();
 }
 
-class BasicInformationPageState extends State<BasicInformationPage>
+class HealthInsurancePageState extends State<HealthInsurancePage>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
@@ -205,15 +204,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                               children: [
                                 Expanded(
                                   child: SegmentedButton(segments: [
-                                    ButtonSegment(
-                                        value: 0,
-                                        label: Text(TelemedStrings.male)),
-                                    ButtonSegment(
-                                        value: 1,
-                                        label: Text(TelemedStrings.female)),
-                                  ], selected: <int>{
-                                    0
-                                  }, onSelectionChanged: (newValue) {}),
+                                    ButtonSegment(value: 0, label: Text(TelemedStrings.male)),
+                                    ButtonSegment(value: 1, label: Text(TelemedStrings.female)),
+                                  ], selected: <int>{0},onSelectionChanged: (newValue){
+
+                                  }),
                                 ),
                               ],
                             ),
@@ -224,7 +219,8 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   Expanded(
                                     child: IntlPhoneField(
                                       decoration: InputDecoration(
-                                        labelText: TelemedStrings.phoneNumber,
+                                        labelText:
+                                        TelemedStrings.phoneNumber,
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide(),
                                         ),
@@ -234,7 +230,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                         // phone.countryCode!;
                                       },
                                       initialCountryCode:
-                                          TelemedSettings.initialCountryCode,
+                                      TelemedSettings.initialCountryCode,
                                     ),
                                   ),
                                 ],
@@ -247,10 +243,15 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {
+
+
                                         Navigator.pushNamed(
                                           context,
                                           HealthInsurancePage.route,
                                         );
+
+
+
                                       },
                                       child: Text(TelemedStrings.proceed),
                                     ),
@@ -261,8 +262,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(TelemedStrings.phoneNote,
-                                  style:
-                                      Theme.of(context).textTheme.bodyLarge!),
+                                  style: Theme.of(context).textTheme.bodyLarge!),
                             ),
                           ],
                         ),

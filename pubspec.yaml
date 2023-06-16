@@ -39,7 +39,6 @@ dependencies:
   provider: ^6.0.1
   carousel_slider: ^4.2.1
   flutter_signin_button: ^2.0.0
-  flutter_pw_validator: ^1.6.0
   intl_phone_field: ^2.1.0
 
 dev_dependencies:
