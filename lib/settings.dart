@@ -64,12 +64,18 @@ class TelemedStrings{
   static String scheduledAppointments = "You currently don't have an appointment scheduled."; //this will direct the patient user to the Calendar only if they have an appointment booked. if not, they will direct to booking page
   static String bookNow = "Book an appointment today!";
   static String generalNeeds = "For General Needs";
+  static String generalNeedsChoosePrimary = "Choose a Primary Care Doctor and complete your first video appointment.";
   static String gNeeds = "Get medical advice prescriptions, test & referrals by video appointment with our doctors.";
   static String specificNeeds = "For Specific Needs";
+  static String specificNeedsPrimary = "Our primary care doctors can help you with a broad range of health issues, medications and more by video appointment.";
   static String childrenHealth = "Children's Health";
   static String childHealth = "Cold & Flu symptoms, Diarrhea or Constipation, Skin rashed, & Allergies";
   static String seniorHealth = "seniorHealth";
   static String senHealth = "Muscle or joint pain, Medication management, Preventive Health method.";
+  static String home = "Home";
+  static String calendar = "Calendar";
+  static String message = "Message";
+  static String profile = "Profile";
   // Book Appointment
   static String reasonOfVisit = "What’s the main reason for your visit?";
   static String newHealthConcern = "New Health Concern";

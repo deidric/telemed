@@ -7,16 +7,16 @@ import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/settings.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({super.key});
 
-  static const String route = '/homePage';
+  static const String route = '/onBoardingPage';
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _OnboardingPageState extends State<OnboardingPage> {
   final List<HomePageContent> imgList = [
     HomePageContent(
       imageURI: TelemedImage.doctorImage,
