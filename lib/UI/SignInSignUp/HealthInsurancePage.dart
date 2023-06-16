@@ -53,7 +53,7 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.basicInformation,
+                      child: Text(TelemedStrings.healthInsurance,
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
@@ -61,212 +61,58 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.basicInfo,
+                      child: Text(TelemedStrings.hInsurance,
                           style: Theme.of(context).textTheme.bodyLarge!),
                     ),
-                    Form(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      key: _formKey,
-                      child: IntrinsicWidth(
-                        stepWidth: 500,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return TelemedStrings.pleaseEnterText;
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: TelemedStrings.firstName,
-                                  border: const OutlineInputBorder(),
-                                  prefixIcon:
-                                      const Icon(Icons.account_circle_outlined),
-                                ),
-                              ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SearchBar(
+                              leading: const Icon(Icons.search),
+                              hintText: TelemedStrings.search,
+                              onChanged: (value) {},
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return TelemedStrings.pleaseEnterText;
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: TelemedStrings.lastName,
-                                  border: const OutlineInputBorder(),
-                                  prefixIcon:
-                                      const Icon(Icons.account_circle_outlined),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return TelemedStrings.pleaseEnterText;
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: TelemedStrings.address,
-                                  border: const OutlineInputBorder(),
-                                  prefixIcon:
-                                      const Icon(Icons.account_circle_outlined),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      await showDatePicker(
-                                        context: context,
-                                        initialDate: null == null
-                                            ? DateTime.now()
-                                            : DateTime.now(),
-                                        firstDate: TelemedSettings.startDate,
-                                        lastDate: TelemedSettings.endDate,
-                                      ).then((selectedDate) {
-                                        if (selectedDate != null) {
-                                          setState(() {
-                                            // _feedTransferInModel.dateReceived =
-                                            //     selectedDate.toIso8601String();
-                                          });
-                                        }
-                                      });
-                                    },
-                                    child:
-                                        Text(TelemedStrings.selectDateOfBirth),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, right: 8.0),
-                                    child: Text("01/03/1992"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return TelemedStrings
-                                                .pleaseEnterText;
-                                          }
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText:
-                                              TelemedStrings.bloodPressure,
-                                          border: const OutlineInputBorder(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return TelemedStrings
-                                                .pleaseEnterText;
-                                          }
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: TelemedStrings.bloodType,
-                                          border: const OutlineInputBorder(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: SegmentedButton(segments: [
-                                    ButtonSegment(value: 0, label: Text(TelemedStrings.male)),
-                                    ButtonSegment(value: 1, label: Text(TelemedStrings.female)),
-                                  ], selected: <int>{0},onSelectionChanged: (newValue){
-
-                                  }),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: IntlPhoneField(
-                                      decoration: InputDecoration(
-                                        labelText:
-                                        TelemedStrings.phoneNumber,
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide(),
-                                        ),
-                                      ),
-                                      onCountryChanged: (phone) {
-                                        // countryCodeController.text =
-                                        // phone.countryCode!;
-                                      },
-                                      initialCountryCode:
-                                      TelemedSettings.initialCountryCode,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: () {
-
-
-                                        Navigator.pushNamed(
-                                          context,
-                                          HealthInsurancePage.route,
-                                        );
-
-
-
-                                      },
-                                      child: Text(TelemedStrings.proceed),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(TelemedStrings.phoneNote,
-                                  style: Theme.of(context).textTheme.bodyLarge!),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(TelemedStrings.insuranceEx,
+                          style: Theme.of(context).textTheme.titleSmall!),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text(TelemedStrings.save),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              child: Text(TelemedStrings.skipInsurance),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(TelemedStrings.skipIns,
+                          style: Theme.of(context).textTheme.bodyLarge!),
                     ),
                   ],
                 ),
