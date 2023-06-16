@@ -1,5 +1,8 @@
 class TelemedSettings{
   static String appName = "Telemed";
+  static DateTime startDate = DateTime(1970);
+  static DateTime endDate = DateTime.now().add(Duration(days: 3660));
+  static String initialCountryCode = "63";
 }
 
 class TelemedStrings{
@@ -35,6 +38,7 @@ class TelemedStrings{
   static String firstName = "First Name";
   static String lastName = "Last Name";
   static String address = "Address";
+  static String selectDateOfBirth = "Select date of birth";
   static String dateOfBirth= "Date of Birth";
   static String month = "Month";
   static String day  = "Day";

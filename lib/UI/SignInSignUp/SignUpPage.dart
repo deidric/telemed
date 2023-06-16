@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pw_validator/Resource/Strings.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/SignInSignUp/BasicInformationPage.dart';
 import 'package:telemed/settings.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -207,7 +206,8 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        signIn(context);
+                                        Navigator.pushNamed(context,
+                                          BasicInformationPage.route,);
                                       },
                                       child: Text(TelemedStrings.proceed),
                                     ),
