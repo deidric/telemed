@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pw_validator/Resource/Strings.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/SignInSignUp/SignUpPage.dart';
 import 'package:telemed/settings.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
-  static const String route = '/signIn';
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
+  static const String route = '/signUp';
 
   @override
-  SignInPageState createState() => SignInPageState();
+  SignUpPageState createState() => SignUpPageState();
 }
 
-class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
+class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
 
@@ -63,6 +64,10 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  ///Passing a key to access the validate function
+  final GlobalKey<FlutterPwValidatorState> validatorKey =
+      GlobalKey<FlutterPwValidatorState>();
+
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
@@ -93,7 +98,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.signInToYourAccount,
+                      child: Text(TelemedStrings.createAccount,
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall!
@@ -101,7 +106,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.welcomeBack,
+                      child: Text(TelemedStrings.getStarted,
                           style: Theme.of(context).textTheme.titleLarge!),
                     ),
                     Form(
@@ -110,7 +115,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                       child: IntrinsicWidth(
                         stepWidth: 500,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -159,25 +164,41 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                     )),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CheckboxListTile(
-                                      title: Text(TelemedStrings.remember),
-                                      value: rememberFor30days,
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          rememberFor30days = newValue!;
-                                        });
-                                      }),
-                                ),
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text(TelemedStrings.forgotPassword),
-                                ),
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(TelemedStrings.passwordStrength,
+                                  style:
+                                      Theme.of(context).textTheme.labelLarge!),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  FlutterPwValidator(
+                                    key: validatorKey,
+                                    controller: passwordController,
+                                    minLength: 8,
+                                    uppercaseCharCount: 2,
+                                    lowercaseCharCount: 3,
+                                    numericCharCount: 3,
+                                    specialCharCount: 1,
+                                    normalCharCount: 3,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    height: 200,
+                                    onSuccess: () {
+                                      print("MATCHED");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text("Password is matched")));
+                                    },
+                                    onFail: () {
+                                      print("NOT MATCHED");
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -188,7 +209,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                       onPressed: () {
                                         signIn(context);
                                       },
-                                      child: Text(TelemedStrings.signIn),
+                                      child: Text(TelemedStrings.proceed),
                                     ),
                                   ),
                                 ],
@@ -196,27 +217,37 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Row(
+                              child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
-                                  const Expanded(child: Divider()),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, right: 8.0),
-                                    child: Text(TelemedStrings.signInWith),
-                                  ),
-                                  const Expanded(child: Divider()),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: SignInButton(
-                                      Buttons.Google,
-                                      onPressed: () {},
+                                  Text(TelemedStrings.toProceed,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!),
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      minimumSize: Size.zero,
+                                      padding: EdgeInsets.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
+                                    onPressed: () {},
+                                    child: Text(TelemedStrings.privacyPolicy),
+                                  ),
+                                  Text(TelemedStrings.and,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!),
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      minimumSize: Size.zero,
+                                      padding: EdgeInsets.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    onPressed: () {},
+                                    child: Text(
+                                        " ${TelemedStrings.termsOfService}"),
                                   ),
                                 ],
                               ),
@@ -229,14 +260,11 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 8.0, right: 8.0),
-                                    child: Text(TelemedStrings.noAccount),
+                                    child: Text(TelemedStrings.haveAccount),
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context,
-                                        SignUpPage.route,);
-                                    },
-                                    child: Text(TelemedStrings.signUp),
+                                    onPressed: () {},
+                                    child: Text(TelemedStrings.signIn),
                                   ),
                                 ],
                               ),

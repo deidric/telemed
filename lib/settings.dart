@@ -25,7 +25,10 @@ class TelemedStrings{
   static String getStarted = "Let's get you started. Please enter your details";
   static String passwordStrength = "Password strength:";
   static String proceed = "Continue";
-  static String toProceed = "By tapping 'Continue', you agree to accept our Privacy Policy and Terms of Service.";
+  static String toProceed = "By tapping 'Continue', you agree to accept our ";
+  static String privacyPolicy = "Privacy Policy";
+  static String termsOfService = "Terms of Service";
+  static String and = "and";
   static String haveAccount = "Already have an account?";
   static String basicInformation = "Basic Information";
   static String basicInfo = "Please tell us some basic information to complete your profile:";
