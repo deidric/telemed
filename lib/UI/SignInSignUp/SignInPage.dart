@@ -140,7 +140,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                 obscureText: _showPassword,
                                 decoration: InputDecoration(
                                     labelText: TelemedStrings.password,
-                                    border: OutlineInputBorder(),
+                                    border: const OutlineInputBorder(),
                                     suffixIcon: InkWell(
                                       onTap: () {
                                         setState(() {
@@ -157,9 +157,9 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: ElevatedButton.icon(
-                                icon: Icon(Icons.lock),
+                                icon: const Icon(Icons.lock),
                                 onPressed: () {
                                   signIn(context);
                                 },
