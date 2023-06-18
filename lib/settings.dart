@@ -77,6 +77,8 @@ class TelemedStrings{
   static String message = "Message";
   static String profile = "Profile";
   // Book Appointment
+  static String patientLocation = "What is the patient's current location?";
+  static String patientConnection = "This would help us connect you with the best available licensed Doctor for that location on our platform.";
   static String reasonOfVisit = "What’s the main reason for your visit?";
   static String newHealthConcern = "New Health Concern";
   static String routineCheckup= "Routine checkup, Follow-up or Screening";

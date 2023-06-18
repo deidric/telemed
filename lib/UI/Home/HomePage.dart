@@ -3,6 +3,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/BookAppointmentsPage.dart';
 import 'package:telemed/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,19 +50,19 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
         items: [
           BottomNavigationBarItem(
             label: TelemedStrings.home,
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
           ),
           BottomNavigationBarItem(
             label: TelemedStrings.calendar,
-            icon: Icon(Icons.calendar_month),
+            icon: const Icon(Icons.calendar_month),
           ),
           BottomNavigationBarItem(
             label: TelemedStrings.message,
-            icon: Icon(Icons.message),
+            icon: const Icon(Icons.message),
           ),
           BottomNavigationBarItem(
             label: TelemedStrings.profile,
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
           ),
         ],
       ),
@@ -97,11 +98,11 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ListTile(
                       title: Text(TelemedStrings.scheduledAppointments),
                       subtitle: Text(TelemedStrings.bookNow),
-                      leading: Icon(Icons.calendar_month),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      leading: const Icon(Icons.calendar_month),
+                      trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {},
                     ),
-                    Divider(),
+                    const Divider(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.generalNeeds,
@@ -115,9 +116,14 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ListTile(
                       title: Text(TelemedStrings.bookNow),
                       subtitle: Text(TelemedStrings.generalNeedsChoosePrimary),
-                      leading: Icon(Icons.calendar_today),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      onTap: () {},
+                      leading: const Icon(Icons.calendar_today),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          BookAppointmentsPage.route,
+                        );
+                      },
                     ),
                     const Divider(),
                     Padding(
@@ -133,16 +139,16 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ListTile(
                       title: Text(TelemedStrings.childrenHealth),
                       subtitle: Text(TelemedStrings.childHealth),
-                      leading: Icon(Icons.child_care),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      leading: const Icon(Icons.child_care),
+                      trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {},
                     ),
                     const Divider(),
                     ListTile(
                       title: Text(TelemedStrings.seniorHealth),
                       subtitle: Text(TelemedStrings.senHealth),
-                      leading: Icon(Icons.accessible),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      leading: const Icon(Icons.accessible),
+                      trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {},
                     ),
                     const Divider(),
