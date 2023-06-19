@@ -81,8 +81,10 @@ class TelemedStrings{
   static String patientConnection = "This would help us connect you with the best available licensed Doctor for that location on our platform.";
   static String reasonOfVisit = "What’s the main reason for your visit?";
   static String newHealthConcern = "New Health Concern";
+  static String findDoctor = "Find a doctor";
   static String routineCheckup= "Routine checkup, Follow-up or Screening";
   static String prescRefills = "Prescriptions or Refills";
+  static String talkToPharmacist = "Talk to a Pharmacist";
   static String mentalHealthConcern = "General Mental Health Concerns";
   static String otherMedReason= "Other Medical Reasons";
   static String medEmergency= "For medical emergencies, please call 112 (or your local emergency number) or go to the nearest emergency hospital.";
