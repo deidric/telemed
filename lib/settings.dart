@@ -3,6 +3,10 @@ class TelemedSettings{
   static DateTime startDate = DateTime(1970);
   static DateTime endDate = DateTime.now().add(Duration(days: 3660));
   static String initialCountryCode = "63";
+
+  // Server details
+  static String authority = "192.168.22.1";
+  static String unencodedPath = "telemed/public/api";
 }
 
 class TelemedStrings{
