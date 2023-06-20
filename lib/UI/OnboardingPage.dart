@@ -28,7 +28,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       imageURI: TelemedImage.clockImage,
       title: "Communicate in the best & effective way possible",
       description:
-      "Time & health are two precious assets that we don't compromise on",
+          "Time & health are two precious assets that we don't compromise on",
     ),
   ];
   List<Widget> imageSliders = [];
@@ -133,8 +133,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
-                            Navigator.pushNamed(context,
-                                SignInPage.route,);
+                            data.setUserTypeId(3);
+                            Navigator.pushNamed(
+                              context,
+                              SignInPage.route,
+                            );
                           },
                           label: Text(TelemedStrings.patient),
                         ),
@@ -150,8 +153,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
-                            Navigator.pushNamed(context,
-                                SignInPage.route,);
+                            data.setUserTypeId(2);
+                            Navigator.pushNamed(
+                              context,
+                              SignInPage.route,
+                            );
                           },
                           label: Text(TelemedStrings.doctor),
                         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/SignInSignUp/SignUpPage.dart';
 import 'package:telemed/settings.dart';
@@ -43,11 +44,11 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
     var data = context.read<TelemedDataProvider>();
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // UserModel userModel = UserModel(
-      //     email: emailController.text.trim(),
-      //     password: passwordController.text.trim());
-      //
-      // await data.apiRouteLogin(context: context, userModel: userModel);
+      UserModel userModel = UserModel(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+
+      await data.apiRouteLogin(context: context, userModel: userModel);
     }
   }
 
