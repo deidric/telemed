@@ -12,8 +12,8 @@ class APIManager {
       required String apiRoute,
       Map<String, dynamic>? param}) async {
     http.Client client = http.Client();
-    var url = Uri.http(
-        TelemedSettings.authority, TelemedSettings.unencodedPath + apiRoute, param);
+    var url = Uri.http(TelemedSettings.authority,
+        TelemedSettings.unencodedPath + apiRoute, param);
 
     APIJsend apiJsend;
     APIstatus apiStatus;
@@ -22,6 +22,19 @@ class APIManager {
     try {
       var response = await client.get(url,
           headers: TelemedSettings.getHttpHeaders(token: token));
+
+      // Only required if url is redirected
+      if (response.statusCode == 302 || response.statusCode == 307) {
+        if (response.headers.containsKey("location")) {
+          var getResponse = await client.get(
+            Uri.parse(response.headers["location"]!),
+            headers: TelemedSettings.getHttpHeaders(token: token),
+          );
+          response = getResponse;
+        }
+      }
+      //
+
       apiJsend = _apiJsendResponse(response);
     } on SocketException {
       apiStatus = APIstatus.error;
@@ -59,8 +72,8 @@ class APIManager {
   Future<APIJsend> postAPI(
       {String? token, required String apiRoute, String? param}) async {
     http.Client client = http.Client();
-    var url = Uri.http(
-        TelemedSettings.authority, TelemedSettings.unencodedPath + apiRoute, {});
+    var url = Uri.http(TelemedSettings.authority,
+        TelemedSettings.unencodedPath + apiRoute, {});
 
     APIJsend apiJsend;
     APIstatus apiStatus;
@@ -69,6 +82,19 @@ class APIManager {
     try {
       var response = await client.post(url,
           headers: TelemedSettings.getHttpHeaders(token: token), body: param);
+
+      // Only required if url is redirected
+      if (response.statusCode == 302 || response.statusCode == 307) {
+        if (response.headers.containsKey("location")) {
+          var getResponse = await client.post(
+              Uri.parse(response.headers["location"]!),
+              headers: TelemedSettings.getHttpHeaders(token: token),
+              body: param);
+          response = getResponse;
+        }
+      }
+      //
+
       apiJsend = _apiJsendResponse(response);
     } on SocketException {
       apiStatus = APIstatus.error;
@@ -108,8 +134,8 @@ class APIManager {
       required String apiRoute,
       Map<String, dynamic>? param}) async {
     http.Client client = http.Client();
-    var url = Uri.http(
-        TelemedSettings.authority, TelemedSettings.unencodedPath + apiRoute, param);
+    var url = Uri.http(TelemedSettings.authority,
+        TelemedSettings.unencodedPath + apiRoute, param);
 
     APIJsend apiJsend;
     APIstatus apiStatus;
@@ -118,6 +144,19 @@ class APIManager {
     try {
       var response = await client.delete(url,
           headers: TelemedSettings.getHttpHeaders(token: token));
+
+      // Only required if url is redirected
+      if (response.statusCode == 302 || response.statusCode == 307) {
+        if (response.headers.containsKey("location")) {
+          var getResponse = await client.delete(
+              Uri.parse(response.headers["location"]!),
+              headers: TelemedSettings.getHttpHeaders(token: token),
+              body: param);
+          response = getResponse;
+        }
+      }
+      //
+
       apiJsend = _apiJsendResponse(response);
     } on SocketException {
       apiStatus = APIstatus.error;

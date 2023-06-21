@@ -116,6 +116,7 @@ class TelemedDataProvider
     setLoading(true);
     APIJsend apiJsend = await APIManager().postAPI(
         token: token, apiRoute: apiRoute, param: convert.jsonEncode(model));
+
     setLoading(false);
     if (apiJsend.apiStatus == APIstatus.success) {
       JsendResponseModel jsendResponseModel =

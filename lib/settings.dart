@@ -8,8 +8,10 @@ class TelemedSettings {
   static String CONTANT_UNAUTHENTICATED = "Unauthenticated";
 
   // Server details
-  static String authority = "192.168.22.1";
+  // static String authority = "192.168.22.1";
   static String unencodedPath = "telemed/public/api";
+
+  static String authority = "a13c-2001-4451-87d7-b800-a816-1c69-318-ab6e.ap.ngrok.io";
 
   static getHttpHeaders({String? token}) {
     Map<String, String> httpHeaders = {};
