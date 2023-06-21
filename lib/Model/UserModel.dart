@@ -9,6 +9,14 @@ class UserModel {
   String? email;
   String? password;
   String? token;
+  String? firstName;
+  String? lastName;
+  String? address;
+  String? dob;
+  String? bloodPressure;
+  String? bloodType;
+  String? gender;
+  String? phone;
 
   UserModel({
     this.name,
@@ -16,6 +24,14 @@ class UserModel {
     this.email,
     this.password,
     this.token,
+    this.firstName,
+    this.lastName,
+    this.address,
+    this.dob,
+    this.bloodPressure,
+    this.bloodType,
+    this.gender,
+    this.phone,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -24,7 +40,21 @@ class UserModel {
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }
 
-enum FieldNames { name, userTypeId, email, password, token }
+enum FieldNames {
+  name,
+  userTypeId,
+  email,
+  password,
+  token,
+  firstName,
+  lastName,
+  address,
+  dob,
+  bloodPressure,
+  bloodType,
+  gender,
+  phone,
+}
 
 extension FieldNamesExtension on FieldNames {
   String get name {
@@ -39,6 +69,22 @@ extension FieldNamesExtension on FieldNames {
         return 'password';
       case FieldNames.token:
         return 'token';
+      case FieldNames.firstName:
+        return 'firstName';
+      case FieldNames.lastName:
+        return 'lastName';
+      case FieldNames.address:
+        return 'address';
+      case FieldNames.dob:
+        return 'dob';
+      case FieldNames.bloodPressure:
+        return 'bloodPressure';
+      case FieldNames.bloodType:
+        return 'bloodType';
+      case FieldNames.gender:
+        return 'gender';
+      case FieldNames.phone:
+        return 'phone';
     }
   }
 }

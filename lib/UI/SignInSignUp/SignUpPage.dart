@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/SignInSignUp/BasicInformationPage.dart';
 import 'package:telemed/settings.dart';
@@ -26,8 +27,6 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
     curve: Curves.elasticOut,
   );
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   bool rememberFor30days = false;
 
   late String _password;
@@ -41,9 +40,6 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
-    emailController.text = 'jona@gmail.com';
-    passwordController.text = 'jona123';
   }
 
   Future<void> signIn(BuildContext context) async {
@@ -64,8 +60,6 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   void dispose() {
     // Clean up the controller when the widget is removed from the
     // widget tree.
-    emailController.dispose();
-    passwordController.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -128,7 +122,10 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   }
                                   return null;
                                 },
-                                controller: emailController,
+                                initialValue: data.selectedUserModel.email,
+                                onChanged: (newValue) {
+                                  data.selectedUserModel.email = newValue;
+                                },
                                 decoration: InputDecoration(
                                   labelText: TelemedStrings.email,
                                   border: const OutlineInputBorder(),
@@ -147,7 +144,7 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                 },
                                 onChanged: (newValue) =>
                                     _checkPassword(newValue),
-                                controller: passwordController,
+                                initialValue: data.selectedUserModel.password,
                                 obscureText: _showPassword,
                                 decoration: InputDecoration(
                                     labelText: TelemedStrings.password,
@@ -214,6 +211,8 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {
+                                        data.selectedUserModel;
+                                        String a = "a";
                                         Navigator.pushNamed(
                                           context,
                                           BasicInformationPage.route,
@@ -291,6 +290,8 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   }
 
   void _checkPassword(String value) {
+    final data = context.read<TelemedDataProvider>();
+
     _password = value.trim();
 
     if (_password.isEmpty) {
@@ -324,6 +325,10 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
           _displayText = 'Your password is great';
         });
       }
+      setState(() {
+        data.selectedUserModel.password = value;
+        String a = "a";
+      });
     }
   }
 }

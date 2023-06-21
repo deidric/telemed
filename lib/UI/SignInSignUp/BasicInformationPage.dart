@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
@@ -22,18 +23,6 @@ class BasicInformationPageState extends State<BasicInformationPage>
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> signIn(BuildContext context) async {
-    var data = context.read<TelemedDataProvider>();
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // UserModel userModel = UserModel(
-      //     email: emailController.text.trim(),
-      //     password: passwordController.text.trim());
-      //
-      // await data.apiRouteLogin(context: context, userModel: userModel);
-    }
   }
 
   @override
@@ -82,6 +71,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   }
                                   return null;
                                 },
+                                initialValue: data.selectedUserModel.firstName,
+                                onChanged: (newValue) {
+                                  data.selectedUserModel.firstName = newValue;
+                                  setState(() {});
+                                },
                                 decoration: InputDecoration(
                                   labelText: TelemedStrings.firstName,
                                   border: const OutlineInputBorder(),
@@ -98,6 +92,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                     return TelemedStrings.pleaseEnterText;
                                   }
                                   return null;
+                                },
+                                initialValue: data.selectedUserModel.lastName,
+                                onChanged: (newValue) {
+                                  data.selectedUserModel.lastName = newValue;
+                                  setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   labelText: TelemedStrings.lastName,
@@ -116,6 +115,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   }
                                   return null;
                                 },
+                                onChanged: (newValue) {
+                                  data.selectedUserModel.address = newValue;
+                                  setState(() {});
+                                },
+                                initialValue: data.selectedUserModel.address,
                                 decoration: InputDecoration(
                                   labelText: TelemedStrings.address,
                                   border: const OutlineInputBorder(),
@@ -132,16 +136,21 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                     onPressed: () async {
                                       await showDatePicker(
                                         context: context,
-                                        initialDate: null == null
+                                        initialDate: data
+                                                    .selectedUserModel.dob ==
+                                                null
                                             ? DateTime.now()
-                                            : DateTime.now(),
+                                            : DateFormat("yyyy-MM-dd").parse(
+                                                data.selectedUserModel.dob!),
                                         firstDate: TelemedSettings.startDate,
                                         lastDate: TelemedSettings.endDate,
                                       ).then((selectedDate) {
                                         if (selectedDate != null) {
                                           setState(() {
-                                            // _feedTransferInModel.dateReceived =
-                                            //     selectedDate.toIso8601String();
+                                            data.selectedUserModel.dob =
+                                                TelemedSettings.dateFormat
+                                                    .format(selectedDate);
+                                            setState(() {});
                                           });
                                         }
                                       });
@@ -152,7 +161,19 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 8.0, right: 8.0),
-                                    child: Text("01/03/1992"),
+                                    child: data.selectedUserModel.dob == null
+                                        ? Text('',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge)
+                                        : Text(
+                                            TelemedSettings.dateFormat.format(
+                                                DateFormat("yyyy-MM-dd").parse(
+                                                    data.selectedUserModel
+                                                        .dob!)),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge),
                                   ),
                                 ],
                               ),
@@ -171,6 +192,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                                 .pleaseEnterText;
                                           }
                                           return null;
+                                        },
+                                        onChanged: (newValue) {
+                                          data.selectedUserModel.bloodPressure =
+                                              newValue;
+                                          setState(() {});
                                         },
                                         decoration: InputDecoration(
                                           labelText:
@@ -191,6 +217,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                           }
                                           return null;
                                         },
+                                        onChanged: (newValue) {
+                                          data.selectedUserModel.bloodType =
+                                              newValue;
+                                          setState(() {});
+                                        },
                                         decoration: InputDecoration(
                                           labelText: TelemedStrings.bloodType,
                                           border: const OutlineInputBorder(),
@@ -204,16 +235,27 @@ class BasicInformationPageState extends State<BasicInformationPage>
                             Row(
                               children: [
                                 Expanded(
-                                  child: SegmentedButton(segments: [
-                                    ButtonSegment(
-                                        value: 0,
-                                        label: Text(TelemedStrings.male)),
-                                    ButtonSegment(
-                                        value: 1,
-                                        label: Text(TelemedStrings.female)),
-                                  ], selected: <int>{
-                                    0
-                                  }, onSelectionChanged: (newValue) {}),
+                                  child: SegmentedButton(
+                                    segments: [
+                                      ButtonSegment(
+                                          value: 0,
+                                          label: Text(TelemedStrings.male)),
+                                      ButtonSegment(
+                                          value: 1,
+                                          label: Text(TelemedStrings.female)),
+                                    ],
+                                    selected: const <int>{0},
+                                    onSelectionChanged: (newValue) {
+                                      if (newValue.first == 0) {
+                                        data.selectedUserModel.gender =
+                                            TelemedStrings.male;
+                                      } else {
+                                        data.selectedUserModel.gender =
+                                            TelemedStrings.female;
+                                      }
+                                      setState(() {});
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
@@ -225,13 +267,14 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                     child: IntlPhoneField(
                                       decoration: InputDecoration(
                                         labelText: TelemedStrings.phoneNumber,
-                                        border: OutlineInputBorder(
+                                        border: const OutlineInputBorder(
                                           borderSide: BorderSide(),
                                         ),
                                       ),
                                       onCountryChanged: (phone) {
-                                        // countryCodeController.text =
-                                        // phone.countryCode!;
+                                        data.selectedUserModel.phone =
+                                            phone.completeNumber;
+                                        setState(() {});
                                       },
                                       initialCountryCode:
                                           TelemedSettings.initialCountryCode,
@@ -247,10 +290,13 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          HealthInsurancePage.route,
-                                        );
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState!.save();
+                                          Navigator.pushNamed(
+                                            context,
+                                            HealthInsurancePage.route,
+                                          );
+                                        }
                                       },
                                       child: Text(TelemedStrings.proceed),
                                     ),

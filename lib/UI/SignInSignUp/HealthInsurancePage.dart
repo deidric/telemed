@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/Home/HomePage.dart';
 import 'package:telemed/settings.dart';
@@ -23,16 +24,14 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
     super.initState();
   }
 
-  Future<void> signIn(BuildContext context) async {
+  Future<void> save(BuildContext context) async {
     var data = context.read<TelemedDataProvider>();
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // UserModel userModel = UserModel(
-      //     email: emailController.text.trim(),
-      //     password: passwordController.text.trim());
-      //
-      // await data.apiRouteLogin(context: context, userModel: userModel);
-    }
+    // if (_formKey.currentState!.validate()) {
+    //   _formKey.currentState!.save();
+
+      await data.apiRouteCreateAccount(
+          context: context, userModel: data.selectedUserModel);
+    // }
   }
 
   @override
@@ -89,7 +88,9 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                save(context);
+                              },
                               child: Text(TelemedStrings.save),
                             ),
                           ),
@@ -103,10 +104,7 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
                           Expanded(
                             child: OutlinedButton(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  HomePage.route,
-                                );
+                                save(context);
                               },
                               child: Text(TelemedStrings.skipInsurance),
                             ),

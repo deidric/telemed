@@ -140,7 +140,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
-                            data.setUserTypeId(3);
+                            data.selectedUserModel.userTypeId = "3";
                             Navigator.pushNamed(
                               context,
                               SignInPage.route,
@@ -160,7 +160,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
-                            data.setUserTypeId(2);
+                            data.selectedUserModel.userTypeId = "2";
                             Navigator.pushNamed(
                               context,
                               SignInPage.route,

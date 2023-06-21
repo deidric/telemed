@@ -1,17 +1,26 @@
 import 'dart:io';
+import 'package:intl/intl.dart';
 
 class TelemedSettings {
   static String appName = "Telemed";
-  static DateTime startDate = DateTime(1970);
-  static DateTime endDate = DateTime.now().add(const Duration(days: 3660));
-  static String initialCountryCode = "63";
+  static String initialCountryCode = "PH";
   static String CONTANT_UNAUTHENTICATED = "Unauthenticated";
 
   // Server details
   // static String authority = "192.168.22.1";
   static String unencodedPath = "telemed/public/api";
 
-  static String authority = "a13c-2001-4451-87d7-b800-a816-1c69-318-ab6e.ap.ngrok.io";
+  static String authority = "30fc-2001-4451-87d7-b800-a816-1c69-318-ab6e.ap.ngrok.io";
+
+  static DateFormat dateFormat = DateFormat("dd-MM-yyyy");
+  static DateFormat timeDateFormat = DateFormat("h:mm:ss a dd-MM-yyyy");
+  static DateFormat timeDateFormatDateFirst =
+  DateFormat("dd-MM-yyyy h:mm:ss a");
+  static DateTime startDate = DateTime(1970);
+  static DateTime endDate = DateTime.now().add(const Duration(days: 3660));
+
+  static NumberFormat decimalPatternDisplayFormat =
+  NumberFormat.decimalPattern('en_IN');
 
   static getHttpHeaders({String? token}) {
     Map<String, String> httpHeaders = {};

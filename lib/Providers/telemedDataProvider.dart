@@ -18,15 +18,6 @@ class TelemedDataProvider
 
   bool get isDark => _isDark;
 
-  late int _userTypeId;
-
-  int get userTypeId => _userTypeId;
-
-  void setUserTypeId(userTypeId) {
-    _userTypeId = userTypeId;
-    notifyListeners();
-  }
-
   void setDarkMode(isDark) {
     _isDark = isDark;
     notifyListeners();
@@ -202,9 +193,11 @@ class TelemedDataProvider
   }
 
   @override
-  apiRouteCreateAccount({required context, required userModel}) {
-    // TODO: implement apiRouteCreateAccount
-    throw UnimplementedError();
+  apiRouteCreateAccount({required context, required userModel}) async {
+    await _apiCreateOrUpdate(
+        context: context,
+        apiRoute: TelemedApiRoutes.apiRouteCreateAccount,
+        model: userModel);
   }
 
   @override
