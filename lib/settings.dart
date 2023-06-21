@@ -220,6 +220,7 @@ class TelemedStrings {
 }
 
 class TelemedImage {
-  static String doctorImage = "assets/images/logo.png";
-  static String clockImage = "assets/images/ic_farm.png";
+  static String doctorImage = "assets/images/doctor.png";
+  static String clockImage = "assets/images/clock.png";
+  static String logoImage = "assets/images/logo.png";
 }

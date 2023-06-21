@@ -82,7 +82,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                   children: [
                     RotationTransition(
                       turns: _animation,
-                      child: const Icon(Icons.medical_information),
+                      child: Image.asset(TelemedImage.logoImage),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),

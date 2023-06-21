@@ -39,35 +39,42 @@ class _OnboardingPageState extends State<OnboardingPage> {
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       imageSliders = imgList
-          .map((item) => SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Image.asset(item.imageURI),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            item.title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
+          .map((item) => Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Image.asset(
+                      item.imageURI,
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            item.description,
-                            style: Theme.of(context).textTheme.titleSmall!,
-                          ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          item.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          item.description,
+                          style: Theme.of(context).textTheme.titleSmall!,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ))
           .toList();
     });

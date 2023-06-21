@@ -15,7 +15,7 @@ class DialogUtils {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: Image.asset(
-                TelemedImage.doctorImage,
+                TelemedImage.logoImage,
                 width: 24,
                 height: 24,
               ),
@@ -52,7 +52,7 @@ class DialogUtils {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: Image.asset(
-                TelemedImage.doctorImage,
+                TelemedImage.logoImage,
                 width: 24,
                 height: 24,
               ),
@@ -83,7 +83,7 @@ class DialogUtils {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: Image.asset(
-                TelemedImage.doctorImage,
+                TelemedImage.logoImage,
                 width: 24,
                 height: 24,
               ),

@@ -10,8 +10,7 @@ class TelemedLoadingProgressDialog extends StatefulWidget {
 }
 
 class _TelemedLoadingProgressDialogState
-    extends State<TelemedLoadingProgressDialog>
-    with TickerProviderStateMixin {
+    extends State<TelemedLoadingProgressDialog> with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
@@ -34,9 +33,13 @@ class _TelemedLoadingProgressDialogState
     return AlertDialog(
       title: Row(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child:Icon(Icons.medical_information)
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Image.asset(
+              TelemedImage.logoImage,
+              width: 24,
+              height: 24,
+            ),
           ),
           Text(TelemedStrings.loading),
         ],
@@ -51,7 +54,7 @@ class _TelemedLoadingProgressDialogState
             padding: const EdgeInsets.all(16.0),
             child: RotationTransition(
               turns: _animation,
-              child: const Icon(Icons.medical_information),
+              child: Image.asset(TelemedImage.logoImage),
             ),
           ),
           Text(TelemedStrings.pleaseWait),
