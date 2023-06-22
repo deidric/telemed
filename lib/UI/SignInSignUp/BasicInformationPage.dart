@@ -28,6 +28,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(TelemedSettings.appName),
@@ -74,7 +75,6 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 initialValue: data.selectedUserModel.firstName,
                                 onChanged: (newValue) {
                                   data.selectedUserModel.firstName = newValue;
-                                  setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   labelText: TelemedStrings.firstName,
@@ -96,7 +96,6 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 initialValue: data.selectedUserModel.lastName,
                                 onChanged: (newValue) {
                                   data.selectedUserModel.lastName = newValue;
-                                  setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   labelText: TelemedStrings.lastName,
@@ -117,7 +116,6 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 },
                                 onChanged: (newValue) {
                                   data.selectedUserModel.address = newValue;
-                                  setState(() {});
                                 },
                                 initialValue: data.selectedUserModel.address,
                                 decoration: InputDecoration(
@@ -148,9 +146,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                         if (selectedDate != null) {
                                           setState(() {
                                             data.selectedUserModel.dob =
-                                                TelemedSettings.dateFormat
-                                                    .format(selectedDate);
-                                            setState(() {});
+                                                selectedDate.toIso8601String();
                                           });
                                         }
                                       });
@@ -193,10 +189,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                           }
                                           return null;
                                         },
+                                        initialValue: data
+                                            .selectedUserModel.bloodPressure,
                                         onChanged: (newValue) {
                                           data.selectedUserModel.bloodPressure =
                                               newValue;
-                                          setState(() {});
                                         },
                                         decoration: InputDecoration(
                                           labelText:
@@ -217,10 +214,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                           }
                                           return null;
                                         },
+                                        initialValue:
+                                            data.selectedUserModel.bloodType,
                                         onChanged: (newValue) {
                                           data.selectedUserModel.bloodType =
                                               newValue;
-                                          setState(() {});
                                         },
                                         decoration: InputDecoration(
                                           labelText: TelemedStrings.bloodType,
@@ -238,21 +236,24 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   child: SegmentedButton(
                                     segments: [
                                       ButtonSegment(
-                                          value: 0,
-                                          label: Text(TelemedStrings.male)),
+                                        value: TelemedStrings.male,
+                                        label: Text(TelemedStrings.male),
+                                        icon: const Icon(Icons.male),
+                                      ),
                                       ButtonSegment(
-                                          value: 1,
-                                          label: Text(TelemedStrings.female)),
+                                        value: TelemedStrings.female,
+                                        label: Text(TelemedStrings.female),
+                                        icon: const Icon(Icons.female),
+                                      ),
                                     ],
-                                    selected: const <int>{0},
+                                    selected: <String>{
+                                      data.selectedUserModel.gender == null
+                                          ? TelemedStrings.male
+                                          : data.selectedUserModel.gender!
+                                    },
                                     onSelectionChanged: (newValue) {
-                                      if (newValue.first == 0) {
-                                        data.selectedUserModel.gender =
-                                            TelemedStrings.male;
-                                      } else {
-                                        data.selectedUserModel.gender =
-                                            TelemedStrings.female;
-                                      }
+                                      data.selectedUserModel.gender =
+                                          newValue.first;
                                       setState(() {});
                                     },
                                   ),
@@ -271,10 +272,9 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                           borderSide: BorderSide(),
                                         ),
                                       ),
-                                      onCountryChanged: (phone) {
+                                      onChanged: (phone) {
                                         data.selectedUserModel.phone =
                                             phone.completeNumber;
-                                        setState(() {});
                                       },
                                       initialCountryCode:
                                           TelemedSettings.initialCountryCode,

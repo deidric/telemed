@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
-import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/SignInSignUp/BasicInformationPage.dart';
 import 'package:telemed/settings.dart';
@@ -142,8 +141,10 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   }
                                   return null;
                                 },
-                                onChanged: (newValue) =>
-                                    _checkPassword(newValue),
+                                onChanged: (newValue) {
+                                  _checkPassword(newValue);
+                                  data.selectedUserModel.password = newValue;
+                                },
                                 initialValue: data.selectedUserModel.password,
                                 obscureText: _showPassword,
                                 decoration: InputDecoration(
@@ -211,8 +212,6 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        data.selectedUserModel;
-                                        String a = "a";
                                         Navigator.pushNamed(
                                           context,
                                           BasicInformationPage.route,
@@ -290,8 +289,6 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   }
 
   void _checkPassword(String value) {
-    final data = context.read<TelemedDataProvider>();
-
     _password = value.trim();
 
     if (_password.isEmpty) {
@@ -325,10 +322,6 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
           _displayText = 'Your password is great';
         });
       }
-      setState(() {
-        data.selectedUserModel.password = value;
-        String a = "a";
-      });
     }
   }
 }

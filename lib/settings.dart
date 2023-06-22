@@ -10,7 +10,7 @@ class TelemedSettings {
   // static String authority = "192.168.22.1";
   static String unencodedPath = "telemed/public/api";
 
-  static String authority = "30fc-2001-4451-87d7-b800-a816-1c69-318-ab6e.ap.ngrok.io";
+  static String authority = "7d84-2001-4451-87eb-c300-e921-b87f-50b5-a9c3.ngrok-free.app";
 
   static DateFormat dateFormat = DateFormat("dd-MM-yyyy");
   static DateFormat timeDateFormat = DateFormat("h:mm:ss a dd-MM-yyyy");
