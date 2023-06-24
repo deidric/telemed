@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:telemed/Model/CaderModel.dart';
 import 'package:telemed/Model/JsendResponseModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Networking/APIJsend.dart';
@@ -38,6 +39,11 @@ class TelemedDataProvider
   UserModel get selectedUserModel => _selectedUserModel;
 
   //
+
+  // Cader model
+  final CaderModel _selectedCaderModel = CaderModel();
+
+  CaderModel get selectedCaderModel => _selectedCaderModel;
 
   _apiRead(
       {required context,
@@ -81,9 +87,9 @@ class TelemedDataProvider
   _readFromResponseAndEmptyToModel({required apiRoute}) {
     List list = [];
     switch (apiRoute) {
-      // case TelemedApiRoutes.apiRouteMaterialsInFeedTypeForDefaultFeedFormula:
-      //   list = List<MaterialInFeedTypeModel>.from([]);
-      //   break;
+      case TelemedApiRoutes.apiRouteCaders:
+        list = List<CaderModel>.from([]);
+        break;
     }
   }
 
@@ -91,14 +97,13 @@ class TelemedDataProvider
       {required apiRoute, required JsendResponseModel jsendResponseModel}) {
     List list = [];
     switch (apiRoute) {
-      // case TelemedApiRoutes.apiRouteMaterialsInFeedTypeForDefaultFeedFormula:
-      //   list = List<MaterialInFeedTypeModel>.from([]);
-      //   for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
-      //     MaterialInFeedTypeModel model =
-      //     MaterialInFeedTypeModel.fromJson(jsendResponseModel.data[idx]);
-      //     list.add(model);
-      //   }
-      //   break;
+      case TelemedApiRoutes.apiRouteCaders:
+        list = List<CaderModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          CaderModel model = CaderModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
     }
   }
 
@@ -206,5 +211,14 @@ class TelemedDataProvider
         context: context,
         apiRoute: TelemedApiRoutes.apiRouteLogin,
         model: userModel);
+  }
+
+  @override
+  apiRouteCaders({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteCaders,
+    );
   }
 }

@@ -8,9 +8,18 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
+  static String authority = "d305-2001-4451-8736-ce00-f07f-9e11-4f4c-6533.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
+  //
 
-  static String authority = "7d84-2001-4451-87eb-c300-e921-b87f-50b5-a9c3.ngrok-free.app";
+  // Reason for visit ID's
+  static int newHealthConcern = 1;
+  static int routineCheckUp = 2;
+  static int prescriptionsOrRefills = 3;
+  static int genMentalHealthConcerns = 4;
+  static int otherMedicalReasons = 5;
+  //
+
 
   static DateFormat dateFormat = DateFormat("dd-MM-yyyy");
   static DateFormat timeDateFormat = DateFormat("h:mm:ss a dd-MM-yyyy");
@@ -130,6 +139,7 @@ class TelemedStrings {
   static String profile = "Profile";
 
   // Book Appointment
+  static String appointments = "Appointments";
   static String patientLocation = "What is the patient's current location?";
   static String patientConnection =
       "This would help us connect you with the best available licensed Doctor for that location on our platform.";

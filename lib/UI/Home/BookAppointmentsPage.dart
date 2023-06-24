@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/CadersPage.dart';
 import 'package:telemed/settings.dart';
 
 class BookAppointmentsPage extends StatefulWidget {
@@ -16,6 +17,11 @@ class BookAppointmentsPageState extends State<BookAppointmentsPage>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
+  bool cbHealthConcern = false;
+  bool cbRoutine = false;
+  bool cbPrescription = false;
+  bool cbGenMentalHealth = false;
+  bool cbOtherMedReasons = false;
 
   @override
   void initState() {
@@ -39,31 +45,7 @@ class BookAppointmentsPageState extends State<BookAppointmentsPage>
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(TelemedSettings.appName),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: (value) {
-          // Respond to item press.
-        },
-        items: [
-          BottomNavigationBarItem(
-            label: TelemedStrings.home,
-            icon: const Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            label: TelemedStrings.calendar,
-            icon: const Icon(Icons.calendar_month),
-          ),
-          BottomNavigationBarItem(
-            label: TelemedStrings.message,
-            icon: const Icon(Icons.message),
-          ),
-          BottomNavigationBarItem(
-            label: TelemedStrings.profile,
-            icon: const Icon(Icons.account_circle),
-          ),
-        ],
+        title: Text(TelemedStrings.appointments),
       ),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
@@ -116,250 +98,159 @@ class BookAppointmentsPageState extends State<BookAppointmentsPage>
                       ),
                       shrinkWrap: true,
                       children: [
-                        Card(
-                          color: Colors.redAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.emergency),
-                                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CheckboxListTile(
+                            tileColor: Colors.redAccent,
+                            value: cbHealthConcern,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                cbHealthConcern = value!;
+                                if (value) {
+                                  cbRoutine = false;
+                                  cbPrescription = false;
+                                  cbGenMentalHealth = false;
+                                  cbOtherMedReasons = false;
+                                }
+                              });
+                            },
+                            secondary: const Icon(Icons.emergency),
+                            isThreeLine: true,
+                            title: Text(
+                              TelemedStrings.newHealthConcern,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          TelemedStrings.newHealthConcern,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(TelemedStrings.findDoctor,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
                             ),
+                            subtitle: Text(TelemedStrings.findDoctor,
+                                style: Theme.of(context).textTheme.bodySmall!),
                           ),
                         ),
-                        Card(
-                          color: Colors.blue,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.verified),
-                                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CheckboxListTile(
+                            tileColor: Colors.blue,
+                            value: cbRoutine,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                cbRoutine = value!;
+                                if (value) {
+                                  cbHealthConcern = false;
+                                  cbPrescription = false;
+                                  cbGenMentalHealth = false;
+                                  cbOtherMedReasons = false;
+                                }
+                              });
+                            },
+                            secondary: const Icon(Icons.verified),
+                            isThreeLine: true,
+                            title: Text(
+                              TelemedStrings.routineCheckup,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          TelemedStrings.routineCheckup,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(TelemedStrings.findDoctor,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
                             ),
+                            subtitle: Text(TelemedStrings.findDoctor,
+                                style: Theme.of(context).textTheme.bodySmall!),
                           ),
                         ),
-                        Card(
-                          color: Colors.deepPurpleAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.medication),
-                                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CheckboxListTile(
+                            tileColor: Colors.deepPurpleAccent,
+                            value: cbPrescription,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                cbPrescription = value!;
+                                if (value) {
+                                  cbHealthConcern = false;
+                                  cbRoutine = false;
+                                  cbGenMentalHealth = false;
+                                  cbOtherMedReasons = false;
+                                }
+                              });
+                            },
+                            secondary: const Icon(Icons.medication),
+                            isThreeLine: true,
+                            title: Text(
+                              TelemedStrings.prescRefills,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          TelemedStrings.prescRefills,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                            TelemedStrings.talkToPharmacist,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
                             ),
+                            subtitle: Text(TelemedStrings.talkToPharmacist,
+                                style: Theme.of(context).textTheme.bodySmall!),
                           ),
                         ),
-                        Card(
-                          color: Colors.blueAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.theater_comedy),
-                                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CheckboxListTile(
+                            tileColor: Colors.blueAccent,
+                            value: cbGenMentalHealth,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                cbGenMentalHealth = value!;
+                                if (value) {
+                                  cbHealthConcern = false;
+                                  cbRoutine = false;
+                                  cbPrescription = false;
+                                  cbOtherMedReasons = false;
+                                }
+                              });
+                            },
+                            secondary: const Icon(Icons.theater_comedy),
+                            isThreeLine: true,
+                            title: Text(
+                              TelemedStrings.mentalHealthConcern,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          TelemedStrings.mentalHealthConcern,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(TelemedStrings.findDoctor,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
                             ),
+                            subtitle: Text(TelemedStrings.findDoctor,
+                                style: Theme.of(context).textTheme.bodySmall!),
                           ),
                         ),
-                        Card(
-                          color: Colors.grey,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.help_center),
-                                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CheckboxListTile(
+                            tileColor: Colors.grey,
+                            value: cbOtherMedReasons,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                cbOtherMedReasons = value!;
+                                if (value) {
+                                  cbHealthConcern = false;
+                                  cbRoutine = false;
+                                  cbPrescription = false;
+                                  cbGenMentalHealth = false;
+                                }
+                              });
+                            },
+                            secondary: const Icon(Icons.help_center),
+                            isThreeLine: true,
+                            title: Text(
+                              TelemedStrings.otherMedReason,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          TelemedStrings.otherMedReason,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(TelemedStrings.findDoctor,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
                             ),
+                            subtitle: Text(TelemedStrings.findDoctor,
+                                style: Theme.of(context).textTheme.bodySmall!),
                           ),
                         ),
                       ],
@@ -380,8 +271,8 @@ class BookAppointmentsPageState extends State<BookAppointmentsPage>
                                           .textTheme
                                           .bodyLarge!
                                           .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -391,10 +282,28 @@ class BookAppointmentsPageState extends State<BookAppointmentsPage>
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 80,
+                    )
                   ],
                 ),
               ],
             ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: !cbHealthConcern &&
+                !cbRoutine &&
+                !cbPrescription &&
+                !cbGenMentalHealth &&
+                !cbOtherMedReasons
+            ? null
+            : () {
+                Navigator.pushNamed(
+                  context,
+                  CadersPage.route,
+                );
+              },
+        label: Text(TelemedStrings.selectCaderHeader),
+      ),
     );
   }
 }

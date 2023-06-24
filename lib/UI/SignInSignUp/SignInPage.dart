@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Model/UserModel.dart';
@@ -37,7 +36,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
     super.initState();
 
     emailController.text = 'jona@gmail.com';
-    passwordController.text = 'jona123';
+    passwordController.text = '1234';
   }
 
   Future<void> signIn(BuildContext context) async {
@@ -190,33 +189,6 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                         signIn(context);
                                       },
                                       child: Text(TelemedStrings.signIn),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  const Expanded(child: Divider()),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, right: 8.0),
-                                    child: Text(TelemedStrings.signInWith),
-                                  ),
-                                  const Expanded(child: Divider()),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: SignInButton(
-                                      Buttons.Google,
-                                      onPressed: () {},
                                     ),
                                   ),
                                 ],

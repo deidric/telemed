@@ -1,3 +1,4 @@
+import 'package:telemed/Model/CaderModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 
 class TelemedApi {
@@ -6,12 +7,15 @@ class TelemedApi {
 
   apiRouteCreateAccount({required context, required UserModel userModel}) {}
 
+  apiRouteCaders({required context}) {}
+
 }
 
 class TelemedApiRoutes {
     // Sign in and create account
   static const String apiRouteLogin = '/signIn';
   static const String apiRouteCreateAccount = '/createAccount';
+  static const String apiRouteCaders = '/caders';
 
 
 }
