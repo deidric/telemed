@@ -51,30 +51,37 @@ class CadersPageState extends State<CadersPage> with TickerProviderStateMixin {
       ),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
-          : ListView(
-              padding: const EdgeInsets.all(15.0),
-              shrinkWrap: true,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.caders,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(fontWeight: FontWeight.bold)),
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+                // shrinkWrap: true,
+                itemCount: data.filteredCaderModelList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: const Icon(Icons.health_and_safety),
+                    title: Text(
+                      data.filteredCaderModelList[index].cader!,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.patientConnection,
-                          style: Theme.of(context).textTheme.bodyLarge!),
+                    subtitle: Text(
+                      data.filteredCaderModelList[index].caderDescription!,
                     ),
-                  ],
-                ),
-              ],
+                    onTap: () async {
+                      data.setSelectedData(data.filteredCaderModelList[index]);
+                      // RouteSettings settings =
+                      //     RouteSettings(name: HomePage.route, arguments: '');
+                      // var hasBeenClosed = await Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       settings: settings,
+                      //       builder: (context) => HomePage(
+                      //             actions: psbsActions.view,
+                      //             subRoute: HomePage.settings,
+                      //           )),
+                      // );
+                    },
+                  );
+                }, separatorBuilder: (_ , __ ) => const Divider(height:1),
+              ),
             ),
     );
   }

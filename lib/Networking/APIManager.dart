@@ -12,6 +12,8 @@ class APIManager {
       required String apiRoute,
       Map<String, dynamic>? param}) async {
     http.Client client = http.Client();
+
+
     var url = Uri.http(TelemedSettings.authority,
         TelemedSettings.unencodedPath + apiRoute, param);
 
@@ -20,8 +22,12 @@ class APIManager {
     var data;
     String message;
     try {
-      var response = await client.get(url,
-          headers: TelemedSettings.getHttpHeaders(token: token));
+      // var response = await client.get(url,
+      //     headers: TelemedSettings.getHttpHeaders(token: token));
+
+      http.Request req = http.Request("Get", url)..followRedirects = false;
+      http.Client baseClient = http.Client();
+      http.Response response = await http.Response.fromStream(await baseClient.send(req));
 
       // Only required if url is redirected
       if (response.statusCode == 302 || response.statusCode == 307) {
@@ -80,8 +86,13 @@ class APIManager {
     var data;
     String message;
     try {
-      var response = await client.post(url,
-          headers: TelemedSettings.getHttpHeaders(token: token), body: param);
+      // var response = await client.post(url,
+      //     headers: TelemedSettings.getHttpHeaders(token: token), body: param);
+
+      http.Request req = http.Request("Post", url)..followRedirects = false;
+      req.body = param!;
+      http.Client baseClient = http.Client();
+      http.Response response = await http.Response.fromStream(await baseClient.send(req));
 
       // Only required if url is redirected
       if (response.statusCode == 302 || response.statusCode == 307) {
@@ -142,8 +153,12 @@ class APIManager {
     var data;
     String message;
     try {
-      var response = await client.delete(url,
-          headers: TelemedSettings.getHttpHeaders(token: token));
+      // var response = await client.delete(url,
+      //     headers: TelemedSettings.getHttpHeaders(token: token));
+
+      http.Request req = http.Request("Delete", url)..followRedirects = false;
+      http.Client baseClient = http.Client();
+      http.Response response = await http.Response.fromStream(await baseClient.send(req));
 
       // Only required if url is redirected
       if (response.statusCode == 302 || response.statusCode == 307) {

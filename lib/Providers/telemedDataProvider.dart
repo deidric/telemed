@@ -41,9 +41,45 @@ class TelemedDataProvider
   //
 
   // Cader model
-  final CaderModel _selectedCaderModel = CaderModel();
+  CaderModel? _selectedCaderModel = CaderModel();
 
-  CaderModel get selectedCaderModel => _selectedCaderModel;
+  CaderModel? get selectedCaderModel => _selectedCaderModel;
+
+  void setSelectedDataNull(model) {
+    if (model is CaderModel) {
+      _selectedCaderModel = null;
+    }
+    notifyListeners();
+  }
+
+  void setSelectedData(model) {
+    if (model is CaderModel) {
+      _selectedCaderModel = model;
+    }
+    notifyListeners();
+  }
+
+  List<CaderModel> _caderModelList = [];
+  List<CaderModel> _filteredCaderModelList = [];
+
+  List<CaderModel> get caderModelList => _caderModelList;
+
+  List<CaderModel> get filteredCaderModelList => _filteredCaderModelList;
+
+  void setData({required modelList}) {
+    if (modelList is List<CaderModel>) {
+      _caderModelList = modelList;
+      _filteredCaderModelList = modelList;
+    }
+    notifyListeners();
+  }
+
+  void updateFilteredData({required modelList}) {
+    if (modelList is List<CaderModel>) {
+      _filteredCaderModelList = modelList;
+    }
+    notifyListeners();
+  }
 
   _apiRead(
       {required context,
@@ -91,6 +127,7 @@ class TelemedDataProvider
         list = List<CaderModel>.from([]);
         break;
     }
+    setData(modelList: list);
   }
 
   _readFromResponseAndAddToModel(
@@ -105,6 +142,7 @@ class TelemedDataProvider
         }
         break;
     }
+    setData(modelList: list);
   }
 
   _apiCreateOrUpdate(
