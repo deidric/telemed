@@ -53,7 +53,6 @@ class DoctorsPageState extends State<DoctorsPage>
                     groupValue: oneValue,
                     controlAffinity: ListTileControlAffinity.trailing,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         oneValue = value.toString();
                       });
