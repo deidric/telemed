@@ -9,6 +9,8 @@ class TelemedApi {
 
   apiRouteCaders({required context}) {}
 
+  apiRouteDoctorsByCaderId({required context}) {}
+
 }
 
 class TelemedApiRoutes {
@@ -16,6 +18,7 @@ class TelemedApiRoutes {
   static const String apiRouteLogin = '/signIn';
   static const String apiRouteCreateAccount = '/createAccount';
   static const String apiRouteCaders = '/caders';
+  static const String apiRouteDoctorsByCaderId = '/doctorsByCaderId';
 
 
 }

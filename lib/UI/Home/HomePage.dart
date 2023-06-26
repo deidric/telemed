@@ -22,18 +22,6 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
   }
 
-  Future<void> signIn(BuildContext context) async {
-    var data = context.read<TelemedDataProvider>();
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // UserModel userModel = UserModel(
-      //     email: emailController.text.trim(),
-      //     password: passwordController.text.trim());
-      //
-      // await data.apiRouteLogin(context: context, userModel: userModel);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();

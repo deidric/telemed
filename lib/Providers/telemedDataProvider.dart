@@ -66,10 +66,22 @@ class TelemedDataProvider
 
   List<CaderModel> get filteredCaderModelList => _filteredCaderModelList;
 
+  List<UserModel> _userModelList = [];
+  List<UserModel> _filteredUserModelList = [];
+
+  List<UserModel> get userModelList => _userModelList;
+
+  List<UserModel> get filteredUserModelList => _filteredUserModelList;
+
   void setData({required modelList}) {
     if (modelList is List<CaderModel>) {
       _caderModelList = modelList;
       _filteredCaderModelList = modelList;
+    }
+
+    if (modelList is List<UserModel>) {
+      _userModelList = modelList;
+      _filteredUserModelList = modelList;
     }
     notifyListeners();
   }
@@ -77,6 +89,9 @@ class TelemedDataProvider
   void updateFilteredData({required modelList}) {
     if (modelList is List<CaderModel>) {
       _filteredCaderModelList = modelList;
+    }
+    if (modelList is List<UserModel>) {
+      _filteredUserModelList = modelList;
     }
     notifyListeners();
   }
@@ -138,6 +153,13 @@ class TelemedDataProvider
         list = List<CaderModel>.from([]);
         for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
           CaderModel model = CaderModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteDoctorsByCaderId:
+        list = List<UserModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          UserModel model = UserModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
         break;
@@ -258,5 +280,17 @@ class TelemedDataProvider
       token: selectedUserModel.token,
       apiRoute: TelemedApiRoutes.apiRouteCaders,
     );
+  }
+
+  @override
+  apiRouteDoctorsByCaderId({required context}) async {
+    Map<String, dynamic> param = {
+      'caderId': selectedCaderModel!.id.toString(),
+    };
+    await _apiRead(
+        context: context,
+        token: selectedUserModel.token,
+        apiRoute: TelemedApiRoutes.apiRouteDoctorsByCaderId,
+        param: param);
   }
 }

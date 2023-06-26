@@ -4,10 +4,12 @@ part 'CaderModel.g.dart';
 
 @JsonSerializable()
 class CaderModel {
+  int? id;
   String? cader;
   String? caderDescription;
 
   CaderModel({
+    this.id,
     this.cader,
     this.caderDescription,
   });
@@ -19,6 +21,7 @@ class CaderModel {
 }
 
 enum FieldNames {
+  id,
   cader,
   caderDescription,
 }
@@ -26,6 +29,8 @@ enum FieldNames {
 extension FieldNamesExtension on FieldNames {
   String get name {
     switch (this) {
+      case FieldNames.id:
+        return 'id';
       case FieldNames.cader:
         return 'cader';
       case FieldNames.caderDescription:

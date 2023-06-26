@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/DoctorsPage.dart';
 import 'package:telemed/settings.dart';
 
-class CadersPage extends StatefulWidget {
-  const CadersPage({Key? key}) : super(key: key);
+class DoctorsPage extends StatefulWidget {
+  const DoctorsPage({Key? key}) : super(key: key);
   static const String route = '/cadersPage';
 
   @override
-  CadersPageState createState() => CadersPageState();
+  DoctorsPageState createState() => DoctorsPageState();
 }
 
-class CadersPageState extends State<CadersPage> with TickerProviderStateMixin {
+class DoctorsPageState extends State<DoctorsPage>
+    with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
 
@@ -28,7 +28,7 @@ class CadersPageState extends State<CadersPage> with TickerProviderStateMixin {
 
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
-    await data.apiRouteCaders(context: context);
+    await data.apiRouteDoctorsByCaderId(context: context);
   }
 
   @override
@@ -36,7 +36,7 @@ class CadersPageState extends State<CadersPage> with TickerProviderStateMixin {
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(TelemedStrings.selectCaderHeader),
+        title: Text(TelemedStrings.medicalOfficers),
       ),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
@@ -44,26 +44,29 @@ class CadersPageState extends State<CadersPage> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(8.0),
               child: ListView.separated(
                 // shrinkWrap: true,
-                itemCount: data.filteredCaderModelList.length,
+                itemCount: data.filteredUserModelList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    leading: const Icon(Icons.health_and_safety),
+                    leading: const Icon(Icons.account_circle),
                     title: Text(
-                      data.filteredCaderModelList[index].cader!,
+                      "${data.filteredUserModelList[index].firstName!} ${data.filteredUserModelList[index].firstName!}",
                     ),
                     subtitle: Text(
-                      data.filteredCaderModelList[index].caderDescription!,
+                      data.filteredUserModelList[index].email!,
                     ),
                     onTap: () async {
-                      data.setSelectedData(data.filteredCaderModelList[index]);
-                      RouteSettings settings = const RouteSettings(
-                          name: DoctorsPage.route, arguments: '');
-                      var hasBeenClosed = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: settings,
-                            builder: (context) => const DoctorsPage()),
-                      );
+                      data.setSelectedData(data.filteredUserModelList[index]);
+                      // RouteSettings settings =
+                      //     RouteSettings(name: HomePage.route, arguments: '');
+                      // var hasBeenClosed = await Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       settings: settings,
+                      //       builder: (context) => HomePage(
+                      //             actions: psbsActions.view,
+                      //             subRoute: HomePage.settings,
+                      //           )),
+                      // );
                     },
                   );
                 },

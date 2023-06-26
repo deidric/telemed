@@ -4,8 +4,10 @@ part 'UserModel.g.dart';
 
 @JsonSerializable()
 class UserModel {
+  int? id;
   String? name;
-  String? userTypeId;
+  int? userTypeId;
+  int? cadersId;
   String? email;
   String? password;
   String? token;
@@ -19,8 +21,10 @@ class UserModel {
   String? phone;
 
   UserModel({
+    this.id,
     this.name,
     this.userTypeId,
+    this.cadersId,
     this.email,
     this.password,
     this.token,
@@ -41,8 +45,10 @@ class UserModel {
 }
 
 enum FieldNames {
+  id,
   name,
   userTypeId,
+  cadersId,
   email,
   password,
   token,
@@ -59,10 +65,14 @@ enum FieldNames {
 extension FieldNamesExtension on FieldNames {
   String get name {
     switch (this) {
+      case FieldNames.id:
+        return 'id';
       case FieldNames.name:
         return 'name';
       case FieldNames.userTypeId:
         return 'userTypeId';
+      case FieldNames.cadersId:
+        return 'cadersId';
       case FieldNames.email:
         return 'email';
       case FieldNames.password:
