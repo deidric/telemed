@@ -49,7 +49,7 @@ class DoctorsPageState extends State<DoctorsPage>
                   return ListTile(
                     leading: const Icon(Icons.account_circle),
                     title: Text(
-                      "${data.filteredUserModelList[index].firstName!} ${data.filteredUserModelList[index].firstName!}",
+                      "${data.filteredUserModelList[index].firstName!} ${data.filteredUserModelList[index].lastName!}",
                     ),
                     subtitle: Text(
                       data.filteredUserModelList[index].email!,
