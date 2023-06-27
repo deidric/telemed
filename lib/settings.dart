@@ -118,6 +118,7 @@ class TelemedStrings {
   static String save = "Save";
   static String skipInsurance = "Skip Insurance";
   static String skipIns = "You can see a doctor without insurance";
+  static String qualifications = "Qualifications";
 
   // Home
   static String greetings = "Greetings!";

@@ -81,7 +81,7 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                   children: [
                     RotationTransition(
                       turns: _animation,
-                      child: const Icon(Icons.medical_information),
+                      child: Image.asset(TelemedImage.logoImage),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -212,10 +212,13 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          BasicInformationPage.route,
-                                        );
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState!.save();
+                                          Navigator.pushNamed(
+                                            context,
+                                            BasicInformationPage.route,
+                                          );
+                                        }
                                       },
                                       child: Text(TelemedStrings.proceed),
                                     ),

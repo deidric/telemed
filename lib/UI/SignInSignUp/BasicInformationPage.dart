@@ -23,6 +23,14 @@ class BasicInformationPageState extends State<BasicInformationPage>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadAllAppMetaDataOnce();
+    });
+  }
+
+  Future<void> loadAllAppMetaDataOnce() async {
+    var data = context.read<TelemedDataProvider>();
+    await data.apiRouteDoctorQualifications(context: context);
   }
 
   @override
@@ -105,27 +113,28 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return TelemedStrings.pleaseEnterText;
-                                  }
-                                  return null;
-                                },
-                                onChanged: (newValue) {
-                                  data.selectedUserModel.address = newValue;
-                                },
-                                initialValue: data.selectedUserModel.address,
-                                decoration: InputDecoration(
-                                  labelText: TelemedStrings.address,
-                                  border: const OutlineInputBorder(),
-                                  prefixIcon:
-                                      const Icon(Icons.account_circle_outlined),
+                            if (data.selectedUserModel.userTypeId == 3)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return TelemedStrings.pleaseEnterText;
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (newValue) {
+                                    data.selectedUserModel.address = newValue;
+                                  },
+                                  initialValue: data.selectedUserModel.address,
+                                  decoration: InputDecoration(
+                                    labelText: TelemedStrings.address,
+                                    border: const OutlineInputBorder(),
+                                    prefixIcon: const Icon(
+                                        Icons.account_circle_outlined),
+                                  ),
                                 ),
                               ),
-                            ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -259,6 +268,41 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   ),
                                 ),
                               ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: DropdownMenu(
+                                menuHeight: 250,width: MediaQuery.of(context).size.width * 0.9,
+                                leadingIcon: const Icon(
+                                  Icons.menu_book,
+                                ),
+                                hintText: TelemedStrings.qualifications,
+                                label: Text(TelemedStrings.qualifications),
+                                initialSelection:
+                                    data.selectedDoctorQualificationsModel == null
+                                        ? null
+                                        : data.selectedDoctorQualificationsModel!
+                                            .id,
+                                onSelected: (int? selectedId) {
+                                  data.setSelectedData(
+                                      model: data.doctorQualificationsModelList
+                                          .firstWhere((element) =>
+                                              element.id == selectedId));
+                                },
+                                dropdownMenuEntries: () {
+                                  List<DropdownMenuEntry<int>>
+                                      dropdownMenuEntryList = [];
+                                  for (var element in data.doctorQualificationsModelList) {
+                                    dropdownMenuEntryList.add(
+                                      DropdownMenuEntry(
+                                        value: element.id!,
+                                        label: element.qualification!,
+                                      ),
+                                    );
+                                  }
+                                  return dropdownMenuEntryList;
+                                }(),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),

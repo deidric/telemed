@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:telemed/Model/CaderModel.dart';
+import 'package:telemed/Model/DoctorQualificationsModel.dart';
 import 'package:telemed/Model/JsendResponseModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Networking/APIJsend.dart';
@@ -53,6 +54,13 @@ class TelemedDataProvider
 
   CaderModel? get selectedCaderModel => _selectedCaderModel;
 
+  // DoctorQualificationsModel
+  DoctorQualificationsModel? _selectedDoctorQualificationsModel =
+      DoctorQualificationsModel();
+
+  DoctorQualificationsModel? get selectedDoctorQualificationsModel =>
+      _selectedDoctorQualificationsModel;
+
   void setSelectedDataNull(model, typeOfUserModel) {
     if (model is CaderModel) {
       _selectedCaderModel = null;
@@ -62,6 +70,9 @@ class TelemedDataProvider
     }
     if (model is UserModel && typeOfUserModel == TelemedSettings.patientId) {
       _selectedPatientModel = null;
+    }
+    if (model is DoctorQualificationsModel) {
+      _selectedDoctorQualificationsModel = null;
     }
     notifyListeners();
   }
@@ -75,6 +86,9 @@ class TelemedDataProvider
     }
     if (model is UserModel && typeOfUserModel == TelemedSettings.patientId) {
       _selectedPatientModel = model;
+    }
+    if (model is DoctorQualificationsModel) {
+      _selectedDoctorQualificationsModel = model;
     }
     notifyListeners();
   }
@@ -93,6 +107,15 @@ class TelemedDataProvider
 
   List<UserModel> get filteredUserModelList => _filteredUserModelList;
 
+  List<DoctorQualificationsModel> _doctorQualificationsModelList = [];
+  List<DoctorQualificationsModel> _filteredDoctorQualificationsModelList = [];
+
+  List<DoctorQualificationsModel> get doctorQualificationsModelList =>
+      _doctorQualificationsModelList;
+
+  List<DoctorQualificationsModel> get filteredDoctorQualificationsModelList =>
+      _filteredDoctorQualificationsModelList;
+
   void setData({required modelList}) {
     if (modelList is List<CaderModel>) {
       _caderModelList = modelList;
@@ -103,6 +126,11 @@ class TelemedDataProvider
       _userModelList = modelList;
       _filteredUserModelList = modelList;
     }
+
+    if (modelList is List<DoctorQualificationsModel>) {
+      _doctorQualificationsModelList = modelList;
+      _filteredDoctorQualificationsModelList = modelList;
+    }
     notifyListeners();
   }
 
@@ -112,6 +140,9 @@ class TelemedDataProvider
     }
     if (modelList is List<UserModel>) {
       _filteredUserModelList = modelList;
+    }
+    if (modelList is List<DoctorQualificationsModel>) {
+      _filteredDoctorQualificationsModelList = modelList;
     }
     notifyListeners();
   }
@@ -161,6 +192,9 @@ class TelemedDataProvider
       case TelemedApiRoutes.apiRouteCaders:
         list = List<CaderModel>.from([]);
         break;
+      case TelemedApiRoutes.apiRouteDoctorQualifications:
+        list = List<DoctorQualificationsModel>.from([]);
+        break;
     }
     setData(modelList: list);
   }
@@ -180,6 +214,14 @@ class TelemedDataProvider
         list = List<UserModel>.from([]);
         for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
           UserModel model = UserModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteDoctorQualifications:
+        list = List<DoctorQualificationsModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          DoctorQualificationsModel model =
+              DoctorQualificationsModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
         break;
@@ -312,5 +354,14 @@ class TelemedDataProvider
         token: selectedUserModel.token,
         apiRoute: TelemedApiRoutes.apiRouteDoctorsByCaderId,
         param: param);
+  }
+
+  @override
+  apiRouteDoctorQualifications({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteDoctorQualifications,
+    );
   }
 }
