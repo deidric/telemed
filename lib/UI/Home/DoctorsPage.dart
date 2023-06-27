@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/BookAppointmentPage.dart';
 import 'package:telemed/settings.dart';
 
 class DoctorsPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class DoctorsPageState extends State<DoctorsPage>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
-  var oneValue = '';
+  int oneValue = 1;
 
   @override
   void initState() {
@@ -48,13 +49,16 @@ class DoctorsPageState extends State<DoctorsPage>
                 itemCount: data.filteredUserModelList.length,
                 itemBuilder: (context, index) {
                   return RadioListTile(
-                    value: data.filteredUserModelList[index].firstName,
+                    value: data.filteredUserModelList[index].id,
                     secondary: const Icon(Icons.account_circle),
                     groupValue: oneValue,
                     controlAffinity: ListTileControlAffinity.trailing,
                     onChanged: (value) {
                       setState(() {
-                        oneValue = value.toString();
+                        oneValue = value!;
+                        data.setSelectedData(
+                            model: data.filteredUserModelList[index],
+                            typeOfUserModel: TelemedSettings.doctorId);
                       });
                     },
                     // leading: const Icon(Icons.account_circle),
@@ -83,11 +87,11 @@ class DoctorsPageState extends State<DoctorsPage>
               ),
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed:   (){
-          // Navigator.pushNamed(
-          //   context,
-          //   CadersPage.route,
-          // );
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            BookAppointmentPage.route,
+          );
         },
         label: Text(TelemedStrings.bookNow),
       ),

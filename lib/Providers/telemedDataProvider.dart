@@ -38,6 +38,14 @@ class TelemedDataProvider
 
   UserModel get selectedUserModel => _selectedUserModel;
 
+  UserModel? _selectedDoctorModel = UserModel();
+
+  UserModel? get selectedDoctorModel => _selectedDoctorModel;
+
+  UserModel? _selectedPatientModel = UserModel();
+
+  UserModel? get selectedPatientModel => _selectedDoctorModel;
+
   //
 
   // Cader model
@@ -45,16 +53,28 @@ class TelemedDataProvider
 
   CaderModel? get selectedCaderModel => _selectedCaderModel;
 
-  void setSelectedDataNull(model) {
+  void setSelectedDataNull(model, typeOfUserModel) {
     if (model is CaderModel) {
       _selectedCaderModel = null;
+    }
+    if (model is UserModel && typeOfUserModel == TelemedSettings.doctorId) {
+      _selectedDoctorModel = null;
+    }
+    if (model is UserModel && typeOfUserModel == TelemedSettings.patientId) {
+      _selectedPatientModel = null;
     }
     notifyListeners();
   }
 
-  void setSelectedData(model) {
+  void setSelectedData({required model, typeOfUserModel}) {
     if (model is CaderModel) {
       _selectedCaderModel = model;
+    }
+    if (model is UserModel && typeOfUserModel == TelemedSettings.doctorId) {
+      _selectedDoctorModel = model;
+    }
+    if (model is UserModel && typeOfUserModel == TelemedSettings.patientId) {
+      _selectedPatientModel = model;
     }
     notifyListeners();
   }

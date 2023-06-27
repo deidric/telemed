@@ -8,7 +8,7 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "9f86-2001-4451-8741-c100-b5d5-c37e-4df5-b987.ngrok-free.app";
+  static String authority = "c5d1-112-210-228-102.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
   //
 
@@ -20,6 +20,8 @@ class TelemedSettings {
   static int otherMedicalReasons = 5;
   //
 
+  static int doctorId = 2;
+  static int patientId = 3;
 
   static DateFormat dateFormat = DateFormat("dd-MM-yyyy");
   static DateFormat timeDateFormat = DateFormat("h:mm:ss a dd-MM-yyyy");
