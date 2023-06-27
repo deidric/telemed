@@ -51,7 +51,7 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
-                        leading: Icon(Icons.account_circle),
+                        leading: const Icon(Icons.account_circle),
                         title: Text(
                           "${data.selectedDoctorModel!.firstName!} ${data.selectedDoctorModel!.lastName!}",
                         ),
