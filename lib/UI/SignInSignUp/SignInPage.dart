@@ -10,6 +10,11 @@ class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
   static const String route = '/signIn';
 
+  static Future<void> checkIfSignedIn({required BuildContext context}) async {
+    Navigator.pushNamedAndRemoveUntil(
+        context, SignInPage.route, (route) => false);
+  }
+
   @override
   SignInPageState createState() => SignInPageState();
 }

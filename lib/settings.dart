@@ -23,6 +23,9 @@ class TelemedSettings {
   static int doctorId = 2;
   static int patientId = 3;
 
+  static String darkMode = "darkMode";
+  static String lightMode = "lightMode";
+
   static DateFormat dateFormat = DateFormat("dd-MM-yyyy");
   static DateFormat timeDateFormat = DateFormat("h:mm:ss a dd-MM-yyyy");
   static DateFormat timeDateFormatDateFirst =
@@ -60,11 +63,13 @@ class TelemedStrings {
   static String signIn = "Sign In";
   static String signUp = "Sign Up";
   static String signOut = "Sign out";
+  static String areYouSureYouWantToSignOut = "Are you sure you want to sign out?";
   static String cancel = "Cancel";
   static String ok = "ok";
   static String fail = "fail";
   static String success = "success";
   static String deleteSuccessful = "deleteSuccessful";
+  static String close = "close";
 
   // Patient Registration
   static String createAccount = "Create an account";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:telemed/Components/PopupMenuButton.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/Home/BookAppointmentsPage.dart';
@@ -26,9 +27,16 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(TelemedSettings.appName),
-      ),
+      appBar: AppBar(title: Text(TelemedSettings.appName), actions: const [
+        AppBarActionsPopupMenuButton(),
+        // IconButton(
+        //   icon: const Icon(Icons.close),
+        //   tooltip: TelemedStrings.close,
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
