@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:telemed/Components/PopupMenuButton.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/Home/BookAppointmentsPage.dart';
@@ -24,44 +23,12 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
   }
 
+  var currentPage = const HomePage();
+
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
-      appBar: AppBar(title: Text(TelemedSettings.appName), actions: const [
-        AppBarActionsPopupMenuButton(),
-        // IconButton(
-        //   icon: const Icon(Icons.close),
-        //   tooltip: TelemedStrings.close,
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        // ),
-      ]),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: (value) {
-          // Respond to item press.
-        },
-        items: [
-          BottomNavigationBarItem(
-            label: TelemedStrings.home,
-            icon: const Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            label: TelemedStrings.calendar,
-            icon: const Icon(Icons.calendar_month),
-          ),
-          BottomNavigationBarItem(
-            label: TelemedStrings.message,
-            icon: const Icon(Icons.message),
-          ),
-          BottomNavigationBarItem(
-            label: TelemedStrings.profile,
-            icon: const Icon(Icons.account_circle),
-          ),
-        ],
-      ),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
           : ListView(
@@ -84,76 +51,76 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   fontFamily:
                                       GoogleFonts.pacifico().fontFamily)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.supp,
-                          style: Theme.of(context).textTheme.bodyLarge!),
-                    ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.upcomingAppointments,
-                          style: Theme.of(context).textTheme.titleSmall!),
-                    ),
-                    ListTile(
-                      title: Text(TelemedStrings.scheduledAppointments),
-                      subtitle: Text(TelemedStrings.bookNow),
-                      leading: const Icon(Icons.calendar_month),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () {},
-                    ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.generalNeeds,
-                          style: Theme.of(context).textTheme.titleSmall!),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.gNeeds,
-                          style: Theme.of(context).textTheme.bodySmall!),
-                    ),
-                    ListTile(
-                      title: Text(TelemedStrings.bookNow),
-                      subtitle: Text(TelemedStrings.generalNeedsChoosePrimary),
-                      leading: const Icon(Icons.calendar_today),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          BookAppointmentsPage.route,
-                        );
-                      },
-                    ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.specificNeeds,
-                          style: Theme.of(context).textTheme.titleSmall!),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.specificNeedsPrimary,
-                          style: Theme.of(context).textTheme.bodySmall!),
-                    ),
-                    ListTile(
-                      title: Text(TelemedStrings.childrenHealth),
-                      subtitle: Text(TelemedStrings.childHealth),
-                      leading: const Icon(Icons.child_care),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () {},
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: Text(TelemedStrings.seniorHealth),
-                      subtitle: Text(TelemedStrings.senHealth),
-                      leading: const Icon(Icons.accessible),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () {},
-                    ),
-                    const Divider(),
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(TelemedStrings.supp,
+                      style: Theme.of(context).textTheme.bodyLarge!),
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(TelemedStrings.upcomingAppointments,
+                      style: Theme.of(context).textTheme.titleSmall!),
+                ),
+                ListTile(
+                  title: Text(TelemedStrings.scheduledAppointments),
+                  subtitle: Text(TelemedStrings.bookNow),
+                  leading: const Icon(Icons.calendar_month),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {},
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(TelemedStrings.generalNeeds,
+                      style: Theme.of(context).textTheme.titleSmall!),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(TelemedStrings.gNeeds,
+                      style: Theme.of(context).textTheme.bodySmall!),
+                ),
+                ListTile(
+                  title: Text(TelemedStrings.bookNow),
+                  subtitle: Text(TelemedStrings.generalNeedsChoosePrimary),
+                  leading: const Icon(Icons.calendar_today),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      BookAppointmentsPage.route,
+                    );
+                  },
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(TelemedStrings.specificNeeds,
+                      style: Theme.of(context).textTheme.titleSmall!),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(TelemedStrings.specificNeedsPrimary,
+                      style: Theme.of(context).textTheme.bodySmall!),
+                ),
+                ListTile(
+                  title: Text(TelemedStrings.childrenHealth),
+                  subtitle: Text(TelemedStrings.childHealth),
+                  leading: const Icon(Icons.child_care),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {},
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(TelemedStrings.seniorHealth),
+                  subtitle: Text(TelemedStrings.senHealth),
+                  leading: const Icon(Icons.accessible),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {},
+                ),
+                const Divider(),
               ],
             ),
     );

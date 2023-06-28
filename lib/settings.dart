@@ -75,6 +75,9 @@ class TelemedStrings {
   static String success = "success";
   static String deleteSuccessful = "deleteSuccessful";
   static String close = "close";
+  static String yearsOld = "years old";
+  static String payment = "Payment";
+  static String transactions = "Transactions";
 
   // Patient Registration
   static String createAccount = "Create an account";
@@ -132,6 +135,12 @@ class TelemedStrings {
   static String pdeaRegistrationNumber = "PDEA Registration Number";
   static String currentMedicalLicenseNumber = "Current Medical License Number";
   static String dateIssued = "Date issued";
+  static String view = "View";
+  static String settings = "Settings";
+  static String configureYourAccount = "Configure your account";
+  static String helpAndSupport = "Help and Support";
+  static String logOut = "Help and Support";
+  static String securelyLogOut = "Securely logout of the site";
 
   // Home
   static String greetings = "Greetings";

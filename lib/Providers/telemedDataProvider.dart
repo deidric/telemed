@@ -8,7 +8,7 @@ import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Networking/APIJsend.dart';
 import 'package:telemed/Networking/APIManager.dart';
 import 'package:telemed/Networking/TelemedApi.dart';
-import 'package:telemed/UI/Home/HomePage.dart';
+import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
@@ -284,11 +284,11 @@ class TelemedDataProvider
         if (apiRoute == TelemedApiRoutes.apiRouteLogin) {
           _selectedUserModel = UserModel.fromJson(jsendResponseModel.data);
           RouteSettings settings =
-              const RouteSettings(name: HomePage.route, arguments: '');
+              const RouteSettings(name: BasePage.route, arguments: '');
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  settings: settings, builder: (context) => const HomePage()),
+                  settings: settings, builder: (context) => const BasePage()),
               (route) => false);
         } else if (apiRoute == TelemedApiRoutes.apiRouteCreateAccount) {
           // this.setUserData(UserModel.fromJson(jsendResponseModel.data));
