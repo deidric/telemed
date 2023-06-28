@@ -22,6 +22,11 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       bloodType: json['bloodType'] as String?,
       gender: json['gender'] as String?,
       phone: json['phone'] as String?,
+      medicalSchoolOfGraduation: json['medicalSchoolOfGraduation'] as String?,
+      boardCertified: json['boardCertified'] as bool?,
+      pdeaRegistrationNumber: json['pdeaRegistrationNumber'] as String?,
+      currentMedicalLicenseNumber:
+          json['currentMedicalLicenseNumber'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -40,4 +45,8 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'bloodType': instance.bloodType,
       'gender': instance.gender,
       'phone': instance.phone,
+      'medicalSchoolOfGraduation': instance.medicalSchoolOfGraduation,
+      'boardCertified': instance.boardCertified,
+      'pdeaRegistrationNumber': instance.pdeaRegistrationNumber,
+      'currentMedicalLicenseNumber': instance.currentMedicalLicenseNumber,
     };

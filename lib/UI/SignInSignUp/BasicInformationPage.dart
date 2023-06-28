@@ -30,6 +30,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
 
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
+    await data.apiRouteDoctorSpecialities(context: context);
     await data.apiRouteDoctorQualifications(context: context);
   }
 
@@ -50,14 +51,28 @@ class BasicInformationPageState extends State<BasicInformationPage>
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.basicInformation,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(fontWeight: FontWeight.bold)),
-                    ),
+                    if (data.selectedUserModel.userTypeId ==
+                        TelemedSettings.doctorId)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            "${TelemedStrings.doctor} ${TelemedStrings.basicInformation}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontWeight: FontWeight.bold)),
+                      ),
+                    if (data.selectedUserModel.userTypeId ==
+                        TelemedSettings.patientId)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            "${TelemedStrings.patient} ${TelemedStrings.basicInformation}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontWeight: FontWeight.bold)),
+                      ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.basicInfo,
@@ -165,7 +180,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 8.0, right: 8.0),
+                                        left: 8.0, right: 8.0, bottom: 16.0),
                                     child: data.selectedUserModel.dob == null
                                         ? Text('',
                                             style: Theme.of(context)
@@ -183,62 +198,66 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return TelemedStrings
-                                                .pleaseEnterText;
-                                          }
-                                          return null;
-                                        },
-                                        initialValue: data
-                                            .selectedUserModel.bloodPressure,
-                                        onChanged: (newValue) {
-                                          data.selectedUserModel.bloodPressure =
-                                              newValue;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText:
-                                              TelemedStrings.bloodPressure,
-                                          border: const OutlineInputBorder(),
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.patientId)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return TelemedStrings
+                                                  .pleaseEnterText;
+                                            }
+                                            return null;
+                                          },
+                                          initialValue: data
+                                              .selectedUserModel.bloodPressure,
+                                          onChanged: (newValue) {
+                                            data.selectedUserModel
+                                                .bloodPressure = newValue;
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText:
+                                                TelemedStrings.bloodPressure,
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return TelemedStrings
-                                                .pleaseEnterText;
-                                          }
-                                          return null;
-                                        },
-                                        initialValue:
-                                            data.selectedUserModel.bloodType,
-                                        onChanged: (newValue) {
-                                          data.selectedUserModel.bloodType =
-                                              newValue;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: TelemedStrings.bloodType,
-                                          border: const OutlineInputBorder(),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return TelemedStrings
+                                                  .pleaseEnterText;
+                                            }
+                                            return null;
+                                          },
+                                          initialValue:
+                                              data.selectedUserModel.bloodType,
+                                          onChanged: (newValue) {
+                                            data.selectedUserModel.bloodType =
+                                                newValue;
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: TelemedStrings.bloodType,
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
                             Row(
                               children: [
                                 Expanded(
@@ -269,47 +288,57 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: DropdownMenu(
-                                menuHeight: 250,width: MediaQuery.of(context).size.width * 0.9,
-                                leadingIcon: const Icon(
-                                  Icons.menu_book,
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.doctorId)
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: DropdownMenu(
+                                  menuHeight: 250,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  leadingIcon: const Icon(
+                                    Icons.menu_book,
+                                  ),
+                                  hintText: TelemedStrings.qualifications,
+                                  label: Text(TelemedStrings.qualifications),
+                                  initialSelection:
+                                      data.selectedDoctorQualificationsModel ==
+                                              null
+                                          ? null
+                                          : data
+                                              .selectedDoctorQualificationsModel!
+                                              .id,
+                                  onSelected: (int? selectedId) {
+                                    data.setSelectedData(
+                                        model: data
+                                            .doctorQualificationsModelList
+                                            .firstWhere((element) =>
+                                                element.id == selectedId));
+                                  },
+                                  dropdownMenuEntries: () {
+                                    List<DropdownMenuEntry<int>>
+                                        dropdownMenuEntryList = [];
+                                    for (var element
+                                        in data.doctorQualificationsModelList) {
+                                      dropdownMenuEntryList.add(
+                                        DropdownMenuEntry(
+                                          value: element.id!,
+                                          label: element.qualification!,
+                                        ),
+                                      );
+                                    }
+                                    return dropdownMenuEntryList;
+                                  }(),
                                 ),
-                                hintText: TelemedStrings.qualifications,
-                                label: Text(TelemedStrings.qualifications),
-                                initialSelection:
-                                    data.selectedDoctorQualificationsModel == null
-                                        ? null
-                                        : data.selectedDoctorQualificationsModel!
-                                            .id,
-                                onSelected: (int? selectedId) {
-                                  data.setSelectedData(
-                                      model: data.doctorQualificationsModelList
-                                          .firstWhere((element) =>
-                                              element.id == selectedId));
-                                },
-                                dropdownMenuEntries: () {
-                                  List<DropdownMenuEntry<int>>
-                                      dropdownMenuEntryList = [];
-                                  for (var element in data.doctorQualificationsModelList) {
-                                    dropdownMenuEntryList.add(
-                                      DropdownMenuEntry(
-                                        value: element.id!,
-                                        label: element.qualification!,
-                                      ),
-                                    );
-                                  }
-                                  return dropdownMenuEntryList;
-                                }(),
                               ),
-                            ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
                                   Expanded(
                                     child: IntlPhoneField(
+                                      initialValue:
+                                          data.selectedUserModel.phone,
                                       decoration: InputDecoration(
                                         labelText: TelemedStrings.phoneNumber,
                                         border: const OutlineInputBorder(
@@ -327,6 +356,129 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 ],
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(TelemedStrings.phoneNote,
+                                  style:
+                                      Theme.of(context).textTheme.bodySmall!),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return TelemedStrings.pleaseEnterText;
+                                  }
+                                  return null;
+                                },
+                                maxLines: 5,
+                                initialValue: data.selectedUserModel
+                                    .medicalSchoolOfGraduation,
+                                onChanged: (newValue) {
+                                  data.selectedUserModel
+                                      .medicalSchoolOfGraduation = newValue;
+                                },
+                                decoration: InputDecoration(
+                                  labelText:
+                                      TelemedStrings.medicalSchoolOfGraduation,
+                                  hintText: TelemedStrings
+                                      .medicalSchoolOfGraduationHint,
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.menu_book),
+                                ),
+                              ),
+                            ),
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.doctorId)
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                        "${TelemedStrings.boardCertified} : ",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!),
+                                  ),
+                                  Expanded(
+                                    child: SegmentedButton(
+                                      segments: [
+                                        ButtonSegment(
+                                          value: TelemedStrings.checkYes,
+                                          label: Text(TelemedStrings.checkYes),
+                                        ),
+                                        ButtonSegment(
+                                          value: TelemedStrings.checkNo,
+                                          label: Text(TelemedStrings.checkNo),
+                                        ),
+                                      ],
+                                      selected: <String>{
+                                        data.selectedUserModel.boardCertified ==
+                                                null
+                                            ? TelemedStrings.checkYes
+                                            : data.selectedUserModel
+                                                        .boardCertified! ==
+                                                    true
+                                                ? TelemedStrings.checkYes
+                                                : TelemedStrings.checkNo
+                                      },
+                                      onSelectionChanged: (newValue) {
+                                        if (newValue.first ==
+                                            TelemedStrings.checkYes) {
+                                          data.selectedUserModel
+                                              .boardCertified = true;
+                                        } else {
+                                          data.selectedUserModel
+                                              .boardCertified = false;
+                                        }
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.doctorId)
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: DropdownMenu(
+                                  menuHeight: 250,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  leadingIcon: const Icon(
+                                    Icons.medical_services,
+                                  ),
+                                  hintText: TelemedStrings.speciality,
+                                  label: Text(TelemedStrings.speciality),
+                                  initialSelection:
+                                      data.selectedDoctorSpecialitiesModel ==
+                                              null
+                                          ? null
+                                          : data
+                                              .selectedDoctorSpecialitiesModel!
+                                              .id,
+                                  onSelected: (int? selectedId) {
+                                    data.setSelectedData(
+                                        model: data.doctorSpecialitiesModelList
+                                            .firstWhere((element) =>
+                                                element.id == selectedId));
+                                  },
+                                  dropdownMenuEntries: () {
+                                    List<DropdownMenuEntry<int>>
+                                        dropdownMenuEntryList = [];
+                                    for (var element
+                                        in data.doctorSpecialitiesModelList) {
+                                      dropdownMenuEntryList.add(
+                                        DropdownMenuEntry(
+                                          value: element.id!,
+                                          label: element.speciality!,
+                                        ),
+                                      );
+                                    }
+                                    return dropdownMenuEntryList;
+                                  }(),
+                                ),
+                              ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -347,12 +499,6 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   ),
                                 ],
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(TelemedStrings.phoneNote,
-                                  style:
-                                      Theme.of(context).textTheme.bodyLarge!),
                             ),
                           ],
                         ),

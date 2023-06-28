@@ -19,6 +19,10 @@ class UserModel {
   String? bloodType;
   String? gender;
   String? phone;
+  String? medicalSchoolOfGraduation;
+  bool? boardCertified;
+  String? pdeaRegistrationNumber;
+  String? currentMedicalLicenseNumber;
 
   UserModel({
     this.id,
@@ -36,6 +40,10 @@ class UserModel {
     this.bloodType,
     this.gender,
     this.phone,
+    this.medicalSchoolOfGraduation,
+    this.boardCertified,
+    this.pdeaRegistrationNumber,
+    this.currentMedicalLicenseNumber,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -60,6 +68,10 @@ enum FieldNames {
   bloodType,
   gender,
   phone,
+  medicalSchoolOfGraduation,
+  boardCertified,
+  pdeaRegistrationNumber,
+  currentMedicalLicenseNumber,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -95,6 +107,14 @@ extension FieldNamesExtension on FieldNames {
         return 'gender';
       case FieldNames.phone:
         return 'phone';
+      case FieldNames.medicalSchoolOfGraduation:
+        return 'medicalSchoolOfGraduation';
+      case FieldNames.boardCertified:
+        return 'boardCertified';
+      case FieldNames.pdeaRegistrationNumber:
+        return 'pdeaRegistrationNumber';
+      case FieldNames.currentMedicalLicenseNumber:
+        return 'currentMedicalLicenseNumber';
     }
   }
 }

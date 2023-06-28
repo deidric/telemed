@@ -8,8 +8,9 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "c5d1-112-210-228-102.ngrok-free.app";
+  static String authority = "2c9b-112-210-228-102.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
+
   //
 
   // Reason for visit ID's
@@ -18,6 +19,7 @@ class TelemedSettings {
   static int prescriptionsOrRefills = 3;
   static int genMentalHealthConcerns = 4;
   static int otherMedicalReasons = 5;
+
   //
 
   static int doctorId = 2;
@@ -29,12 +31,12 @@ class TelemedSettings {
   static DateFormat dateFormat = DateFormat("dd-MM-yyyy");
   static DateFormat timeDateFormat = DateFormat("h:mm:ss a dd-MM-yyyy");
   static DateFormat timeDateFormatDateFirst =
-  DateFormat("dd-MM-yyyy h:mm:ss a");
+      DateFormat("dd-MM-yyyy h:mm:ss a");
   static DateTime startDate = DateTime(1970);
   static DateTime endDate = DateTime.now().add(const Duration(days: 3660));
 
   static NumberFormat decimalPatternDisplayFormat =
-  NumberFormat.decimalPattern('en_IN');
+      NumberFormat.decimalPattern('en_IN');
 
   static getHttpHeaders({String? token}) {
     Map<String, String> httpHeaders = {};
@@ -47,6 +49,7 @@ class TelemedSettings {
     return httpHeaders;
   }
 }
+
 class TelemedJsendStatus {
   static String success = 'success';
   static String fail = 'fail';
@@ -55,7 +58,8 @@ class TelemedJsendStatus {
 
 class TelemedStrings {
   static String unauthenticatedAccessTitle = "Unauthenticated Access";
-  static String unauthenticatedAccessMessage = "Sorry. This seems like an unauthenticated access. Please verify yourself by signing in again.";
+  static String unauthenticatedAccessMessage =
+      "Sorry. This seems like an unauthenticated access. Please verify yourself by signing in again.";
   static String loading = "Loading";
   static String pleaseWait = "Please wait...";
   static String patient = "Patient";
@@ -63,7 +67,8 @@ class TelemedStrings {
   static String signIn = "Sign In";
   static String signUp = "Sign Up";
   static String signOut = "Sign out";
-  static String areYouSureYouWantToSignOut = "Are you sure you want to sign out?";
+  static String areYouSureYouWantToSignOut =
+      "Are you sure you want to sign out?";
   static String cancel = "Cancel";
   static String ok = "ok";
   static String fail = "fail";
@@ -110,6 +115,9 @@ class TelemedStrings {
   static String phoneNumber = "Phone Number";
   static String phoneNote =
       "By providing your mobile number you give us permission to contact you via text.";
+  static String medicalSchoolOfGraduation = "Medical school of graduation";
+  static String medicalSchoolOfGraduationHint =
+      "Please list them in the following format:\nSto Tomas - 2023\nLa Salle - 2024";
   static String healthInsurance = "Health Insurance";
   static String hInsurance =
       "Search for your heath insurance provider to see if you're cover";
@@ -119,6 +127,8 @@ class TelemedStrings {
   static String skipInsurance = "Skip Insurance";
   static String skipIns = "You can see a doctor without insurance";
   static String qualifications = "Qualifications";
+  static String speciality = "Speciality";
+  static String boardCertified = "Board certified";
 
   // Home
   static String greetings = "Greetings!";

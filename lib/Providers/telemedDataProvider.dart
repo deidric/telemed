@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:telemed/Model/CaderModel.dart';
 import 'package:telemed/Model/DoctorQualificationsModel.dart';
+import 'package:telemed/Model/DoctorSpecialitiesModel.dart';
 import 'package:telemed/Model/JsendResponseModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Networking/APIJsend.dart';
@@ -61,6 +62,13 @@ class TelemedDataProvider
   DoctorQualificationsModel? get selectedDoctorQualificationsModel =>
       _selectedDoctorQualificationsModel;
 
+  // DoctorQualificationsModel
+  DoctorSpecialitiesModel? _selectedDoctorSpecialitiesModel =
+      DoctorSpecialitiesModel();
+
+  DoctorSpecialitiesModel? get selectedDoctorSpecialitiesModel =>
+      _selectedDoctorSpecialitiesModel;
+
   void setSelectedDataNull(model, typeOfUserModel) {
     if (model is CaderModel) {
       _selectedCaderModel = null;
@@ -73,6 +81,9 @@ class TelemedDataProvider
     }
     if (model is DoctorQualificationsModel) {
       _selectedDoctorQualificationsModel = null;
+    }
+    if (model is DoctorSpecialitiesModel) {
+      _selectedDoctorSpecialitiesModel = null;
     }
     notifyListeners();
   }
@@ -89,6 +100,9 @@ class TelemedDataProvider
     }
     if (model is DoctorQualificationsModel) {
       _selectedDoctorQualificationsModel = model;
+    }
+    if (model is DoctorSpecialitiesModel) {
+      _selectedDoctorSpecialitiesModel = model;
     }
     notifyListeners();
   }
@@ -116,6 +130,15 @@ class TelemedDataProvider
   List<DoctorQualificationsModel> get filteredDoctorQualificationsModelList =>
       _filteredDoctorQualificationsModelList;
 
+  List<DoctorSpecialitiesModel> _doctorSpecialitiesModelList = [];
+  List<DoctorSpecialitiesModel> _filteredDoctorSpecialitiesModelList = [];
+
+  List<DoctorSpecialitiesModel> get doctorSpecialitiesModelList =>
+      _doctorSpecialitiesModelList;
+
+  List<DoctorSpecialitiesModel> get filteredDoctorSpecialitiesModelList =>
+      _filteredDoctorSpecialitiesModelList;
+
   void setData({required modelList}) {
     if (modelList is List<CaderModel>) {
       _caderModelList = modelList;
@@ -131,6 +154,10 @@ class TelemedDataProvider
       _doctorQualificationsModelList = modelList;
       _filteredDoctorQualificationsModelList = modelList;
     }
+    if (modelList is List<DoctorSpecialitiesModel>) {
+      _doctorSpecialitiesModelList = modelList;
+      _filteredDoctorSpecialitiesModelList = modelList;
+    }
     notifyListeners();
   }
 
@@ -143,6 +170,9 @@ class TelemedDataProvider
     }
     if (modelList is List<DoctorQualificationsModel>) {
       _filteredDoctorQualificationsModelList = modelList;
+    }
+    if (modelList is List<DoctorSpecialitiesModel>) {
+      _filteredDoctorSpecialitiesModelList = modelList;
     }
     notifyListeners();
   }
@@ -195,6 +225,9 @@ class TelemedDataProvider
       case TelemedApiRoutes.apiRouteDoctorQualifications:
         list = List<DoctorQualificationsModel>.from([]);
         break;
+      case TelemedApiRoutes.apiRouteDoctorSpecialities:
+        list = List<DoctorSpecialitiesModel>.from([]);
+        break;
     }
     setData(modelList: list);
   }
@@ -222,6 +255,14 @@ class TelemedDataProvider
         for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
           DoctorQualificationsModel model =
               DoctorQualificationsModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteDoctorSpecialities:
+        list = List<DoctorSpecialitiesModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          DoctorSpecialitiesModel model =
+              DoctorSpecialitiesModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
         break;
@@ -362,6 +403,15 @@ class TelemedDataProvider
       context: context,
       token: selectedUserModel.token,
       apiRoute: TelemedApiRoutes.apiRouteDoctorQualifications,
+    );
+  }
+
+  @override
+  apiRouteDoctorSpecialities({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteDoctorSpecialities,
     );
   }
 }
