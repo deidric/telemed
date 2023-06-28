@@ -407,12 +407,12 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                                 null
                                             ? () {
                                                 data.selectedUserModel
-                                                    .boardCertified = true;
+                                                    .boardCertified = 1;
                                                 return TelemedStrings.checkYes;
                                               }()
                                             : data.selectedUserModel
                                                         .boardCertified! ==
-                                                    true
+                                                    1
                                                 ? TelemedStrings.checkYes
                                                 : TelemedStrings.checkNo
                                       },
@@ -420,10 +420,10 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                         if (newValue.first ==
                                             TelemedStrings.checkYes) {
                                           data.selectedUserModel
-                                              .boardCertified = true;
+                                              .boardCertified = 1;
                                         } else {
                                           data.selectedUserModel
-                                              .boardCertified = false;
+                                              .boardCertified = 0;
                                         }
                                         setState(() {});
                                       },

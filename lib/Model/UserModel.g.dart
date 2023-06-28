@@ -24,7 +24,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       specialityId: json['specialityId'] as int?,
       phone: json['phone'] as String?,
       medicalSchoolOfGraduation: json['medicalSchoolOfGraduation'] as String?,
-      boardCertified: json['boardCertified'] as bool?,
+      boardCertified: json['boardCertified'] as int?,
       pdeaRegistrationNumber: json['pdeaRegistrationNumber'] as String?,
       currentMedicalLicenseNumber:
           json['currentMedicalLicenseNumber'] as String?,

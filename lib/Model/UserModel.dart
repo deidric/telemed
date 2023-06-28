@@ -21,7 +21,7 @@ class UserModel {
   int? specialityId;
   String? phone;
   String? medicalSchoolOfGraduation;
-  bool? boardCertified;
+  int? boardCertified;
   String? pdeaRegistrationNumber;
   String? currentMedicalLicenseNumber;
   String? currentMedicalLicenseNumberDateIssued;
