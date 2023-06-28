@@ -5,7 +5,6 @@ part 'UserModel.g.dart';
 @JsonSerializable()
 class UserModel {
   int? id;
-  String? name;
   int? userTypeId;
   int? cadersId;
   String? email;
@@ -18,15 +17,17 @@ class UserModel {
   String? bloodPressure;
   String? bloodType;
   String? gender;
+  int? qualificationId;
+  int? specialityId;
   String? phone;
   String? medicalSchoolOfGraduation;
   bool? boardCertified;
   String? pdeaRegistrationNumber;
   String? currentMedicalLicenseNumber;
+  String? currentMedicalLicenseNumberDateIssued;
 
   UserModel({
     this.id,
-    this.name,
     this.userTypeId,
     this.cadersId,
     this.email,
@@ -39,11 +40,14 @@ class UserModel {
     this.bloodPressure,
     this.bloodType,
     this.gender,
+    this.qualificationId,
+    this.specialityId,
     this.phone,
     this.medicalSchoolOfGraduation,
     this.boardCertified,
     this.pdeaRegistrationNumber,
     this.currentMedicalLicenseNumber,
+    this.currentMedicalLicenseNumberDateIssued,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -54,7 +58,6 @@ class UserModel {
 
 enum FieldNames {
   id,
-  name,
   userTypeId,
   cadersId,
   email,
@@ -67,11 +70,14 @@ enum FieldNames {
   bloodPressure,
   bloodType,
   gender,
+  qualificationId,
+  specialityId,
   phone,
   medicalSchoolOfGraduation,
   boardCertified,
   pdeaRegistrationNumber,
   currentMedicalLicenseNumber,
+  currentMedicalLicenseNumberDateIssued,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -79,8 +85,6 @@ extension FieldNamesExtension on FieldNames {
     switch (this) {
       case FieldNames.id:
         return 'id';
-      case FieldNames.name:
-        return 'name';
       case FieldNames.userTypeId:
         return 'userTypeId';
       case FieldNames.cadersId:
@@ -105,6 +109,10 @@ extension FieldNamesExtension on FieldNames {
         return 'bloodType';
       case FieldNames.gender:
         return 'gender';
+      case FieldNames.qualificationId:
+        return 'qualificationId';
+      case FieldNames.specialityId:
+        return 'specialityId';
       case FieldNames.phone:
         return 'phone';
       case FieldNames.medicalSchoolOfGraduation:
@@ -115,6 +123,8 @@ extension FieldNamesExtension on FieldNames {
         return 'pdeaRegistrationNumber';
       case FieldNames.currentMedicalLicenseNumber:
         return 'currentMedicalLicenseNumber';
+      case FieldNames.currentMedicalLicenseNumberDateIssued:
+        return 'currentMedicalLicenseNumberDateIssued';
     }
   }
 }

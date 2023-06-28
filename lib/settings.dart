@@ -129,6 +129,9 @@ class TelemedStrings {
   static String qualifications = "Qualifications";
   static String speciality = "Speciality";
   static String boardCertified = "Board certified";
+  static String pdeaRegistrationNumber = "PDEA Registration Number";
+  static String currentMedicalLicenseNumber = "Current Medical License Number";
+  static String dateIssued = "Date issued";
 
   // Home
   static String greetings = "Greetings!";

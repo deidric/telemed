@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/OnboardingPage.dart';
 import 'package:telemed/UI/SignInSignUp/SignUpPage.dart';
 import 'package:telemed/settings.dart';
 
@@ -12,7 +13,7 @@ class SignInPage extends StatefulWidget {
 
   static Future<void> checkIfSignedIn({required BuildContext context}) async {
     Navigator.pushNamedAndRemoveUntil(
-        context, SignInPage.route, (route) => false);
+        context, OnboardingPage.route, (route) => false);
   }
 
   @override
@@ -211,8 +212,10 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context,
-                                        SignUpPage.route,);
+                                      Navigator.pushNamed(
+                                        context,
+                                        SignUpPage.route,
+                                      );
                                     },
                                     child: Text(TelemedStrings.signUp),
                                   ),

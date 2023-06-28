@@ -8,7 +8,6 @@ part of 'UserModel.dart';
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       id: json['id'] as int?,
-      name: json['name'] as String?,
       userTypeId: json['userTypeId'] as int?,
       cadersId: json['cadersId'] as int?,
       email: json['email'] as String?,
@@ -21,17 +20,20 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       bloodPressure: json['bloodPressure'] as String?,
       bloodType: json['bloodType'] as String?,
       gender: json['gender'] as String?,
+      qualificationId: json['qualificationId'] as int?,
+      specialityId: json['specialityId'] as int?,
       phone: json['phone'] as String?,
       medicalSchoolOfGraduation: json['medicalSchoolOfGraduation'] as String?,
       boardCertified: json['boardCertified'] as bool?,
       pdeaRegistrationNumber: json['pdeaRegistrationNumber'] as String?,
       currentMedicalLicenseNumber:
           json['currentMedicalLicenseNumber'] as String?,
+      currentMedicalLicenseNumberDateIssued:
+          json['currentMedicalLicenseNumberDateIssued'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
       'userTypeId': instance.userTypeId,
       'cadersId': instance.cadersId,
       'email': instance.email,
@@ -44,9 +46,13 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'bloodPressure': instance.bloodPressure,
       'bloodType': instance.bloodType,
       'gender': instance.gender,
+      'qualificationId': instance.qualificationId,
+      'specialityId': instance.specialityId,
       'phone': instance.phone,
       'medicalSchoolOfGraduation': instance.medicalSchoolOfGraduation,
       'boardCertified': instance.boardCertified,
       'pdeaRegistrationNumber': instance.pdeaRegistrationNumber,
       'currentMedicalLicenseNumber': instance.currentMedicalLicenseNumber,
+      'currentMedicalLicenseNumberDateIssued':
+          instance.currentMedicalLicenseNumberDateIssued,
     };

@@ -31,13 +31,14 @@ class BasicInformationPageState extends State<BasicInformationPage>
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
     await data.apiRouteDoctorSpecialities(context: context);
-    await data.apiRouteDoctorQualifications(context: context);
+    if (mounted) {
+      await data.apiRouteDoctorQualifications(context: context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(TelemedSettings.appName),
@@ -276,7 +277,8 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                     ],
                                     selected: <String>{
                                       data.selectedUserModel.gender == null
-                                          ? TelemedStrings.male
+                                          ? data.selectedUserModel.gender =
+                                              TelemedStrings.male
                                           : data.selectedUserModel.gender!
                                     },
                                     onSelectionChanged: (newValue) {
@@ -314,6 +316,8 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                             .doctorQualificationsModelList
                                             .firstWhere((element) =>
                                                 element.id == selectedId));
+                                    data.selectedUserModel.qualificationId =
+                                        selectedId;
                                   },
                                   dropdownMenuEntries: () {
                                     List<DropdownMenuEntry<int>>
@@ -347,7 +351,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                       ),
                                       onChanged: (phone) {
                                         data.selectedUserModel.phone =
-                                            phone.completeNumber;
+                                            phone.number;
                                       },
                                       initialCountryCode:
                                           TelemedSettings.initialCountryCode,
@@ -415,7 +419,11 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                       selected: <String>{
                                         data.selectedUserModel.boardCertified ==
                                                 null
-                                            ? TelemedStrings.checkYes
+                                            ? () {
+                                                data.selectedUserModel
+                                                    .boardCertified = true;
+                                                return TelemedStrings.checkYes;
+                                              }()
                                             : data.selectedUserModel
                                                         .boardCertified! ==
                                                     true
@@ -462,6 +470,8 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                         model: data.doctorSpecialitiesModelList
                                             .firstWhere((element) =>
                                                 element.id == selectedId));
+                                    data.selectedUserModel.specialityId =
+                                        selectedId;
                                   },
                                   dropdownMenuEntries: () {
                                     List<DropdownMenuEntry<int>>
@@ -478,6 +488,129 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                     return dropdownMenuEntryList;
                                   }(),
                                 ),
+                              ),
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.doctorId)
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: TextFormField(
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return TelemedStrings
+                                                .pleaseEnterText;
+                                          }
+                                          return null;
+                                        },
+                                        initialValue: data.selectedUserModel
+                                            .pdeaRegistrationNumber,
+                                        onChanged: (newValue) {
+                                          data.selectedUserModel
+                                                  .pdeaRegistrationNumber =
+                                              newValue;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: TelemedStrings
+                                              .pdeaRegistrationNumber,
+                                          border: const OutlineInputBorder(),
+                                          prefixIcon: const Icon(Icons.numbers),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.doctorId)
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return TelemedStrings.pleaseEnterText;
+                                        }
+                                        return null;
+                                      },
+                                      initialValue: data.selectedUserModel
+                                          .currentMedicalLicenseNumber,
+                                      onChanged: (newValue) {
+                                        data.selectedUserModel
+                                                .currentMedicalLicenseNumber =
+                                            newValue;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: TelemedStrings
+                                            .currentMedicalLicenseNumber,
+                                        border: const OutlineInputBorder(),
+                                        prefixIcon: const Icon(Icons.numbers),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () async {
+                                            await showDatePicker(
+                                              context: context,
+                                              initialDate: data
+                                                          .selectedUserModel
+                                                          .currentMedicalLicenseNumberDateIssued ==
+                                                      null
+                                                  ? DateTime.now()
+                                                  : DateFormat("yyyy-MM-dd")
+                                                      .parse(data
+                                                          .selectedUserModel
+                                                          .currentMedicalLicenseNumberDateIssued!),
+                                              firstDate:
+                                                  TelemedSettings.startDate,
+                                              lastDate: TelemedSettings.endDate,
+                                            ).then((selectedDate) {
+                                              if (selectedDate != null) {
+                                                setState(() {
+                                                  data.selectedUserModel
+                                                          .currentMedicalLicenseNumberDateIssued =
+                                                      selectedDate
+                                                          .toIso8601String();
+                                                });
+                                              }
+                                            });
+                                          },
+                                          child:
+                                              Text(TelemedStrings.dateIssued),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0,
+                                              right: 8.0,
+                                              bottom: 16.0),
+                                          child: data.selectedUserModel
+                                                      .currentMedicalLicenseNumberDateIssued ==
+                                                  null
+                                              ? Text('',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge)
+                                              : Text(
+                                                  TelemedSettings.dateFormat
+                                                      .format(DateFormat(
+                                                              "yyyy-MM-dd")
+                                                          .parse(data
+                                                              .selectedUserModel
+                                                              .currentMedicalLicenseNumberDateIssued!)),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
