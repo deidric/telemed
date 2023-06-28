@@ -209,14 +209,6 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: TextFormField(
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return TelemedStrings
-                                                  .pleaseEnterText;
-                                            }
-                                            return null;
-                                          },
                                           initialValue: data
                                               .selectedUserModel.bloodPressure,
                                           onChanged: (newValue) {
@@ -235,14 +227,6 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: TextFormField(
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return TelemedStrings
-                                                  .pleaseEnterText;
-                                            }
-                                            return null;
-                                          },
                                           initialValue:
                                               data.selectedUserModel.bloodType,
                                           onChanged: (newValue) {
