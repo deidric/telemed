@@ -91,6 +91,26 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                               .titleLarge!
                               .copyWith(fontWeight: FontWeight.bold)),
                     ),
+                    if (data.selectedUserModel.userTypeId ==
+                        TelemedSettings.patientId)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(TelemedStrings.patient,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(fontWeight: FontWeight.bold)),
+                      ),
+                    if (data.selectedUserModel.userTypeId ==
+                        TelemedSettings.doctorId)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(TelemedStrings.doctor,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(fontWeight: FontWeight.bold)),
+                      ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.createAccount,
