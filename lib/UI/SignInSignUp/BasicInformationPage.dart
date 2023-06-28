@@ -366,32 +366,34 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                   style:
                                       Theme.of(context).textTheme.bodySmall!),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return TelemedStrings.pleaseEnterText;
-                                  }
-                                  return null;
-                                },
-                                maxLines: 5,
-                                initialValue: data.selectedUserModel
-                                    .medicalSchoolOfGraduation,
-                                onChanged: (newValue) {
-                                  data.selectedUserModel
-                                      .medicalSchoolOfGraduation = newValue;
-                                },
-                                decoration: InputDecoration(
-                                  labelText:
-                                      TelemedStrings.medicalSchoolOfGraduation,
-                                  hintText: TelemedStrings
-                                      .medicalSchoolOfGraduationHint,
-                                  border: const OutlineInputBorder(),
-                                  prefixIcon: const Icon(Icons.menu_book),
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.doctorId)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return TelemedStrings.pleaseEnterText;
+                                    }
+                                    return null;
+                                  },
+                                  maxLines: 5,
+                                  initialValue: data.selectedUserModel
+                                      .medicalSchoolOfGraduation,
+                                  onChanged: (newValue) {
+                                    data.selectedUserModel
+                                        .medicalSchoolOfGraduation = newValue;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: TelemedStrings
+                                        .medicalSchoolOfGraduation,
+                                    hintText: TelemedStrings
+                                        .medicalSchoolOfGraduationHint,
+                                    border: const OutlineInputBorder(),
+                                    prefixIcon: const Icon(Icons.menu_book),
+                                  ),
                                 ),
                               ),
-                            ),
                             if (data.selectedUserModel.userTypeId ==
                                 TelemedSettings.doctorId)
                               Row(
