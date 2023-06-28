@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/PopupMenuButton.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
@@ -73,11 +74,15 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.greetings,
+                      child: Text(
+                          "${TelemedStrings.greetings} ${data.selectedUserModel.firstName!} ${data.selectedUserModel.lastName!}",
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
-                              .copyWith(fontWeight: FontWeight.bold)),
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily:
+                                      GoogleFonts.pacifico().fontFamily)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),

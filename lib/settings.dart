@@ -134,7 +134,7 @@ class TelemedStrings {
   static String dateIssued = "Date issued";
 
   // Home
-  static String greetings = "Greetings!";
+  static String greetings = "Greetings";
   static String supp = "What do you want to do today?";
   static String upcomingAppointments = "Upcoming Appointments";
   static String scheduledAppointments =
