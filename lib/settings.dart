@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:intl/intl.dart';
 
 class TelemedSettings {
@@ -8,7 +9,7 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "2c9b-112-210-228-102.ngrok-free.app";
+  static String authority = "283f-112-210-228-102.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -77,11 +78,15 @@ class TelemedStrings {
   static String close = "close";
   static String yearsOld = "years old";
   static String payment = "Payment";
+  static String date = "Date";
+  static String time = "Time";
   static String transactions = "Transactions";
+  static String videoConsultationFee = "Video consultation fee";
 
   // Patient Registration
   static String createAccount = "Create an account";
   static String pleaseEnterText = "Please enter text";
+  static String pleaseEnterNumber = "Please enter a number";
   static String email = "Email";
   static String password = "Password";
   static String here2SeeYou = "Here2SeeU";
@@ -121,6 +126,8 @@ class TelemedStrings {
   static String medicalSchoolOfGraduation = "Medical school of graduation";
   static String medicalSchoolOfGraduationHint =
       "Please list them in the following format:\nSto Tomas - 2023\nLa Salle - 2024";
+  static String complaints = "Complaints";
+  static String patientComplaintsHint = "Example: Severe headache, high fever, running nose";
   static String healthInsurance = "Health Insurance";
   static String hInsurance =
       "Search for your heath insurance provider to see if you're cover";
@@ -141,6 +148,7 @@ class TelemedStrings {
   static String helpAndSupport = "Help and Support";
   static String logOut = "Help and Support";
   static String securelyLogOut = "Securely logout of the site";
+  static String nextHealthProfileBtn = "Next - Health profile";
 
   // Home
   static String greetings = "Greetings";

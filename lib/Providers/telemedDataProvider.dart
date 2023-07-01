@@ -1,9 +1,15 @@
+import 'dart:convert' as convert;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:telemed/Model/CaderModel.dart';
 import 'package:telemed/Model/DoctorQualificationsModel.dart';
 import 'package:telemed/Model/DoctorSpecialitiesModel.dart';
+import 'package:telemed/Model/DrugAllergiesModel.dart';
 import 'package:telemed/Model/JsendResponseModel.dart';
+import 'package:telemed/Model/MedicalConditionsModel.dart';
+import 'package:telemed/Model/SurgeriesModel.dart';
+import 'package:telemed/Model/SymptomsModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 import 'package:telemed/Networking/APIJsend.dart';
 import 'package:telemed/Networking/APIManager.dart';
@@ -12,7 +18,6 @@ import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
-import 'dart:convert' as convert;
 
 class TelemedDataProvider
     with ChangeNotifier, DiagnosticableTreeMixin
@@ -69,6 +74,29 @@ class TelemedDataProvider
   DoctorSpecialitiesModel? get selectedDoctorSpecialitiesModel =>
       _selectedDoctorSpecialitiesModel;
 
+  // Drug allergies
+  DrugAllergiesModel? _selectedDrugAllergiesModel = DrugAllergiesModel();
+
+  DrugAllergiesModel? get selectedDrugAllergiesModel =>
+      _selectedDrugAllergiesModel;
+
+  // Medical conditions
+  MedicalConditionsModel? _selectedMedicalConditionsModel =
+      MedicalConditionsModel();
+
+  MedicalConditionsModel? get selectedMedicalConditionsModel =>
+      _selectedMedicalConditionsModel;
+
+  // Surgeries
+  SurgeriesModel? _selectedSurgeriesModel = SurgeriesModel();
+
+  SurgeriesModel? get selectedSurgeriesModel => _selectedSurgeriesModel;
+
+  // Symptoms
+  SymptomsModel? _selectedSymptomsModel = SymptomsModel();
+
+  SymptomsModel? get selectedSymptomsModel => _selectedSymptomsModel;
+
   void setSelectedDataNull(model, typeOfUserModel) {
     if (model is CaderModel) {
       _selectedCaderModel = null;
@@ -84,6 +112,18 @@ class TelemedDataProvider
     }
     if (model is DoctorSpecialitiesModel) {
       _selectedDoctorSpecialitiesModel = null;
+    }
+    if (model is DrugAllergiesModel) {
+      _selectedDrugAllergiesModel = null;
+    }
+    if (model is MedicalConditionsModel) {
+      _selectedMedicalConditionsModel = null;
+    }
+    if (model is SurgeriesModel) {
+      _selectedSurgeriesModel = null;
+    }
+    if (model is SymptomsModel) {
+      _selectedSymptomsModel = null;
     }
     notifyListeners();
   }
@@ -103,6 +143,18 @@ class TelemedDataProvider
     }
     if (model is DoctorSpecialitiesModel) {
       _selectedDoctorSpecialitiesModel = model;
+    }
+    if (model is DrugAllergiesModel) {
+      _selectedDrugAllergiesModel = model;
+    }
+    if (model is MedicalConditionsModel) {
+      _selectedMedicalConditionsModel = model;
+    }
+    if (model is SurgeriesModel) {
+      _selectedSurgeriesModel = model;
+    }
+    if (model is SymptomsModel) {
+      _selectedSymptomsModel = model;
     }
     notifyListeners();
   }
@@ -139,6 +191,40 @@ class TelemedDataProvider
   List<DoctorSpecialitiesModel> get filteredDoctorSpecialitiesModelList =>
       _filteredDoctorSpecialitiesModelList;
 
+  List<DrugAllergiesModel> _drugAllergiesModelList = [];
+  List<DrugAllergiesModel> _filteredDrugAllergiesModelList = [];
+
+  List<DrugAllergiesModel> get drugAllergiesModelList =>
+      _drugAllergiesModelList;
+
+  List<DrugAllergiesModel> get filteredDrugAllergiesModelList =>
+      _filteredDrugAllergiesModelList;
+
+  List<MedicalConditionsModel> _medicalConditionsModelList = [];
+  List<MedicalConditionsModel> _filteredMedicalConditionsModelList = [];
+
+  List<MedicalConditionsModel> get medicalConditionsModelList =>
+      _medicalConditionsModelList;
+
+  List<MedicalConditionsModel> get filteredMedicalConditionsModelList =>
+      _filteredMedicalConditionsModelList;
+
+  List<SurgeriesModel> _surgeriesModelList = [];
+  List<SurgeriesModel> _filteredSurgeriesModelList = [];
+
+  List<SurgeriesModel> get surgeriesModelList => _surgeriesModelList;
+
+  List<SurgeriesModel> get filteredSurgeriesModelList =>
+      _filteredSurgeriesModelList;
+
+  List<SymptomsModel> _symptomsModelList = [];
+  List<SymptomsModel> _filteredSymptomsModelList = [];
+
+  List<SymptomsModel> get symptomsModelList => _symptomsModelList;
+
+  List<SymptomsModel> get filteredSymptomsModelList =>
+      _filteredSymptomsModelList;
+
   void setData({required modelList}) {
     if (modelList is List<CaderModel>) {
       _caderModelList = modelList;
@@ -158,6 +244,22 @@ class TelemedDataProvider
       _doctorSpecialitiesModelList = modelList;
       _filteredDoctorSpecialitiesModelList = modelList;
     }
+    if (modelList is List<DrugAllergiesModel>) {
+      _drugAllergiesModelList = modelList;
+      _filteredDrugAllergiesModelList = modelList;
+    }
+    if (modelList is List<MedicalConditionsModel>) {
+      _medicalConditionsModelList = modelList;
+      _filteredMedicalConditionsModelList = modelList;
+    }
+    if (modelList is List<SurgeriesModel>) {
+      _surgeriesModelList = modelList;
+      _filteredSurgeriesModelList = modelList;
+    }
+    if (modelList is List<SymptomsModel>) {
+      _symptomsModelList = modelList;
+      _filteredSymptomsModelList = modelList;
+    }
     notifyListeners();
   }
 
@@ -173,6 +275,18 @@ class TelemedDataProvider
     }
     if (modelList is List<DoctorSpecialitiesModel>) {
       _filteredDoctorSpecialitiesModelList = modelList;
+    }
+    if (modelList is List<DrugAllergiesModel>) {
+      _filteredDrugAllergiesModelList = modelList;
+    }
+    if (modelList is List<MedicalConditionsModel>) {
+      _filteredMedicalConditionsModelList = modelList;
+    }
+    if (modelList is List<SurgeriesModel>) {
+      _filteredSurgeriesModelList = modelList;
+    }
+    if (modelList is List<SymptomsModel>) {
+      _filteredSymptomsModelList = modelList;
     }
     notifyListeners();
   }
@@ -228,6 +342,18 @@ class TelemedDataProvider
       case TelemedApiRoutes.apiRouteDoctorSpecialities:
         list = List<DoctorSpecialitiesModel>.from([]);
         break;
+      case TelemedApiRoutes.apiRouteDrugAllergies:
+        list = List<DrugAllergiesModel>.from([]);
+        break;
+      case TelemedApiRoutes.apiRouteMedicalConditions:
+        list = List<MedicalConditionsModel>.from([]);
+        break;
+      case TelemedApiRoutes.apiRouteSurgeries:
+        list = List<SurgeriesModel>.from([]);
+        break;
+      case TelemedApiRoutes.apiRouteSymptoms:
+        list = List<SymptomsModel>.from([]);
+        break;
     }
     setData(modelList: list);
   }
@@ -263,6 +389,38 @@ class TelemedDataProvider
         for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
           DoctorSpecialitiesModel model =
               DoctorSpecialitiesModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteDrugAllergies:
+        list = List<DrugAllergiesModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          DrugAllergiesModel model =
+              DrugAllergiesModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteMedicalConditions:
+        list = List<MedicalConditionsModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          MedicalConditionsModel model =
+              MedicalConditionsModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteSurgeries:
+        list = List<SurgeriesModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          SurgeriesModel model =
+              SurgeriesModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteSymptoms:
+        list = List<SymptomsModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          SymptomsModel model =
+              SymptomsModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
         break;
@@ -412,6 +570,42 @@ class TelemedDataProvider
       context: context,
       token: selectedUserModel.token,
       apiRoute: TelemedApiRoutes.apiRouteDoctorSpecialities,
+    );
+  }
+
+  @override
+  apiRouteDrugAllergies({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteDrugAllergies,
+    );
+  }
+
+  @override
+  apiRouteMedicalConditions({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteMedicalConditions,
+    );
+  }
+
+  @override
+  apiRouteSurgeries({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteSurgeries,
+    );
+  }
+
+  @override
+  apiRouteSymptoms({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteSymptoms,
     );
   }
 }

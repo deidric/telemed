@@ -10,10 +10,10 @@ class BookAppointmentsPage extends StatefulWidget {
   static const String route = '/bookAppointmentsPage';
 
   @override
-  BookAppointmentsPageState createState() => BookAppointmentsPageState();
+  BookAppointmentsReasonForVisitPageState createState() => BookAppointmentsReasonForVisitPageState();
 }
 
-class BookAppointmentsPageState extends State<BookAppointmentsPage>
+class BookAppointmentsReasonForVisitPageState extends State<BookAppointmentsPage>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");

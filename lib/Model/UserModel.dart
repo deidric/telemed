@@ -20,6 +20,7 @@ class UserModel {
   int? qualificationId;
   int? specialityId;
   String? phone;
+  String? videoConsultationFee;
   String? medicalSchoolOfGraduation;
   int? boardCertified;
   String? pdeaRegistrationNumber;
@@ -43,6 +44,7 @@ class UserModel {
     this.qualificationId,
     this.specialityId,
     this.phone,
+    this.videoConsultationFee,
     this.medicalSchoolOfGraduation,
     this.boardCertified,
     this.pdeaRegistrationNumber,
@@ -73,6 +75,7 @@ enum FieldNames {
   qualificationId,
   specialityId,
   phone,
+  videoConsultationFee,
   medicalSchoolOfGraduation,
   boardCertified,
   pdeaRegistrationNumber,
@@ -115,6 +118,8 @@ extension FieldNamesExtension on FieldNames {
         return 'specialityId';
       case FieldNames.phone:
         return 'phone';
+      case FieldNames.videoConsultationFee:
+        return 'videoConsultationFee';
       case FieldNames.medicalSchoolOfGraduation:
         return 'medicalSchoolOfGraduation';
       case FieldNames.boardCertified:

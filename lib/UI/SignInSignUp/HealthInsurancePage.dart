@@ -26,9 +26,8 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
     var data = context.read<TelemedDataProvider>();
     // if (_formKey.currentState!.validate()) {
     //   _formKey.currentState!.save();
-
-      await data.apiRouteCreateAccount(
-          context: context, userModel: data.selectedUserModel);
+    await data.apiRouteCreateAccount(
+        context: context, userModel: data.selectedUserModel);
     // }
   }
 

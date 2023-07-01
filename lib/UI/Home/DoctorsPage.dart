@@ -7,7 +7,7 @@ import 'package:telemed/settings.dart';
 
 class DoctorsPage extends StatefulWidget {
   const DoctorsPage({Key? key}) : super(key: key);
-  static const String route = '/cadersPage';
+  static const String route = '/doctorsPage';
 
   @override
   DoctorsPageState createState() => DoctorsPageState();

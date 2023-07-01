@@ -344,6 +344,47 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                 ],
                               ),
                             ),
+                            if (data.selectedUserModel.userTypeId ==
+                                TelemedSettings.doctorId)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextFormField(
+                                          initialValue: data.selectedUserModel
+                                              .videoConsultationFee,
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return TelemedStrings
+                                                  .pleaseEnterText;
+                                            }
+                                            if (double.tryParse(value) ==
+                                                null) {
+                                              return TelemedStrings
+                                                  .pleaseEnterNumber;
+                                            }
+                                            return null;
+                                          },
+                                          onChanged: (newValue) {
+                                            data.selectedUserModel
+                                                    .videoConsultationFee =
+                                                newValue;
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: TelemedStrings
+                                                .videoConsultationFee,
+                                            border: const OutlineInputBorder(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(TelemedStrings.phoneNote,
