@@ -6,10 +6,12 @@ part 'SymptomsModel.g.dart';
 class SymptomsModel {
   int? id;
   String? symptom;
+  bool? isSelected;
 
   SymptomsModel({
     this.id,
     this.symptom,
+    required this.isSelected,
   });
 
   factory SymptomsModel.fromJson(Map<String, dynamic> json) =>
@@ -21,6 +23,7 @@ class SymptomsModel {
 enum FieldNames {
   id,
   symptom,
+  isSelected,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -30,6 +33,8 @@ extension FieldNamesExtension on FieldNames {
         return 'id';
       case FieldNames.symptom:
         return 'symptom';
+      case FieldNames.isSelected:
+        return 'isSelected';
     }
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/BookAppointmentPage.dart';
+import 'package:telemed/UI/Home/HealthProfilePage.dart';
 import 'package:telemed/settings.dart';
 
 class DoctorsPage extends StatefulWidget {
@@ -90,7 +90,7 @@ class DoctorsPageState extends State<DoctorsPage>
         onPressed: () {
           Navigator.pushNamed(
             context,
-            BookAppointmentPage.route,
+            HealthProfilePage.route,
           );
         },
         label: Text(TelemedStrings.bookNow),

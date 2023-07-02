@@ -6,10 +6,12 @@ part 'DrugAllergiesModel.g.dart';
 class DrugAllergiesModel {
   int? id;
   String? drugName;
+  bool? isSelected;
 
   DrugAllergiesModel({
     this.id,
     this.drugName,
+    this.isSelected,
   });
 
   factory DrugAllergiesModel.fromJson(Map<String, dynamic> json) =>
@@ -21,6 +23,7 @@ class DrugAllergiesModel {
 enum FieldNames {
   id,
   drugName,
+  isSelected,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -30,6 +33,8 @@ extension FieldNamesExtension on FieldNames {
         return 'id';
       case FieldNames.drugName:
         return 'drugName';
+      case FieldNames.isSelected:
+        return 'isSelected';
     }
   }
 }

@@ -10,11 +10,12 @@ class BookAppointmentsPage extends StatefulWidget {
   static const String route = '/bookAppointmentsPage';
 
   @override
-  BookAppointmentsReasonForVisitPageState createState() => BookAppointmentsReasonForVisitPageState();
+  BookAppointmentsReasonForVisitPageState createState() =>
+      BookAppointmentsReasonForVisitPageState();
 }
 
-class BookAppointmentsReasonForVisitPageState extends State<BookAppointmentsPage>
-    with TickerProviderStateMixin {
+class BookAppointmentsReasonForVisitPageState
+    extends State<BookAppointmentsPage> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
   bool cbHealthConcern = false;
@@ -297,6 +298,30 @@ class BookAppointmentsReasonForVisitPageState extends State<BookAppointmentsPage
                 !cbOtherMedReasons
             ? null
             : () {
+                if (cbHealthConcern) {
+                  data.setSelectedMainReasonForVisit(
+                      selectedMainReasonForVisit:
+                          TelemedStrings.newHealthConcern);
+                }
+                if (cbRoutine) {
+                  data.setSelectedMainReasonForVisit(
+                      selectedMainReasonForVisit:
+                          TelemedStrings.routineCheckup);
+                }
+                if (cbPrescription) {
+                  data.setSelectedMainReasonForVisit(
+                      selectedMainReasonForVisit: TelemedStrings.prescRefills);
+                }
+                if (cbGenMentalHealth) {
+                  data.setSelectedMainReasonForVisit(
+                      selectedMainReasonForVisit:
+                          TelemedStrings.mentalHealthConcern);
+                }
+                if (cbOtherMedReasons) {
+                  data.setSelectedMainReasonForVisit(
+                      selectedMainReasonForVisit:
+                          TelemedStrings.otherMedReason);
+                }
                 Navigator.pushNamed(
                   context,
                   CadersPage.route,

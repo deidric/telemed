@@ -40,6 +40,10 @@ class TelemedDataProvider
     notifyListeners();
   }
 
+  String? _selectedMainReasonForVisit;
+
+  String? get selectedMainReasonForVisit => _selectedMainReasonForVisit;
+
   // User model - Never allow it to become null
   UserModel _selectedUserModel = UserModel();
 
@@ -93,9 +97,18 @@ class TelemedDataProvider
   SurgeriesModel? get selectedSurgeriesModel => _selectedSurgeriesModel;
 
   // Symptoms
-  SymptomsModel? _selectedSymptomsModel = SymptomsModel();
+  SymptomsModel? _selectedSymptomsModel = SymptomsModel(isSelected: false);
 
   SymptomsModel? get selectedSymptomsModel => _selectedSymptomsModel;
+
+  void setSelectedMainReasonForVisitNull() {
+    _selectedMainReasonForVisit = null;
+  }
+
+  void setSelectedMainReasonForVisit(
+      {required String selectedMainReasonForVisit}) {
+    _selectedMainReasonForVisit = selectedMainReasonForVisit;
+  }
 
   void setSelectedDataNull(model, typeOfUserModel) {
     if (model is CaderModel) {

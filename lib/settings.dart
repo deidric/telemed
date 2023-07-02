@@ -9,7 +9,8 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "283f-112-210-228-102.ngrok-free.app";
+  static String authority =
+      "1a9a-2001-4451-8708-8f00-a99a-3c1e-6f8b-9394.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -82,6 +83,8 @@ class TelemedStrings {
   static String time = "Time";
   static String transactions = "Transactions";
   static String videoConsultationFee = "Video consultation fee";
+  static String symptoms = "Symptoms";
+  static String add = "Add";
 
   // Patient Registration
   static String createAccount = "Create an account";
@@ -127,7 +130,8 @@ class TelemedStrings {
   static String medicalSchoolOfGraduationHint =
       "Please list them in the following format:\nSto Tomas - 2023\nLa Salle - 2024";
   static String complaints = "Complaints";
-  static String patientComplaintsHint = "Example: Severe headache, high fever, running nose";
+  static String patientComplaintsHint =
+      "Example: Severe headache, high fever, running nose";
   static String healthInsurance = "Health Insurance";
   static String hInsurance =
       "Search for your heath insurance provider to see if you're cover";
@@ -255,9 +259,19 @@ class TelemedStrings {
       "Please consider any medications you are currently taking, including those taken in a regular basis.";
   static String checkYes = "Yes";
   static String checkNo = "No";
-  static String hpQ3text2 = "List medications below:";
+  static String hpQ3text2 = "List medications here";
+  static String hpQ3text2Hint = "Paracetamol 3mg = 0-0-1";
   static String inputMedication = "";
   static String listHowLong = "How long?";
+  static String typeComplaints = "Type your complaints";
+  static String typeDrugComplaintsHint =
+      "I am allergic to paracetamol because my body is already cold.";
+  static String typeMedicalConditionsComplaintsHint =
+      "I am suffering from insomnia since teenage.";
+  static String typeFamilyMedicalConditionsComplaintsHint =
+      "My grandfather suffers from insomnia.";
+  static String typeSurgeriesComplaintsHint =
+      "I've had a heart surgery in the last year. So, treat me with caution.";
   static String addInputMedication = "Add new medication";
   static String hpQ4 = "Are you allergic to any drugs?";
   static String hpQ5 =
