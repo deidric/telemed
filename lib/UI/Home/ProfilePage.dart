@@ -77,37 +77,6 @@ class ProfilePageState extends State<ProfilePage>
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.settings,
-                          style: Theme.of(context).textTheme.titleMedium!),
-                    ),
-                    ListTile(
-                      title: Text(
-                        TelemedStrings.settings,
-                      ),
-                      isThreeLine: true,
-                      leading: const Icon(Icons.settings),
-                      subtitle: Text(TelemedStrings.configureYourAccount),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: Text(
-                        TelemedStrings.helpAndSupport,
-                      ),
-                      isThreeLine: true,
-                      leading: const Icon(Icons.help),
-                      subtitle: Text(TelemedStrings.configureYourAccount),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: Text(
-                        TelemedStrings.logOut,
-                      ),
-                      isThreeLine: true,
-                      leading: const Icon(Icons.logout),
-                      subtitle: Text(TelemedStrings.securelyLogOut),
-                    ),
                   ],
                 ),
               ],

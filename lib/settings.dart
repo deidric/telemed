@@ -10,7 +10,7 @@ class TelemedSettings {
   // Server details
   // static String authority = "192.168.22.1";
   static String authority =
-      "1a9a-2001-4451-8708-8f00-a99a-3c1e-6f8b-9394.ngrok-free.app";
+      "9aba-112-210-228-102.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -152,7 +152,7 @@ class TelemedStrings {
   static String helpAndSupport = "Help and Support";
   static String logOut = "Help and Support";
   static String securelyLogOut = "Securely logout of the site";
-  static String nextHealthProfileBtn = "Next - Health profile";
+  static String healthProfile = "Health profile";
 
   // Home
   static String greetings = "Greetings";
@@ -185,7 +185,8 @@ class TelemedStrings {
   static String patientLocation = "What is the patient's current location?";
   static String patientConnection =
       "This would help us connect you with the best available licensed Doctor for that location on our platform.";
-  static String reasonOfVisit = "What’s the main reason for your visit?";
+  static String reasonOfVisit = "Reason for your visit";
+  static String whatIsReasonOfVisit = "What’s the main reason for your visit?";
   static String newHealthConcern = "New Health Concern";
   static String findDoctor = "Find a doctor";
   static String routineCheckup = "Routine checkup, Follow-up or Screening";
@@ -280,7 +281,7 @@ class TelemedStrings {
       "Have you had any surgeries? Examples: Appendectomy, Tonsillectomy, Knee replacement.";
   static String hpQ7 =
       "Has anyone in your family had any medical conditions? Please only include first-degree relatives (parents, siblings, and children)";
-  static String nextIsReviewProfile = "Next -- Review Profile >";
+  static String reviewProfile = "Review Profile";
 
   // Review Profile / Display Answers
   static String reviewprofileHeader = "Review Profile";

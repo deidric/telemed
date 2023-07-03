@@ -46,7 +46,7 @@ class BookAppointmentsReasonForVisitPageState
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(TelemedStrings.appointments),
+        title: Text(TelemedStrings.reasonOfVisit),
       ),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
@@ -86,7 +86,7 @@ class BookAppointmentsReasonForVisitPageState
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.reasonOfVisit,
+                      child: Text(TelemedStrings.whatIsReasonOfVisit,
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!

@@ -93,7 +93,7 @@ class DoctorsPageState extends State<DoctorsPage>
             HealthProfilePage.route,
           );
         },
-        label: Text(TelemedStrings.bookNow),
+        label: Text(TelemedStrings.healthProfile),
       ),
     );
   }

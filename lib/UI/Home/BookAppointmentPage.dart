@@ -233,7 +233,7 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
           //   CadersPage.route,
           // );
         },
-        label: Text(TelemedStrings.nextHealthProfileBtn),
+        label: Text(TelemedStrings.healthProfile),
       ),
     );
   }

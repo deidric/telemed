@@ -413,7 +413,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
             BookAppointmentPage.route,
           );
         },
-        label: Text(TelemedStrings.bookNow),
+        label: Text(TelemedStrings.reviewProfile),
       ),
     );
   }
