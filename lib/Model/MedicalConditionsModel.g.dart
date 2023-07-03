@@ -11,7 +11,6 @@ MedicalConditionsModel _$MedicalConditionsModelFromJson(
     MedicalConditionsModel(
       id: json['id'] as int?,
       medicalCondition: json['medicalCondition'] as String?,
-      isSelected: json['isSelected'] as bool?,
     );
 
 Map<String, dynamic> _$MedicalConditionsModelToJson(
@@ -19,5 +18,4 @@ Map<String, dynamic> _$MedicalConditionsModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'medicalCondition': instance.medicalCondition,
-      'isSelected': instance.isSelected,
     };

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
-import 'package:telemed/Model/DrugAllergiesModel.dart';
-import 'package:telemed/Model/MedicalConditionsModel.dart';
-import 'package:telemed/Model/SurgeriesModel.dart';
-import 'package:telemed/Model/SymptomsModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/BookAppointmentPage.dart';
+import 'package:telemed/UI/Home/ReviewProfilePage.dart';
 import 'package:telemed/settings.dart';
 
 class HealthProfilePage extends StatefulWidget {
@@ -40,17 +36,14 @@ class HealthProfilePageState extends State<HealthProfilePage>
     }
     if (mounted) {
       await data.apiRouteMedicalConditions(context: context);
+      data.setData(
+          modelList: data.medicalConditionsModelList,
+          isFamilyMedicalConditions: true);
     }
     if (mounted) {
       await data.apiRouteSurgeries(context: context);
     }
   }
-
-  Set<SymptomsModel> symptomsSet = <SymptomsModel>{};
-  Set<DrugAllergiesModel> drugAllergiesSet = <DrugAllergiesModel>{};
-  Set<MedicalConditionsModel> medicalConditionsSet = <MedicalConditionsModel>{};
-  Set<SurgeriesModel> surgeriesSet = <SurgeriesModel>{};
-  Set<SurgeriesModel> familySurgeriesSet = <SurgeriesModel>{};
 
   @override
   Widget build(BuildContext context) {
@@ -101,9 +94,11 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedUserModel.firstName,
+                          initialValue:
+                              data.selectedHealthProfileModel!.lengthOfFeeling,
                           onChanged: (newValue) {
-                            data.selectedUserModel.firstName = newValue;
+                            data.selectedHealthProfileModel!.lengthOfFeeling =
+                                newValue;
                           },
                           decoration: InputDecoration(
                             labelText: TelemedStrings.hpQ1,
@@ -126,19 +121,21 @@ class HealthProfilePageState extends State<HealthProfilePage>
                               child: FilterChip(
                                 label: Text(
                                     data.symptomsModelList[index].symptom!),
-                                selected: symptomsSet
-                                    .contains(data.symptomsModelList[index]),
+                                selected: data.selectedHealthProfileModel!
+                                    .symptomsModelList!
+                                    .any((element) =>
+                                        element.id ==
+                                        data.symptomsModelList[index].id),
                                 onSelected: (bool isSelected) {
                                   data.symptomsModelList[index].isSelected =
                                       isSelected;
                                   if (isSelected) {
-                                    symptomsSet
-                                        .add(data.symptomsModelList[index]);
+                                    data.addIntoHealthProfileLists(
+                                        model: data.symptomsModelList[index]);
                                   } else {
-                                    symptomsSet
-                                        .remove(data.symptomsModelList[index]);
+                                    data.removeFromHealthProfileLists(
+                                        model: data.symptomsModelList[index]);
                                   }
-                                  setState(() {});
                                 },
                               ),
                             );
@@ -164,9 +161,11 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedUserModel.firstName,
+                          initialValue:
+                              data.selectedHealthProfileModel!.medications,
                           onChanged: (newValue) {
-                            data.selectedUserModel.firstName = newValue;
+                            data.selectedHealthProfileModel!.medications =
+                                newValue;
                           },
                           maxLines: 5,
                           decoration: InputDecoration(
@@ -191,19 +190,21 @@ class HealthProfilePageState extends State<HealthProfilePage>
                               child: FilterChip(
                                 label: Text(data
                                     .drugAllergiesModelList[index].drugName!),
-                                selected: drugAllergiesSet.contains(
-                                    data.drugAllergiesModelList[index]),
+                                selected: data.selectedHealthProfileModel!
+                                    .drugAllergiesModelList!
+                                    .any((element) =>
+                                        element.id ==
+                                        data.drugAllergiesModelList[index].id),
                                 onSelected: (bool isSelected) {
-                                  data.drugAllergiesModelList[index]
-                                      .isSelected = isSelected;
                                   if (isSelected) {
-                                    drugAllergiesSet.add(
-                                        data.drugAllergiesModelList[index]);
+                                    data.addIntoHealthProfileLists(
+                                        model:
+                                            data.drugAllergiesModelList[index]);
                                   } else {
-                                    drugAllergiesSet.remove(
-                                        data.drugAllergiesModelList[index]);
+                                    data.removeFromHealthProfileLists(
+                                        model:
+                                            data.drugAllergiesModelList[index]);
                                   }
-                                  setState(() {});
                                 },
                               ),
                             );
@@ -219,9 +220,11 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedUserModel.firstName,
+                          initialValue: data.selectedHealthProfileModel!
+                              .allergicToDrugsComplaint,
                           onChanged: (newValue) {
-                            data.selectedUserModel.firstName = newValue;
+                            data.selectedHealthProfileModel!
+                                .allergicToDrugsComplaint = newValue;
                           },
                           maxLines: 5,
                           decoration: InputDecoration(
@@ -247,19 +250,22 @@ class HealthProfilePageState extends State<HealthProfilePage>
                                 label: Text(data
                                     .medicalConditionsModelList[index]
                                     .medicalCondition!),
-                                selected: medicalConditionsSet.contains(
-                                    data.medicalConditionsModelList[index]),
+                                selected: data.selectedHealthProfileModel!
+                                    .medicalConditionsModelList!
+                                    .any((element) =>
+                                        element.id ==
+                                        data.medicalConditionsModelList[index]
+                                            .id),
                                 onSelected: (bool isSelected) {
-                                  data.medicalConditionsModelList[index]
-                                      .isSelected = isSelected;
                                   if (isSelected) {
-                                    medicalConditionsSet.add(
-                                        data.medicalConditionsModelList[index]);
+                                    data.addIntoHealthProfileLists(
+                                        model: data
+                                            .medicalConditionsModelList[index]);
                                   } else {
-                                    medicalConditionsSet.remove(
-                                        data.medicalConditionsModelList[index]);
+                                    data.removeFromHealthProfileLists(
+                                        model: data
+                                            .medicalConditionsModelList[index]);
                                   }
-                                  setState(() {});
                                 },
                               ),
                             );
@@ -275,9 +281,11 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedUserModel.firstName,
+                          initialValue: data.selectedHealthProfileModel!
+                              .medicalConditionComplaint,
                           onChanged: (newValue) {
-                            data.selectedUserModel.firstName = newValue;
+                            data.selectedHealthProfileModel!
+                                .medicalConditionComplaint = newValue;
                           },
                           maxLines: 5,
                           decoration: InputDecoration(
@@ -296,26 +304,36 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       ),
                       Wrap(
                         children: List.generate(
-                          data.surgeriesModelList.length,
+                          data.familyMedicalConditionsModelList.length,
                           (index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: FilterChip(
                                 label: Text(data
-                                    .surgeriesModelList[index].surgeryName!),
-                                selected: familySurgeriesSet
-                                    .contains(data.surgeriesModelList[index]),
+                                    .familyMedicalConditionsModelList[index]
+                                    .medicalCondition!),
+                                selected: data.selectedHealthProfileModel!
+                                    .familyMedicalConditionsModelList!
+                                    .any((element) =>
+                                        element.id ==
+                                        data
+                                            .familyMedicalConditionsModelList[
+                                                index]
+                                            .id),
                                 onSelected: (bool isSelected) {
-                                  data.surgeriesModelList[index].isSelected =
-                                      isSelected;
                                   if (isSelected) {
-                                    familySurgeriesSet
-                                        .add(data.surgeriesModelList[index]);
+                                    data.addIntoHealthProfileLists(
+                                        model:
+                                            data.familyMedicalConditionsModelList[
+                                                index],
+                                        isFamilyMedicalConditions: true);
                                   } else {
-                                    familySurgeriesSet
-                                        .remove(data.surgeriesModelList[index]);
+                                    data.removeFromHealthProfileLists(
+                                        model:
+                                            data.familyMedicalConditionsModelList[
+                                                index],
+                                        isFamilyMedicalConditions: true);
                                   }
-                                  setState(() {});
                                 },
                               ),
                             );
@@ -331,15 +349,17 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedUserModel.firstName,
+                          initialValue: data.selectedHealthProfileModel!
+                              .familyMedicalConditionComplaint,
                           onChanged: (newValue) {
-                            data.selectedUserModel.firstName = newValue;
+                            data.selectedHealthProfileModel!
+                                .familyMedicalConditionComplaint = newValue;
                           },
                           maxLines: 5,
                           decoration: InputDecoration(
                             labelText: TelemedStrings.typeComplaints,
-                            hintText:
-                                TelemedStrings.typeFamilyMedicalConditionsComplaintsHint,
+                            hintText: TelemedStrings
+                                .typeFamilyMedicalConditionsComplaintsHint,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.warning),
                           ),
@@ -353,23 +373,24 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Wrap(
                         children: List.generate(
                           data.surgeriesModelList.length,
-                              (index) {
+                          (index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: FilterChip(
                                 label: Text(data
                                     .surgeriesModelList[index].surgeryName!),
-                                selected: surgeriesSet
-                                    .contains(data.surgeriesModelList[index]),
+                                selected: data.selectedHealthProfileModel!
+                                    .surgeriesModelList!
+                                    .any((element) =>
+                                        element.id ==
+                                        data.surgeriesModelList[index].id),
                                 onSelected: (bool isSelected) {
-                                  data.surgeriesModelList[index].isSelected =
-                                      isSelected;
                                   if (isSelected) {
-                                    surgeriesSet
-                                        .add(data.surgeriesModelList[index]);
+                                    data.addIntoHealthProfileLists(
+                                        model: data.surgeriesModelList[index]);
                                   } else {
-                                    surgeriesSet
-                                        .remove(data.surgeriesModelList[index]);
+                                    data.removeFromHealthProfileLists(
+                                        model: data.surgeriesModelList[index]);
                                   }
                                   setState(() {});
                                 },
@@ -387,15 +408,17 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedUserModel.firstName,
+                          initialValue:
+                              data.selectedHealthProfileModel!.surgeryComplaint,
                           onChanged: (newValue) {
-                            data.selectedUserModel.firstName = newValue;
+                            data.selectedHealthProfileModel!.surgeryComplaint =
+                                newValue;
                           },
                           maxLines: 5,
                           decoration: InputDecoration(
                             labelText: TelemedStrings.typeComplaints,
-                            hintText: TelemedStrings
-                                .typeSurgeriesComplaintsHint,
+                            hintText:
+                                TelemedStrings.typeSurgeriesComplaintsHint,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.warning),
                           ),
@@ -410,7 +433,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
         onPressed: () {
           Navigator.pushNamed(
             context,
-            BookAppointmentPage.route,
+            ReviewProfilePage.route,
           );
         },
         label: Text(TelemedStrings.reviewProfile),

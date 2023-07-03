@@ -6,12 +6,10 @@ part 'SurgeriesModel.g.dart';
 class SurgeriesModel {
   int? id;
   String? surgeryName;
-  bool? isSelected;
 
   SurgeriesModel({
     this.id,
     this.surgeryName,
-    this.isSelected,
   });
 
   factory SurgeriesModel.fromJson(Map<String, dynamic> json) =>
@@ -23,7 +21,6 @@ class SurgeriesModel {
 enum FieldNames {
   id,
   surgeryName,
-  isSelected,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -33,8 +30,6 @@ extension FieldNamesExtension on FieldNames {
         return 'id';
       case FieldNames.surgeryName:
         return 'surgeryName';
-      case FieldNames.isSelected:
-        return 'isSelected';
     }
   }
 }

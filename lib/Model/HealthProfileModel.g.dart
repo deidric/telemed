@@ -11,26 +11,33 @@ HealthProfileModel _$HealthProfileModelFromJson(Map<String, dynamic> json) =>
       lengthOfFeeling: json['lengthOfFeeling'] as String?,
       patientId: json['patientId'] as int?,
       caderId: json['caderId'] as int?,
-      dateOfAppointment: json['dateOfAppointment'] as String?,
-      timeOfAppointment: json['timeOfAppointment'] as String?,
+      medications: json['medications'] as String?,
       allergicToDrugsComplaint: json['allergicToDrugsComplaint'] as String?,
       medicalConditionComplaint: json['medicalConditionComplaint'] as String?,
+      familyMedicalConditionComplaint:
+          json['familyMedicalConditionComplaint'] as String?,
       surgeryComplaint: json['surgeryComplaint'] as String?,
       pwdNumber: json['pwdNumber'] as int?,
       paymentReferenceNumber: json['paymentReferenceNumber'] as int?,
-      symptomsModel: (json['symptomsModel'] as List<dynamic>?)
+      symptomsModelList: (json['symptomsModelList'] as List<dynamic>?)
           ?.map((e) => SymptomsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      drugAllergiesModel: (json['drugAllergiesModel'] as List<dynamic>?)
+      drugAllergiesModelList: (json['drugAllergiesModelList'] as List<dynamic>?)
           ?.map((e) => DrugAllergiesModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      medicalConditionsModel: (json['medicalConditionsModel'] as List<dynamic>?)
+      medicalConditionsModelList: (json['medicalConditionsModelList']
+              as List<dynamic>?)
           ?.map(
               (e) => MedicalConditionsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      surgeriesModel: (json['surgeriesModel'] as List<dynamic>?)
+      surgeriesModelList: (json['surgeriesModelList'] as List<dynamic>?)
           ?.map((e) => SurgeriesModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      familyMedicalConditionsModelList:
+          (json['familyMedicalConditionsModelList'] as List<dynamic>?)
+              ?.map((e) =>
+                  MedicalConditionsModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
     );
 
 Map<String, dynamic> _$HealthProfileModelToJson(HealthProfileModel instance) =>
@@ -38,15 +45,18 @@ Map<String, dynamic> _$HealthProfileModelToJson(HealthProfileModel instance) =>
       'lengthOfFeeling': instance.lengthOfFeeling,
       'patientId': instance.patientId,
       'caderId': instance.caderId,
-      'dateOfAppointment': instance.dateOfAppointment,
-      'timeOfAppointment': instance.timeOfAppointment,
+      'medications': instance.medications,
       'allergicToDrugsComplaint': instance.allergicToDrugsComplaint,
       'medicalConditionComplaint': instance.medicalConditionComplaint,
+      'familyMedicalConditionComplaint':
+          instance.familyMedicalConditionComplaint,
       'surgeryComplaint': instance.surgeryComplaint,
       'pwdNumber': instance.pwdNumber,
       'paymentReferenceNumber': instance.paymentReferenceNumber,
-      'symptomsModel': instance.symptomsModel,
-      'drugAllergiesModel': instance.drugAllergiesModel,
-      'medicalConditionsModel': instance.medicalConditionsModel,
-      'surgeriesModel': instance.surgeriesModel,
+      'symptomsModelList': instance.symptomsModelList,
+      'drugAllergiesModelList': instance.drugAllergiesModelList,
+      'medicalConditionsModelList': instance.medicalConditionsModelList,
+      'familyMedicalConditionsModelList':
+          instance.familyMedicalConditionsModelList,
+      'surgeriesModelList': instance.surgeriesModelList,
     };

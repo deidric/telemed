@@ -6,6 +6,7 @@ import 'package:telemed/Model/CaderModel.dart';
 import 'package:telemed/Model/DoctorQualificationsModel.dart';
 import 'package:telemed/Model/DoctorSpecialitiesModel.dart';
 import 'package:telemed/Model/DrugAllergiesModel.dart';
+import 'package:telemed/Model/HealthProfileModel.dart';
 import 'package:telemed/Model/JsendResponseModel.dart';
 import 'package:telemed/Model/MedicalConditionsModel.dart';
 import 'package:telemed/Model/SurgeriesModel.dart';
@@ -101,6 +102,17 @@ class TelemedDataProvider
 
   SymptomsModel? get selectedSymptomsModel => _selectedSymptomsModel;
 
+  // Health profile
+  HealthProfileModel? _selectedHealthProfileModel = HealthProfileModel(
+      surgeriesModelList: [],
+      drugAllergiesModelList: [],
+      medicalConditionsModelList: [],
+      familyMedicalConditionsModelList: [],
+      symptomsModelList: []);
+
+  HealthProfileModel? get selectedHealthProfileModel =>
+      _selectedHealthProfileModel;
+
   void setSelectedMainReasonForVisitNull() {
     _selectedMainReasonForVisit = null;
   }
@@ -138,6 +150,9 @@ class TelemedDataProvider
     if (model is SymptomsModel) {
       _selectedSymptomsModel = null;
     }
+    if (model is HealthProfileModel) {
+      _selectedHealthProfileModel = null;
+    }
     notifyListeners();
   }
 
@@ -168,6 +183,9 @@ class TelemedDataProvider
     }
     if (model is SymptomsModel) {
       _selectedSymptomsModel = model;
+    }
+    if (model is HealthProfileModel) {
+      _selectedHealthProfileModel = model;
     }
     notifyListeners();
   }
@@ -222,6 +240,15 @@ class TelemedDataProvider
   List<MedicalConditionsModel> get filteredMedicalConditionsModelList =>
       _filteredMedicalConditionsModelList;
 
+  List<MedicalConditionsModel> _familyMedicalConditionsModelList = [];
+  List<MedicalConditionsModel> _filteredFamilyMedicalConditionsModelList = [];
+
+  List<MedicalConditionsModel> get familyMedicalConditionsModelList =>
+      _familyMedicalConditionsModelList;
+
+  List<MedicalConditionsModel> get filteredFamilyMedicalConditionsModelList =>
+      _filteredFamilyMedicalConditionsModelList;
+
   List<SurgeriesModel> _surgeriesModelList = [];
   List<SurgeriesModel> _filteredSurgeriesModelList = [];
 
@@ -238,7 +265,52 @@ class TelemedDataProvider
   List<SymptomsModel> get filteredSymptomsModelList =>
       _filteredSymptomsModelList;
 
-  void setData({required modelList}) {
+  void addIntoHealthProfileLists(
+      {required model, bool isFamilyMedicalConditions = false}) {
+    if (model is SymptomsModel) {
+      _selectedHealthProfileModel!.symptomsModelList!.add(model);
+    }
+    if (model is DrugAllergiesModel) {
+      _selectedHealthProfileModel!.drugAllergiesModelList!.add(model);
+    }
+    if (model is MedicalConditionsModel && !isFamilyMedicalConditions) {
+      _selectedHealthProfileModel!.medicalConditionsModelList!.add(model);
+    }
+    if (model is SurgeriesModel) {
+      _selectedHealthProfileModel!.surgeriesModelList!.add(model);
+    }
+    if (model is MedicalConditionsModel && isFamilyMedicalConditions) {
+      _selectedHealthProfileModel!.familyMedicalConditionsModelList!.add(model);
+    }
+    notifyListeners();
+  }
+
+  void removeFromHealthProfileLists(
+      {required model, bool isFamilyMedicalConditions = false}) {
+    if (model is SymptomsModel) {
+      _selectedHealthProfileModel!.symptomsModelList!
+          .removeWhere((element) => element.id == model.id);
+    }
+    if (model is DrugAllergiesModel) {
+      _selectedHealthProfileModel!.drugAllergiesModelList!
+          .removeWhere((element) => element.id == model.id);
+    }
+    if (model is MedicalConditionsModel && !isFamilyMedicalConditions) {
+      _selectedHealthProfileModel!.medicalConditionsModelList!
+          .removeWhere((element) => element.id == model.id);
+    }
+    if (model is SurgeriesModel) {
+      _selectedHealthProfileModel!.surgeriesModelList!
+          .removeWhere((element) => element.id == model.id);
+    }
+    if (model is MedicalConditionsModel && isFamilyMedicalConditions) {
+      _selectedHealthProfileModel!.familyMedicalConditionsModelList!
+          .removeWhere((element) => element.id == model.id);
+    }
+    notifyListeners();
+  }
+
+  void setData({required modelList, bool isFamilyMedicalConditions = false}) {
     if (modelList is List<CaderModel>) {
       _caderModelList = modelList;
       _filteredCaderModelList = modelList;
@@ -253,30 +325,43 @@ class TelemedDataProvider
       _doctorQualificationsModelList = modelList;
       _filteredDoctorQualificationsModelList = modelList;
     }
+
     if (modelList is List<DoctorSpecialitiesModel>) {
       _doctorSpecialitiesModelList = modelList;
       _filteredDoctorSpecialitiesModelList = modelList;
     }
+
     if (modelList is List<DrugAllergiesModel>) {
       _drugAllergiesModelList = modelList;
       _filteredDrugAllergiesModelList = modelList;
     }
+
     if (modelList is List<MedicalConditionsModel>) {
       _medicalConditionsModelList = modelList;
       _filteredMedicalConditionsModelList = modelList;
     }
+
     if (modelList is List<SurgeriesModel>) {
       _surgeriesModelList = modelList;
       _filteredSurgeriesModelList = modelList;
     }
+
     if (modelList is List<SymptomsModel>) {
       _symptomsModelList = modelList;
       _filteredSymptomsModelList = modelList;
     }
+
+    if (modelList is List<MedicalConditionsModel> &&
+        isFamilyMedicalConditions) {
+      _familyMedicalConditionsModelList = modelList;
+      _filteredFamilyMedicalConditionsModelList = modelList;
+    }
+
     notifyListeners();
   }
 
-  void updateFilteredData({required modelList}) {
+  void updateFilteredData(
+      {required modelList, bool isFamilyMedicalConditions = false}) {
     if (modelList is List<CaderModel>) {
       _filteredCaderModelList = modelList;
     }
@@ -300,6 +385,10 @@ class TelemedDataProvider
     }
     if (modelList is List<SymptomsModel>) {
       _filteredSymptomsModelList = modelList;
+    }
+    if (modelList is List<MedicalConditionsModel> &&
+        isFamilyMedicalConditions) {
+      _filteredFamilyMedicalConditionsModelList = modelList;
     }
     notifyListeners();
   }

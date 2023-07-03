@@ -7,6 +7,7 @@ import 'package:telemed/UI/Home/BookAppointmentPage.dart';
 import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
 import 'package:telemed/UI/Home/CadersPage.dart';
 import 'package:telemed/UI/Home/HealthProfilePage.dart';
+import 'package:telemed/UI/Home/ReviewProfilePage.dart';
 import 'package:telemed/UI/OnboardingPage.dart';
 import 'package:telemed/UI/SignInSignUp/BasicInformationPage.dart';
 import 'package:telemed/UI/SignInSignUp/HealthInsurancePage.dart';
@@ -63,6 +64,7 @@ class _MyAppState extends State<MyApp> {
         CadersPage.route: (context) => const CadersPage(),
         BookAppointmentPage.route: (context) => const BookAppointmentPage(),
         HealthProfilePage.route: (context) => const HealthProfilePage(),
+        ReviewProfilePage.route: (context) => const ReviewProfilePage(),
       },
     );
   }

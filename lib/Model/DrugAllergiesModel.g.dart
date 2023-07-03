@@ -10,12 +10,10 @@ DrugAllergiesModel _$DrugAllergiesModelFromJson(Map<String, dynamic> json) =>
     DrugAllergiesModel(
       id: json['id'] as int?,
       drugName: json['drugName'] as String?,
-      isSelected: json['isSelected'] as bool?,
     );
 
 Map<String, dynamic> _$DrugAllergiesModelToJson(DrugAllergiesModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'drugName': instance.drugName,
-      'isSelected': instance.isSelected,
     };

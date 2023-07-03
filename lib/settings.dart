@@ -85,6 +85,11 @@ class TelemedStrings {
   static String videoConsultationFee = "Video consultation fee";
   static String symptoms = "Symptoms";
   static String add = "Add";
+  static String medications = "Medications";
+  static String drugAllergies = "Drug allergies";
+  static String medicalConditions = "Medical conditions";
+  static String familyMedicalConditions = "Family medical conditions";
+  static String surgeries = "Surgeries";
 
   // Patient Registration
   static String createAccount = "Create an account";
