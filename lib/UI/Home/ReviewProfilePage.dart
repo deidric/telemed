@@ -97,7 +97,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                           children: [
                             ListTile(
                               title: Text(
-                                data.selectedHealthProfileModel!.medications!,
+                                data.selectedHealthProfileModel!.medications ==
+                                        null
+                                    ? ""
+                                    : data.selectedHealthProfileModel!
+                                        .medications!,
                               ),
                             ),
                           ],
@@ -129,7 +133,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .titleSmall!),
                                   Text(
                                     data.selectedHealthProfileModel!
-                                        .allergicToDrugsComplaint!,
+                                                .allergicToDrugsComplaint ==
+                                            null
+                                        ? ""
+                                        : data.selectedHealthProfileModel!
+                                            .allergicToDrugsComplaint!,
                                   ),
                                 ],
                               ),
@@ -161,7 +169,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .titleSmall!),
                                   Text(
                                     data.selectedHealthProfileModel!
-                                        .medicalConditionComplaint!,
+                                                .medicalConditionComplaint ==
+                                            null
+                                        ? ""
+                                        : data.selectedHealthProfileModel!
+                                            .medicalConditionComplaint!,
                                   ),
                                 ],
                               ),
@@ -193,7 +205,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .titleSmall!),
                                   Text(
                                     data.selectedHealthProfileModel!
-                                        .familyMedicalConditionComplaint!,
+                                                .familyMedicalConditionComplaint ==
+                                            null
+                                        ? ""
+                                        : data.selectedHealthProfileModel!
+                                            .medicalConditionComplaint!,
                                   ),
                                 ],
                               ),
@@ -225,7 +241,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .titleSmall!),
                                   Text(
                                     data.selectedHealthProfileModel!
-                                        .surgeryComplaint!,
+                                                .surgeryComplaint ==
+                                            null
+                                        ? ""
+                                        : data.selectedHealthProfileModel!
+                                            .surgeryComplaint!,
                                   ),
                                 ],
                               ),
@@ -238,11 +258,16 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                 ],
               )),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
+        onPressed: () async {
+          data.selectedHealthProfileModel!.caderId =
+              data.selectedCaderModel!.id;
           // Navigator.pushNamed(
           //   context,
           //   CadersPage.route,
           // );
+          await data.apiRouteCreateHealthProfile(
+              context: context,
+              healthProfileModel: data.selectedHealthProfileModel!);
         },
         label: Text(TelemedStrings.bookNow),
       ),

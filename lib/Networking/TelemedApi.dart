@@ -1,3 +1,4 @@
+import 'package:telemed/Model/HealthProfileModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 
 class TelemedApi {
@@ -21,6 +22,9 @@ class TelemedApi {
   apiRouteDrugAllergies({required context}) {}
 
   apiRouteSurgeries({required context}) {}
+
+  apiRouteCreateHealthProfile(
+      {required context, required HealthProfileModel healthProfileModel}) {}
 }
 
 class TelemedApiRoutes {
@@ -51,4 +55,7 @@ class TelemedApiRoutes {
 
   // Surgeries
   static const String apiRouteSurgeries = '/surgeries';
+
+  // Create health profile
+  static const String apiRouteCreateHealthProfile = '/createHealthProfile';
 }

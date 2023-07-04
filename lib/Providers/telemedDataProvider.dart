@@ -710,4 +710,15 @@ class TelemedDataProvider
       apiRoute: TelemedApiRoutes.apiRouteSymptoms,
     );
   }
+
+  @override
+  apiRouteCreateHealthProfile(
+      {required context,
+      required HealthProfileModel healthProfileModel}) async {
+    await _apiCreateOrUpdate(
+        context: context,
+        token: selectedUserModel.token,
+        apiRoute: TelemedApiRoutes.apiRouteCreateHealthProfile,
+        model: healthProfileModel);
+  }
 }

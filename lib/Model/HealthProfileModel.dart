@@ -16,8 +16,6 @@ class HealthProfileModel {
   String? medicalConditionComplaint;
   String? familyMedicalConditionComplaint;
   String? surgeryComplaint;
-  int? pwdNumber;
-  int? paymentReferenceNumber;
   List<SymptomsModel>? symptomsModelList;
   List<DrugAllergiesModel>? drugAllergiesModelList;
   List<MedicalConditionsModel>? medicalConditionsModelList;
@@ -33,8 +31,6 @@ class HealthProfileModel {
     this.medicalConditionComplaint,
     this.familyMedicalConditionComplaint,
     this.surgeryComplaint,
-    this.pwdNumber,
-    this.paymentReferenceNumber,
     this.symptomsModelList,
     this.drugAllergiesModelList,
     this.medicalConditionsModelList,
@@ -57,8 +53,6 @@ enum FieldNames {
   medicalConditionComplaint,
   familyMedicalConditionComplaint,
   surgeryComplaint,
-  pwdNumber,
-  paymentReferenceNumber,
   symptomsModelList,
   drugAllergiesModelList,
   medicalConditionsModelList,
@@ -85,10 +79,6 @@ extension FieldNamesExtension on FieldNames {
         return 'familyMedicalConditionComplaint';
       case FieldNames.surgeryComplaint:
         return 'surgeryComplaint';
-      case FieldNames.pwdNumber:
-        return 'pwdNumber';
-      case FieldNames.paymentReferenceNumber:
-        return 'paymentReferenceNumber';
       case FieldNames.symptomsModelList:
         return 'symptomsModelList';
       case FieldNames.drugAllergiesModelList:
