@@ -31,11 +31,11 @@ HealthProfileModel _$HealthProfileModelFromJson(Map<String, dynamic> json) =>
       surgeriesModelList: (json['surgeriesModelList'] as List<dynamic>?)
           ?.map((e) => SurgeriesModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      familyMedicalConditionsModelList:
-          (json['familyMedicalConditionsModelList'] as List<dynamic>?)
-              ?.map((e) =>
-                  MedicalConditionsModel.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      famMedicalConditionsModelList: (json['famMedicalConditionsModelList']
+              as List<dynamic>?)
+          ?.map(
+              (e) => MedicalConditionsModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$HealthProfileModelToJson(HealthProfileModel instance) =>
@@ -52,7 +52,6 @@ Map<String, dynamic> _$HealthProfileModelToJson(HealthProfileModel instance) =>
       'symptomsModelList': instance.symptomsModelList,
       'drugAllergiesModelList': instance.drugAllergiesModelList,
       'medicalConditionsModelList': instance.medicalConditionsModelList,
-      'familyMedicalConditionsModelList':
-          instance.familyMedicalConditionsModelList,
+      'famMedicalConditionsModelList': instance.famMedicalConditionsModelList,
       'surgeriesModelList': instance.surgeriesModelList,
     };

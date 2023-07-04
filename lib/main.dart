@@ -60,7 +60,8 @@ class _MyAppState extends State<MyApp> {
         BasicInformationPage.route: (context) => const BasicInformationPage(),
         HealthInsurancePage.route: (context) => const HealthInsurancePage(),
         BasePage.route: (context) => const BasePage(),
-        BookAppointmentsPage.route: (context) => const BookAppointmentsPage(),
+        BookAppointmentsReasonForVisitPage.route: (context) =>
+            const BookAppointmentsReasonForVisitPage(),
         CadersPage.route: (context) => const CadersPage(),
         BookAppointmentPage.route: (context) => const BookAppointmentPage(),
         HealthProfilePage.route: (context) => const HealthProfilePage(),

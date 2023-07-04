@@ -192,7 +192,7 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                           children: [
                             ListTile(
                               title: Text(data.selectedHealthProfileModel!
-                                  .familyMedicalConditionsModelList!
+                                  .famMedicalConditionsModelList!
                                   .map((e) => e.medicalCondition)
                                   .toList()
                                   .join(", ")),

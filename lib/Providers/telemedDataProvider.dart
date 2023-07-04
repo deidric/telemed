@@ -16,6 +16,7 @@ import 'package:telemed/Networking/APIJsend.dart';
 import 'package:telemed/Networking/APIManager.dart';
 import 'package:telemed/Networking/TelemedApi.dart';
 import 'package:telemed/UI/Home/BasePage.dart';
+import 'package:telemed/UI/Home/BookAppointmentPage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
@@ -107,7 +108,7 @@ class TelemedDataProvider
       surgeriesModelList: [],
       drugAllergiesModelList: [],
       medicalConditionsModelList: [],
-      familyMedicalConditionsModelList: [],
+      famMedicalConditionsModelList: [],
       symptomsModelList: []);
 
   HealthProfileModel? get selectedHealthProfileModel =>
@@ -280,7 +281,7 @@ class TelemedDataProvider
       _selectedHealthProfileModel!.surgeriesModelList!.add(model);
     }
     if (model is MedicalConditionsModel && isFamilyMedicalConditions) {
-      _selectedHealthProfileModel!.familyMedicalConditionsModelList!.add(model);
+      _selectedHealthProfileModel!.famMedicalConditionsModelList!.add(model);
     }
     notifyListeners();
   }
@@ -304,7 +305,7 @@ class TelemedDataProvider
           .removeWhere((element) => element.id == model.id);
     }
     if (model is MedicalConditionsModel && isFamilyMedicalConditions) {
-      _selectedHealthProfileModel!.familyMedicalConditionsModelList!
+      _selectedHealthProfileModel!.famMedicalConditionsModelList!
           .removeWhere((element) => element.id == model.id);
     }
     notifyListeners();
@@ -558,6 +559,15 @@ class TelemedDataProvider
               context,
               MaterialPageRoute(
                   settings: settings, builder: (context) => const SignInPage()),
+              (route) => false);
+        } else if (apiRoute == TelemedApiRoutes.apiRouteCreateHealthProfile) {
+          RouteSettings settings =
+              const RouteSettings(name: SignInPage.route, arguments: '');
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  settings: settings,
+                  builder: (context) => const BookAppointmentPage()),
               (route) => false);
         } else {
           Navigator.pop(context, true);

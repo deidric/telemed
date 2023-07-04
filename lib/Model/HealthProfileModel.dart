@@ -19,7 +19,7 @@ class HealthProfileModel {
   List<SymptomsModel>? symptomsModelList;
   List<DrugAllergiesModel>? drugAllergiesModelList;
   List<MedicalConditionsModel>? medicalConditionsModelList;
-  List<MedicalConditionsModel>? familyMedicalConditionsModelList;
+  List<MedicalConditionsModel>? famMedicalConditionsModelList;
   List<SurgeriesModel>? surgeriesModelList;
 
   HealthProfileModel({
@@ -35,7 +35,7 @@ class HealthProfileModel {
     this.drugAllergiesModelList,
     this.medicalConditionsModelList,
     this.surgeriesModelList,
-    this.familyMedicalConditionsModelList,
+    this.famMedicalConditionsModelList,
   });
 
   factory HealthProfileModel.fromJson(Map<String, dynamic> json) =>

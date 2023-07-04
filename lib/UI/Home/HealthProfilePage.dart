@@ -313,7 +313,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
                                     .familyMedicalConditionsModelList[index]
                                     .medicalCondition!),
                                 selected: data.selectedHealthProfileModel!
-                                    .familyMedicalConditionsModelList!
+                                    .famMedicalConditionsModelList!
                                     .any((element) =>
                                         element.id ==
                                         data

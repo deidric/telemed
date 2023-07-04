@@ -90,7 +90,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      BookAppointmentsPage.route,
+                      BookAppointmentsReasonForVisitPage.route,
                     );
                   },
                 ),

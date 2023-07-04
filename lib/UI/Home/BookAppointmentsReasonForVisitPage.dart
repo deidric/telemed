@@ -5,9 +5,9 @@ import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/Home/CadersPage.dart';
 import 'package:telemed/settings.dart';
 
-class BookAppointmentsPage extends StatefulWidget {
-  const BookAppointmentsPage({Key? key}) : super(key: key);
-  static const String route = '/bookAppointmentsPage';
+class BookAppointmentsReasonForVisitPage extends StatefulWidget {
+  const BookAppointmentsReasonForVisitPage({Key? key}) : super(key: key);
+  static const String route = '/bookAppointmentsReasonForVisitPage';
 
   @override
   BookAppointmentsReasonForVisitPageState createState() =>
@@ -15,7 +15,8 @@ class BookAppointmentsPage extends StatefulWidget {
 }
 
 class BookAppointmentsReasonForVisitPageState
-    extends State<BookAppointmentsPage> with TickerProviderStateMixin {
+    extends State<BookAppointmentsReasonForVisitPage>
+    with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
   bool cbHealthConcern = false;
