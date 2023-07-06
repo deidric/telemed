@@ -73,6 +73,37 @@ class DialogUtils {
     );
   }
 
+  static Future<bool?> displayDialogOKforAppointScheduledCallBack(
+      BuildContext context, String title, String message) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Image.asset(
+                TelemedImage.logoImage,
+                width: 24,
+                height: 24,
+              ),
+            ),
+            Text(title),
+          ]),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text(TelemedStrings.ok.toUpperCase()),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static Future<bool?> displayDialogOKCallBackAuthDialog(
       BuildContext context, String title, String message) async {
     return await showDialog<bool>(

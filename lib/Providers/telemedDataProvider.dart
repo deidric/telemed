@@ -2,6 +2,8 @@ import 'dart:convert' as convert;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:telemed/Model/AppointmentModel.dart';
 import 'package:telemed/Model/CaderModel.dart';
 import 'package:telemed/Model/DoctorQualificationsModel.dart';
 import 'package:telemed/Model/DoctorSpecialitiesModel.dart';
@@ -17,6 +19,7 @@ import 'package:telemed/Networking/APIManager.dart';
 import 'package:telemed/Networking/TelemedApi.dart';
 import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/Home/BookAppointmentPage.dart';
+import 'package:telemed/UI/Home/HomePage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
@@ -114,6 +117,11 @@ class TelemedDataProvider
   HealthProfileModel? get selectedHealthProfileModel =>
       _selectedHealthProfileModel;
 
+  // Appointments
+  AppointmentModel? _selectedAppointmentModel = AppointmentModel();
+
+  AppointmentModel? get selectedAppointmentModel => _selectedAppointmentModel;
+
   void setSelectedMainReasonForVisitNull() {
     _selectedMainReasonForVisit = null;
   }
@@ -154,6 +162,9 @@ class TelemedDataProvider
     if (model is HealthProfileModel) {
       _selectedHealthProfileModel = null;
     }
+    if (model is AppointmentModel) {
+      _selectedAppointmentModel = null;
+    }
     notifyListeners();
   }
 
@@ -187,6 +198,9 @@ class TelemedDataProvider
     }
     if (model is HealthProfileModel) {
       _selectedHealthProfileModel = model;
+    }
+    if (model is AppointmentModel) {
+      _selectedAppointmentModel = model;
     }
     notifyListeners();
   }
@@ -265,6 +279,14 @@ class TelemedDataProvider
 
   List<SymptomsModel> get filteredSymptomsModelList =>
       _filteredSymptomsModelList;
+
+  List<AppointmentModel> _appointmentModelList = [];
+  List<AppointmentModel> _filteredAppointmentModelList = [];
+
+  List<AppointmentModel> get appointmentModelList => _appointmentModelList;
+
+  List<AppointmentModel> get filteredAppointmentModelList =>
+      _filteredAppointmentModelList;
 
   void addIntoHealthProfileLists(
       {required model, bool isFamilyMedicalConditions = false}) {
@@ -358,6 +380,11 @@ class TelemedDataProvider
       _filteredFamilyMedicalConditionsModelList = modelList;
     }
 
+    if (modelList is List<AppointmentModel>) {
+      _appointmentModelList = modelList;
+      _filteredAppointmentModelList = modelList;
+    }
+
     notifyListeners();
   }
 
@@ -390,6 +417,9 @@ class TelemedDataProvider
     if (modelList is List<MedicalConditionsModel> &&
         isFamilyMedicalConditions) {
       _filteredFamilyMedicalConditionsModelList = modelList;
+    }
+    if (modelList is List<AppointmentModel>) {
+      _filteredAppointmentModelList = modelList;
     }
     notifyListeners();
   }
@@ -527,6 +557,14 @@ class TelemedDataProvider
           list.add(model);
         }
         break;
+      case TelemedApiRoutes.apiRouteCreateAppointment:
+        list = List<AppointmentModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          AppointmentModel model =
+              AppointmentModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
     }
     setData(modelList: list);
   }
@@ -569,6 +607,33 @@ class TelemedDataProvider
                   settings: settings,
                   builder: (context) => const BookAppointmentPage()),
               (route) => false);
+        } else if (apiRoute == TelemedApiRoutes.apiRouteCreateAppointment) {
+          var result =
+              await DialogUtils.displayDialogOKforAppointScheduledCallBack(
+                  context,
+                  TelemedStrings.appointmentConfirmed,
+                  TelemedStrings.appointmentConfirmationDialogMessage +
+                      "\n" +
+                      selectedDoctorModel!.firstName! +
+                      " " +
+                      selectedDoctorModel!.lastName! +
+                      "\n" +
+                      selectedAppointmentModel!.timeOfAppointment! +
+                      " " +
+                      TelemedStrings.at +
+                      " " +
+                      TelemedSettings.dateFormat.format(DateFormat("yyyy-MM-dd")
+                          .parse(
+                              selectedAppointmentModel!.dateOfAppointment!)));
+          if (result != null && result) {
+            RouteSettings settings =
+                const RouteSettings(name: SignInPage.route, arguments: '');
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    settings: settings, builder: (context) => const BasePage()),
+                (route) => false);
+          }
         } else {
           Navigator.pop(context, true);
         }
@@ -730,5 +795,15 @@ class TelemedDataProvider
         token: selectedUserModel.token,
         apiRoute: TelemedApiRoutes.apiRouteCreateHealthProfile,
         model: healthProfileModel);
+  }
+
+  @override
+  apiRouteCreateAppointment(
+      {required context, required AppointmentModel appointmentModel}) async {
+    await _apiCreateOrUpdate(
+        context: context,
+        token: selectedUserModel.token,
+        apiRoute: TelemedApiRoutes.apiRouteCreateAppointment,
+        model: appointmentModel);
   }
 }

@@ -9,7 +9,7 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "9849-209-35-163-33.ngrok-free.app";
+  static String authority = "9f71-112-204-163-189.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -23,6 +23,8 @@ class TelemedSettings {
 
   //
 
+  static String costOfVideoConsultation = "₱1000";
+
   static int doctorId = 2;
   static int patientId = 3;
 
@@ -30,6 +32,7 @@ class TelemedSettings {
   static String lightMode = "lightMode";
 
   static DateFormat dateFormat = DateFormat("dd-MM-yyyy");
+  static DateFormat timeFormat = DateFormat("h:mm a");
   static DateFormat timeDateFormat = DateFormat("h:mm:ss a dd-MM-yyyy");
   static DateFormat timeDateFormatDateFirst =
       DateFormat("dd-MM-yyyy h:mm:ss a");
@@ -128,6 +131,7 @@ class TelemedStrings {
   static String male = "Male";
   static String female = "Female";
   static String phoneNumber = "Phone Number";
+  static String doctorsPhoneNumber = "Doctor's Phone Number";
   static String phoneNote =
       "By providing your mobile number you give us permission to contact you via text.";
   static String medicalSchoolOfGraduation = "Medical school of graduation";
@@ -165,6 +169,7 @@ class TelemedStrings {
   static String scheduledAppointments =
       "You currently don't have an appointment scheduled."; //this will direct the patient user to the Calendar only if they have an appointment booked. if not, they will direct to booking page
   static String bookNow = "Book an appointment today!";
+  static String bookAnAppointment = "Book an appointment";
   static String generalNeeds = "For General Needs";
   static String generalNeedsChoosePrimary =
       "Choose a Primary Care Doctor and complete your first video appointment.";
@@ -295,6 +300,12 @@ class TelemedStrings {
   static String answerhpQ1 = "";
   static String change = "Change";
   static String answer = "";
+  static String pwdIDnumber = "PWD ID No.";
+  static String pwdIDExpirationDate = "PWD No. Expiration Date";
+  static String paymentReferenceNumber = "Payment reference Number";
+  static String appointmentConfirmed = "Appointment confirmed";
+  static String at = "At";
+  static String appointmentConfirmationDialogMessage = "Your upcoming virtual meeting has been scheduled with ";
 }
 
 class TelemedImage {

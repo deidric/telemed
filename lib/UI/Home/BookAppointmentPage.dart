@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
@@ -86,7 +87,7 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                                "- ${TelemedStrings.videoConsultationFee} - ",
+                                "- ${TelemedStrings.videoConsultationFee} - (${TelemedSettings.costOfVideoConsultation})",
                                 style: Theme.of(context).textTheme.bodyMedium!),
                           ),
                           Padding(
@@ -106,50 +107,46 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            ElevatedButton(
-                              onPressed: () async {
-                                await showDatePicker(
-                                  context: context,
-                                  initialDate: data.selectedUserModel
-                                              .currentMedicalLicenseNumberDateIssued ==
-                                          null
-                                      ? DateTime.now()
-                                      : DateFormat("yyyy-MM-dd").parse(data
-                                          .selectedUserModel
-                                          .currentMedicalLicenseNumberDateIssued!),
-                                  firstDate: TelemedSettings.startDate,
-                                  lastDate: TelemedSettings.endDate,
-                                ).then((selectedDate) {
-                                  if (selectedDate != null) {
-                                    setState(() {
-                                      data.selectedUserModel
-                                              .currentMedicalLicenseNumberDateIssued =
-                                          selectedDate.toIso8601String();
-                                    });
-                                  }
-                                });
-                              },
-                              child: Text(TelemedStrings.date),
-                            ),
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8.0, bottom: 16.0),
-                              child: data.selectedUserModel
-                                          .currentMedicalLicenseNumberDateIssued ==
-                                      null
-                                  ? Text('',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge)
-                                  : Text(
-                                      TelemedSettings.dateFormat.format(
-                                          DateFormat("yyyy-MM-dd").parse(data
-                                              .selectedUserModel
-                                              .currentMedicalLicenseNumberDateIssued!)),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge),
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await showDatePicker(
+                                    context: context,
+                                    initialDate: data.selectedAppointmentModel!
+                                                .dateOfAppointment ==
+                                            null
+                                        ? DateTime.now()
+                                        : DateFormat("yyyy-MM-dd").parse(data
+                                            .selectedAppointmentModel!
+                                            .dateOfAppointment!),
+                                    firstDate: TelemedSettings.startDate,
+                                    lastDate: TelemedSettings.endDate,
+                                  ).then((selectedDate) {
+                                    if (selectedDate != null) {
+                                      setState(() {
+                                        data.selectedAppointmentModel!
+                                                .dateOfAppointment =
+                                            selectedDate.toIso8601String();
+                                      });
+                                    }
+                                  });
+                                },
+                                child: Text(TelemedStrings.date),
+                              ),
                             ),
+                            data.selectedAppointmentModel!.dateOfAppointment ==
+                                    null
+                                ? Text('',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge)
+                                : Text(
+                                    TelemedSettings.dateFormat.format(
+                                        DateFormat("yyyy-MM-dd").parse(data
+                                            .selectedAppointmentModel!
+                                            .dateOfAppointment!)),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge),
                           ],
                         ),
                       ),
@@ -157,45 +154,66 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            ElevatedButton(
-                              onPressed: () async {
-                                await showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                ).then((selectedDate) {
-                                  if (selectedDate != null) {
-                                    setState(() {
-                                      // data.selectedUserModel
-                                      //     .currentMedicalLicenseNumberDateIssued =
-                                      //     selectedDate
-                                      //         .toIso8601String();
-                                    });
-                                  }
-                                });
-                              },
-                              child: Text(TelemedStrings.time),
-                            ),
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8.0, bottom: 16.0),
-                              child: data.selectedUserModel
-                                          .currentMedicalLicenseNumberDateIssued ==
-                                      null
-                                  ? Text('',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge)
-                                  : Text(
-                                      TelemedSettings.dateFormat.format(
-                                          DateFormat("yyyy-MM-dd").parse(data
-                                              .selectedUserModel
-                                              .currentMedicalLicenseNumberDateIssued!)),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge),
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await showTimePicker(
+                                    context: context,
+                                    initialTime: data.selectedAppointmentModel!
+                                                .timeOfAppointment ==
+                                            null
+                                        ? TimeOfDay.now()
+                                        : TimeOfDay.fromDateTime(
+                                            DateFormat("h:mm a").parse(data
+                                                .selectedAppointmentModel!
+                                                .timeOfAppointment!)),
+                                  ).then((selectedTime) {
+                                    if (selectedTime != null) {
+                                      setState(() {
+                                        data.selectedAppointmentModel!
+                                                .timeOfAppointment =
+                                            selectedTime.format(context);
+                                      });
+                                    }
+                                  });
+                                },
+                                child: Text(TelemedStrings.time),
+                              ),
                             ),
+                            data.selectedAppointmentModel!.timeOfAppointment ==
+                                    null
+                                ? Text('',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge)
+                                : Text(
+                                    data.selectedAppointmentModel!
+                                        .timeOfAppointment!,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge),
                           ],
                         ),
+                      ),
+                      const Divider(),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                                "${TelemedStrings.doctorsPhoneNumber} : ",
+                                style: Theme.of(context).textTheme.bodyMedium!),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.phone),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: data.selectedUserModel.phone == null
+                                ? const SelectableText("")
+                                : SelectableText(data.selectedUserModel.phone!),
+                          ),
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -208,17 +226,119 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                           },
                           maxLines: 5,
                           initialValue:
-                              data.selectedUserModel.medicalSchoolOfGraduation,
+                              data.selectedAppointmentModel!.complaint,
                           onChanged: (newValue) {
-                            data.selectedUserModel.medicalSchoolOfGraduation =
-                                newValue;
+                            data.selectedAppointmentModel!.complaint = newValue;
                           },
                           decoration: InputDecoration(
                             labelText: TelemedStrings.complaints,
-                            hintText:
-                                TelemedStrings.patientComplaintsHint,
+                            hintText: TelemedStrings.patientComplaintsHint,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.notes),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return TelemedStrings.pleaseEnterText;
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            // for below version 2 use this
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                            // for version 2 and greater youcan also use this
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          initialValue:
+                              data.selectedAppointmentModel!.pwdIdNumber == null
+                                  ? ""
+                                  : data.selectedAppointmentModel!.pwdIdNumber
+                                      .toString(),
+                          onChanged: (newValue) {
+                            data.selectedAppointmentModel!.pwdIdNumber =
+                                int.tryParse(newValue);
+                          },
+                          decoration: InputDecoration(
+                            labelText: TelemedStrings.pwdIDnumber,
+                            hintText: TelemedStrings.pwdIDnumber,
+                            border: const OutlineInputBorder(),
+                            prefixIcon: const Icon(Icons.numbers),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await showDatePicker(
+                                    context: context,
+                                    initialDate: data.selectedAppointmentModel!
+                                                .pwdIdExpirationDate ==
+                                            null
+                                        ? DateTime.now()
+                                        : DateFormat("yyyy-MM-dd").parse(data
+                                            .selectedAppointmentModel!
+                                            .pwdIdExpirationDate!),
+                                    firstDate: TelemedSettings.startDate,
+                                    lastDate: TelemedSettings.endDate,
+                                  ).then((selectedDate) {
+                                    if (selectedDate != null) {
+                                      setState(() {
+                                        data.selectedAppointmentModel!
+                                                .pwdIdExpirationDate =
+                                            selectedDate.toIso8601String();
+                                      });
+                                    }
+                                  });
+                                },
+                                child: Text(TelemedStrings.date),
+                              ),
+                            ),
+                            data.selectedAppointmentModel!
+                                        .pwdIdExpirationDate ==
+                                    null
+                                ? Text('',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge)
+                                : Text(
+                                    TelemedSettings.dateFormat.format(
+                                        DateFormat("yyyy-MM-dd").parse(data
+                                            .selectedAppointmentModel!
+                                            .pwdIdExpirationDate!)),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return TelemedStrings.pleaseEnterText;
+                            }
+                            return null;
+                          },
+                          initialValue: data
+                              .selectedAppointmentModel!.paymentReferenceNumber,
+                          onChanged: (newValue) {
+                            data.selectedAppointmentModel!
+                                .paymentReferenceNumber = newValue;
+                          },
+                          decoration: InputDecoration(
+                            labelText: TelemedStrings.paymentReferenceNumber,
+                            hintText: TelemedStrings.paymentReferenceNumber,
+                            border: const OutlineInputBorder(),
+                            prefixIcon: const Icon(Icons.numbers),
                           ),
                         ),
                       ),
@@ -227,13 +347,16 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                 ],
               )),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   CadersPage.route,
-          // );
+        onPressed: () async {
+          data.selectedAppointmentModel!.doctorId =
+              data.selectedDoctorModel!.id;
+          data.selectedAppointmentModel!.patientId = data.selectedUserModel.id;
+          data.selectedAppointmentModel!.caderId = data.selectedCaderModel!.id;
+          await data.apiRouteCreateAppointment(
+              context: context,
+              appointmentModel: data.selectedAppointmentModel!);
         },
-        label: Text(TelemedStrings.healthProfile),
+        label: Text(TelemedStrings.bookAnAppointment),
       ),
     );
   }
