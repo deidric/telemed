@@ -9,7 +9,7 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "9f71-112-204-163-189.ngrok-free.app";
+  static String authority = "ea5d-112-204-163-189.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -82,6 +82,7 @@ class TelemedStrings {
   static String yearsOld = "years old";
   static String payment = "Payment";
   static String date = "Date";
+  static String pwdExpirationDate = "pwd expiration date";
   static String time = "Time";
   static String transactions = "Transactions";
   static String videoConsultationFee = "Video consultation fee";
@@ -166,6 +167,7 @@ class TelemedStrings {
   static String greetings = "Greetings";
   static String supp = "What do you want to do today?";
   static String upcomingAppointments = "Upcoming Appointments";
+  static String todaysAppointments = "Today's Appointments";
   static String scheduledAppointments =
       "You currently don't have an appointment scheduled."; //this will direct the patient user to the Calendar only if they have an appointment booked. if not, they will direct to booking page
   static String bookNow = "Book an appointment today!";

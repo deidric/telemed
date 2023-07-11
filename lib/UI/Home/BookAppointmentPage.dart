@@ -300,7 +300,7 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                                     }
                                   });
                                 },
-                                child: Text(TelemedStrings.date),
+                                child: Text(TelemedStrings.pwdExpirationDate),
                               ),
                             ),
                             data.selectedAppointmentModel!

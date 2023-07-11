@@ -7,23 +7,35 @@ import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
 import 'package:telemed/settings.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-  static const String route = '/homePage';
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
+  static const String route = '/basePage/homePage';
 
   @override
   HomePageState createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadAllAppMetaDataOnce();
+    });
   }
 
-  var currentPage = const HomePage();
+  int runTimes = 0;
+
+  Future<void> loadAllAppMetaDataOnce() async {
+    var data = context.read<TelemedDataProvider>();
+    if (mounted) {
+      await data.apiRouteAppointmentByDate(context: context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

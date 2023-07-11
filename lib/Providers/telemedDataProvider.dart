@@ -19,7 +19,6 @@ import 'package:telemed/Networking/APIManager.dart';
 import 'package:telemed/Networking/TelemedApi.dart';
 import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/Home/BookAppointmentPage.dart';
-import 'package:telemed/UI/Home/HomePage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
@@ -487,6 +486,9 @@ class TelemedDataProvider
       case TelemedApiRoutes.apiRouteSymptoms:
         list = List<SymptomsModel>.from([]);
         break;
+      case TelemedApiRoutes.apiRouteAppointmentByDate:
+        list = List<AppointmentModel>.from([]);
+        break;
     }
     setData(modelList: list);
   }
@@ -631,7 +633,8 @@ class TelemedDataProvider
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    settings: settings, builder: (context) => const BasePage()),
+                    settings: settings,
+                    builder: (context) => const BasePage()),
                 (route) => false);
           }
         } else {
@@ -805,5 +808,18 @@ class TelemedDataProvider
         token: selectedUserModel.token,
         apiRoute: TelemedApiRoutes.apiRouteCreateAppointment,
         model: appointmentModel);
+  }
+
+  @override
+  apiRouteAppointmentByDate({required context}) async {
+    Map<String, dynamic> param = {
+      'dateOfAppointment':
+          "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}",
+    };
+    await _apiRead(
+        context: context,
+        token: selectedUserModel.token,
+        apiRoute: TelemedApiRoutes.apiRouteAppointmentByDate,
+        param: param);
   }
 }

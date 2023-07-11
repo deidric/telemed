@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/Home/BookAppointmentPage.dart';
 import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
 import 'package:telemed/UI/Home/CadersPage.dart';
@@ -59,7 +58,9 @@ class _MyAppState extends State<MyApp> {
         SignUpPage.route: (context) => const SignUpPage(),
         BasicInformationPage.route: (context) => const BasicInformationPage(),
         HealthInsurancePage.route: (context) => const HealthInsurancePage(),
-        BasePage.route: (context) => const BasePage(),
+        // BasePage.route: (context) => const BasePage(),
+        // HomePage.route: (context) => const HomePage(),
+        // ProfilePage.route: (context) => const ProfilePage(),
         BookAppointmentsReasonForVisitPage.route: (context) =>
             const BookAppointmentsReasonForVisitPage(),
         CadersPage.route: (context) => const CadersPage(),

@@ -27,7 +27,10 @@ class TelemedApi {
   apiRouteCreateHealthProfile(
       {required context, required HealthProfileModel healthProfileModel}) {}
 
-  apiRouteCreateAppointment({required context, required AppointmentModel appointmentModel}) {}
+  apiRouteCreateAppointment(
+      {required context, required AppointmentModel appointmentModel}) {}
+
+  apiRouteAppointmentByDate({required context}) {}
 }
 
 class TelemedApiRoutes {
@@ -64,4 +67,7 @@ class TelemedApiRoutes {
 
   // Create Appointment
   static const String apiRouteCreateAppointment = '/bookAppointment';
+
+  // Get Appointment by date
+  static const String apiRouteAppointmentByDate = '/appointmentByDate';
 }

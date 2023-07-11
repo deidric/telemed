@@ -5,15 +5,15 @@ import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/settings.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-  static const String route = '/basePage/profilePage';
+class CalendarPage extends StatefulWidget {
+  const CalendarPage({Key? key}) : super(key: key);
+  static const String route = '/basePage/calendarPage';
 
   @override
-  ProfilePageState createState() => ProfilePageState();
+  CalendarPageState createState() => CalendarPageState();
 }
 
-class ProfilePageState extends State<ProfilePage> {
+class CalendarPageState extends State<CalendarPage> {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
 
@@ -32,7 +32,7 @@ class ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  var currentPage = const ProfilePage();
+  var currentPage = const CalendarPage();
 
   @override
   Widget build(BuildContext context) {

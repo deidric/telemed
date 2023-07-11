@@ -14,6 +14,8 @@ class AppointmentModel {
   int? pwdIdNumber;
   String? pwdIdExpirationDate;
   String? paymentReferenceNumber;
+  String? firstName;
+  String? lastName;
 
   AppointmentModel({
     this.id,
@@ -26,6 +28,8 @@ class AppointmentModel {
     this.pwdIdNumber,
     this.pwdIdExpirationDate,
     this.paymentReferenceNumber,
+    this.firstName,
+    this.lastName,
   });
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) =>
@@ -45,6 +49,8 @@ enum FieldNames {
   pwdIdNumber,
   pwdIdExpirationDate,
   paymentReferenceNumber,
+  firstName,
+  lastName,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -70,6 +76,10 @@ extension FieldNamesExtension on FieldNames {
         return 'pwdIdExpirationDate';
       case FieldNames.paymentReferenceNumber:
         return 'paymentReferenceNumber';
+      case FieldNames.firstName:
+        return 'firstName';
+      case FieldNames.lastName:
+        return 'lastName';
     }
   }
 }

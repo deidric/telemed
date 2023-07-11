@@ -18,6 +18,8 @@ AppointmentModel _$AppointmentModelFromJson(Map<String, dynamic> json) =>
       pwdIdNumber: json['pwdIdNumber'] as int?,
       pwdIdExpirationDate: json['pwdIdExpirationDate'] as String?,
       paymentReferenceNumber: json['paymentReferenceNumber'] as String?,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
     );
 
 Map<String, dynamic> _$AppointmentModelToJson(AppointmentModel instance) =>
@@ -32,4 +34,6 @@ Map<String, dynamic> _$AppointmentModelToJson(AppointmentModel instance) =>
       'pwdIdNumber': instance.pwdIdNumber,
       'pwdIdExpirationDate': instance.pwdIdExpirationDate,
       'paymentReferenceNumber': instance.paymentReferenceNumber,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
     };
