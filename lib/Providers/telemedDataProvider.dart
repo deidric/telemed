@@ -567,6 +567,14 @@ class TelemedDataProvider
           list.add(model);
         }
         break;
+      case TelemedApiRoutes.apiRouteAppointmentByDate:
+        list = List<AppointmentModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          AppointmentModel model =
+              AppointmentModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
     }
     setData(modelList: list);
   }
@@ -633,8 +641,7 @@ class TelemedDataProvider
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    settings: settings,
-                    builder: (context) => const BasePage()),
+                    settings: settings, builder: (context) => const BasePage()),
                 (route) => false);
           }
         } else {

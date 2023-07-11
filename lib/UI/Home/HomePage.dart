@@ -40,6 +40,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
+    print(data.appointmentModelList.length);
     return Scaffold(
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
@@ -76,13 +77,31 @@ class HomePageState extends State<HomePage> {
                   child: Text(TelemedStrings.upcomingAppointments,
                       style: Theme.of(context).textTheme.titleSmall!),
                 ),
-                ListTile(
-                  title: Text(TelemedStrings.scheduledAppointments),
-                  subtitle: Text(TelemedStrings.bookNow),
-                  leading: const Icon(Icons.calendar_month),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
+                if (data.appointmentModelList.isEmpty)
+                  ListTile(
+                    title: Text(TelemedStrings.scheduledAppointments),
+                    subtitle: Text(TelemedStrings.bookNow),
+                    leading: const Icon(Icons.calendar_month),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
+                  ),
+                if (data.appointmentModelList.isNotEmpty)
+                  ListView.separated(
+                    itemCount: data.appointmentModelList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: const Icon(Icons.timer_outlined),
+                        title: Text(
+                            "${data.appointmentModelList[index].firstName} ${data.appointmentModelList[index].lastName!}"),
+                        subtitle: Text(data
+                            .appointmentModelList[index].timeOfAppointment!),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider();
+                    },
+                  ),
                 const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
