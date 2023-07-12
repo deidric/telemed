@@ -90,7 +90,11 @@ class HomePageState extends State<HomePage> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        leading: const Icon(Icons.timer_outlined),
+                        leading: Image.asset(TelemedImage.doctorImage),
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.message),
+                        ),
                         title: Text(
                             "${data.appointmentModelList[index].firstName} ${data.appointmentModelList[index].lastName!}"),
                         subtitle: Text(data
