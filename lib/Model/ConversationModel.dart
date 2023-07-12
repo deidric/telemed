@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'AppointmentModel.g.dart';
+part 'ConversationModel.g.dart';
 
 @JsonSerializable()
 class ConversationModel {
@@ -20,38 +20,40 @@ class ConversationModel {
 
   ConversationModel({
     this.id,
-    this.doctorId,
-    this.patientId,
-    this.caderId,
-    this.dateOfAppointment,
+    this.conversationId,
+    this.fromUserId,
+    this.toUserId,
+    this.message,
     this.timeOfAppointment,
-    this.complaint,
-    this.pwdIdNumber,
-    this.pwdIdExpirationDate,
-    this.paymentReferenceNumber,
-    this.firstName,
-    this.lastName,
+    this.sentDate,
+    this.readDate,
+    this.attachments,
+    this.fromUserFirstName,
+    this.fromUserLastName,
+    this.toUserFirstName,
+    this.toUserLastName,
   });
 
   factory ConversationModel.fromJson(Map<String, dynamic> json) =>
-      _$AppointmentModelFromJson(json);
+      _$ConversationModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AppointmentModelToJson(this);
+  Map<String, dynamic> toJson() => _$ConversationModelToJson(this);
 }
 
 enum FieldNames {
   id,
-  doctorId,
-  patientId,
-  caderId,
-  dateOfAppointment,
+  conversationId,
+  fromUserId,
+  toUserId,
+  message,
   timeOfAppointment,
-  complaint,
-  pwdIdNumber,
-  pwdIdExpirationDate,
-  paymentReferenceNumber,
-  firstName,
-  lastName,
+  sentDate,
+  readDate,
+  attachments,
+  fromUserFirstName,
+  fromUserLastName,
+  toUserFirstName,
+  toUserLastName,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -59,28 +61,30 @@ extension FieldNamesExtension on FieldNames {
     switch (this) {
       case FieldNames.id:
         return 'id';
-      case FieldNames.doctorId:
-        return 'doctorId';
-      case FieldNames.patientId:
-        return 'patientId';
-      case FieldNames.caderId:
-        return 'caderId';
-      case FieldNames.dateOfAppointment:
-        return 'dateOfAppointment';
+      case FieldNames.conversationId:
+        return 'conversationId';
+      case FieldNames.fromUserId:
+        return 'fromUserId';
+      case FieldNames.toUserId:
+        return 'toUserId';
+      case FieldNames.message:
+        return 'message';
       case FieldNames.timeOfAppointment:
         return 'timeOfAppointment';
-      case FieldNames.complaint:
-        return 'complaint';
-      case FieldNames.pwdIdNumber:
-        return 'pwdIdNumber';
-      case FieldNames.pwdIdExpirationDate:
-        return 'pwdIdExpirationDate';
-      case FieldNames.paymentReferenceNumber:
-        return 'paymentReferenceNumber';
-      case FieldNames.firstName:
-        return 'firstName';
-      case FieldNames.lastName:
-        return 'lastName';
+      case FieldNames.sentDate:
+        return 'sentDate';
+      case FieldNames.readDate:
+        return 'readDate';
+      case FieldNames.attachments:
+        return 'attachments';
+      case FieldNames.fromUserFirstName:
+        return 'fromUserFirstName';
+      case FieldNames.fromUserLastName:
+        return 'fromUserLastName';
+      case FieldNames.toUserFirstName:
+        return 'toUserFirstName';
+      case FieldNames.toUserLastName:
+        return 'toUserLastName';
     }
   }
 }
