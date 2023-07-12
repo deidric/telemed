@@ -79,7 +79,7 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
           break;
         case BasePage.messagesPage:
           currentPage = const MessagesPage();
-          _selectedPageName = TelemedStrings.message;
+          _selectedPageName = TelemedStrings.messages;
 
           break;
         case BasePage.profilePage:
@@ -118,7 +118,7 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
     );
     addNavigationDrawerDestination(
       iconData: Icons.message,
-      label: TelemedStrings.message,
+      label: TelemedStrings.messages,
     );
     addNavigationDrawerDestination(
       iconData: Icons.person,

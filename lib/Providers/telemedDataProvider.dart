@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:telemed/Model/AppointmentModel.dart';
 import 'package:telemed/Model/CaderModel.dart';
+import 'package:telemed/Model/ConversationModel.dart';
 import 'package:telemed/Model/DoctorQualificationsModel.dart';
 import 'package:telemed/Model/DoctorSpecialitiesModel.dart';
 import 'package:telemed/Model/DrugAllergiesModel.dart';
@@ -121,6 +122,12 @@ class TelemedDataProvider
 
   AppointmentModel? get selectedAppointmentModel => _selectedAppointmentModel;
 
+  // Conversations
+  ConversationModel? _selectedConversationModel = ConversationModel();
+
+  ConversationModel? get selectedConversationModel =>
+      _selectedConversationModel;
+
   void setSelectedMainReasonForVisitNull() {
     _selectedMainReasonForVisit = null;
   }
@@ -164,6 +171,9 @@ class TelemedDataProvider
     if (model is AppointmentModel) {
       _selectedAppointmentModel = null;
     }
+    if (model is ConversationModel) {
+      _selectedConversationModel = null;
+    }
     notifyListeners();
   }
 
@@ -200,6 +210,9 @@ class TelemedDataProvider
     }
     if (model is AppointmentModel) {
       _selectedAppointmentModel = model;
+    }
+    if (model is ConversationModel) {
+      _selectedConversationModel = model;
     }
     notifyListeners();
   }
@@ -286,6 +299,14 @@ class TelemedDataProvider
 
   List<AppointmentModel> get filteredAppointmentModelList =>
       _filteredAppointmentModelList;
+
+  List<ConversationModel> _conversationModelList = [];
+  List<ConversationModel> _filteredConversationModelList = [];
+
+  List<ConversationModel> get conversationModelList => _conversationModelList;
+
+  List<ConversationModel> get filteredConversationModelList =>
+      _filteredConversationModelList;
 
   void addIntoHealthProfileLists(
       {required model, bool isFamilyMedicalConditions = false}) {
@@ -383,6 +404,10 @@ class TelemedDataProvider
       _appointmentModelList = modelList;
       _filteredAppointmentModelList = modelList;
     }
+    if (modelList is List<ConversationModel>) {
+      _conversationModelList = modelList;
+      _filteredConversationModelList = modelList;
+    }
 
     notifyListeners();
   }
@@ -419,6 +444,9 @@ class TelemedDataProvider
     }
     if (modelList is List<AppointmentModel>) {
       _filteredAppointmentModelList = modelList;
+    }
+    if (modelList is List<ConversationModel>) {
+      _filteredConversationModelList = modelList;
     }
     notifyListeners();
   }
@@ -572,6 +600,14 @@ class TelemedDataProvider
         for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
           AppointmentModel model =
               AppointmentModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteConversationsByUserId:
+        list = List<ConversationModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          ConversationModel model =
+              ConversationModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
         break;
@@ -828,5 +864,14 @@ class TelemedDataProvider
         token: selectedUserModel.token,
         apiRoute: TelemedApiRoutes.apiRouteAppointmentByDate,
         param: param);
+  }
+
+  @override
+  apiRouteConversationsByUserId({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteConversationsByUserId,
+    );
   }
 }

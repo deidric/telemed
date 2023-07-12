@@ -27,8 +27,13 @@ class MessagesPageState extends State<MessagesPage> {
 
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
-    if(mounted){
-      // await data.apiRouteAppointmentByDate(context: context);
+    print(data.selectedUserModel.id);
+    if (mounted) {
+      await data.apiRouteConversationsByUserId(context: context);
+      final uniqueConversationSet = <dynamic>{};
+      data.conversationModelList.retainWhere(
+          (element) => uniqueConversationSet.add(element.conversationId));
+      data.setData(modelList: uniqueConversationSet.toList());
     }
   }
 
@@ -49,44 +54,59 @@ class MessagesPageState extends State<MessagesPage> {
               padding: const EdgeInsets.all(15.0),
               shrinkWrap: true,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ListTile(
-                      title: Text(
-                          "${data.selectedUserModel.firstName!} ${data.selectedUserModel.lastName!}",
-                          style: Theme.of(context).textTheme.titleMedium!),
-                      leading: const Icon(Icons.account_circle),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.edit),
-                      ),
-                      subtitle: Text(
-                          "${data.selectedUserModel.gender!}, ${ageInYears.toStringAsFixed(2)} ${TelemedStrings.yearsOld}"),
-                    ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.payment,
-                          style: Theme.of(context).textTheme.titleMedium!),
-                    ),
-                    ListTile(
-                      title: Text(
-                        TelemedStrings.transactions,
-                      ),
+                TextField(
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      data.setData(modelList: data.conversationModelList);
+                    } else {
+                      data.updateFilteredData(
+                          modelList: data.filteredConversationModelList
+                              .where((element) =>
+                                  element.toUserFirstName!
+                                      .toLowerCase()
+                                      .contains(value.toLowerCase()) ||
+                                  element.toUserLastName!
+                                      .toLowerCase()
+                                      .contains(value.toLowerCase()))
+                              .toList());
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: TelemedStrings.search,
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.search),
+                  ),
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: data.filteredConversationModelList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
                       isThreeLine: true,
-                      leading: const Icon(Icons.receipt),
-                      subtitle: Row(
+                      leading: Image.asset(TelemedImage.doctorImage),
+                      title: Text(
+                          "${data.filteredConversationModelList[index].toUserFirstName!} ${data.filteredConversationModelList[index].toUserLastName!}"),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(TelemedStrings.view),
+                          Text(
+                            data.filteredConversationModelList[index].message!,
+                            overflow: TextOverflow.fade,
+                            maxLines: 1,
+                            softWrap: false,
                           ),
+                          Text(TelemedSettings.dateFormat.format(
+                              DateFormat("yyyy-MM-dd").parse(data
+                                  .filteredConversationModelList[index]
+                                  .sentDate!))),
                         ],
                       ),
-                    ),
-                  ],
+                      onTap: (){},
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider();
+                  },
                 ),
               ],
             ),
