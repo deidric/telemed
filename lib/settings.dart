@@ -9,7 +9,7 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "ea5d-112-204-163-189.ngrok-free.app";
+  static String authority = "adb0-112-204-163-189.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //

@@ -40,7 +40,6 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
-    print(data.appointmentModelList.length);
     return Scaffold(
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()

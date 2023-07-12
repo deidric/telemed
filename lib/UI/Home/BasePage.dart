@@ -43,13 +43,6 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
     });
   }
 
-  Future<void> loadAllAppMetaDataOnce() async {
-    var data = context.read<TelemedDataProvider>();
-    if (mounted) {
-      await data.apiRouteAppointmentByDate(context: context);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
