@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ConversationModel.dart';
+part of 'MessageModel.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
-    ConversationModel(
+MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
       id: json['id'] as int?,
       conversationId: json['conversationId'] as int?,
       fromUserId: json['fromUserId'] as int?,
@@ -25,7 +24,7 @@ ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
       toUserLastName: json['toUserLastName'] as String?,
     );
 
-Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) =>
+Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'conversationId': instance.conversationId,

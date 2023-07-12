@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'ConversationModel.g.dart';
+part 'MessageModel.g.dart';
 
 @JsonSerializable()
-class ConversationModel {
+class MessageModel {
   int? id;
   int? conversationId;
   int? fromUserId;
@@ -20,7 +20,7 @@ class ConversationModel {
   String? toUserFirstName;
   String? toUserLastName;
 
-  ConversationModel({
+  MessageModel({
     this.id,
     this.conversationId,
     this.fromUserId,
@@ -38,10 +38,10 @@ class ConversationModel {
     this.toUserLastName,
   });
 
-  factory ConversationModel.fromJson(Map<String, dynamic> json) =>
-      _$ConversationModelFromJson(json);
+  factory MessageModel.fromJson(Map<String, dynamic> json) =>
+      _$MessageModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ConversationModelToJson(this);
+  Map<String, dynamic> toJson() => _$MessageModelToJson(this);
 }
 
 enum FieldNames {

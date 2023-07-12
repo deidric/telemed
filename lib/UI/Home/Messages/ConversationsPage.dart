@@ -3,17 +3,18 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/Messages/MessagesPage.dart';
 import 'package:telemed/settings.dart';
 
-class MessagesPage extends StatefulWidget {
-  const MessagesPage({Key? key}) : super(key: key);
-  static const String route = '/basePage/messagesPage';
+class ConversationsPage extends StatefulWidget {
+  const ConversationsPage({Key? key}) : super(key: key);
+  static const String route = '/basePage/conversationsPage';
 
   @override
-  MessagesPageState createState() => MessagesPageState();
+  ConversationsPageState createState() => ConversationsPageState();
 }
 
-class MessagesPageState extends State<MessagesPage> {
+class ConversationsPageState extends State<ConversationsPage> {
   final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
 
@@ -27,8 +28,9 @@ class MessagesPageState extends State<MessagesPage> {
 
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
-    print(data.selectedUserModel.id);
     if (mounted) {
+      // List<ConversationModel> conversationModelList = [];
+      // data.setData(modelList: conversationModelList);
       await data.apiRouteConversationsByUserId(context: context);
       final uniqueConversationSet = <dynamic>{};
       data.conversationModelList.retainWhere(
@@ -37,7 +39,7 @@ class MessagesPageState extends State<MessagesPage> {
     }
   }
 
-  var currentPage = const MessagesPage();
+  var currentPage = const ConversationsPage();
 
   @override
   Widget build(BuildContext context) {
@@ -54,28 +56,45 @@ class MessagesPageState extends State<MessagesPage> {
               padding: const EdgeInsets.all(15.0),
               shrinkWrap: true,
               children: [
-                TextField(
-                  onChanged: (value) {
-                    if (value.isEmpty) {
-                      data.setData(modelList: data.conversationModelList);
-                    } else {
-                      data.updateFilteredData(
-                          modelList: data.filteredConversationModelList
-                              .where((element) =>
-                                  element.toUserFirstName!
-                                      .toLowerCase()
-                                      .contains(value.toLowerCase()) ||
-                                  element.toUserLastName!
-                                      .toLowerCase()
-                                      .contains(value.toLowerCase()))
-                              .toList());
-                    }
-                  },
-                  decoration: InputDecoration(
-                    labelText: TelemedStrings.search,
-                    border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.search),
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          if (value.isEmpty) {
+                            data.setData(modelList: data.conversationModelList);
+                          } else {
+                            data.updateFilteredData(
+                                modelList: data.filteredConversationModelList
+                                    .where((element) =>
+                                        element.toUserFirstName!
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()) ||
+                                        element.toUserLastName!
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()))
+                                    .toList());
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: TelemedStrings.search,
+                          border: const OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.refresh),
+                      onPressed: () async {
+                        await data.apiRouteConversationsByUserId(
+                            context: context);
+                        final uniqueConversationSet = <dynamic>{};
+                        data.conversationModelList.retainWhere((element) =>
+                            uniqueConversationSet.add(element.conversationId));
+                        data.setData(modelList: uniqueConversationSet.toList());
+                      },
+                    )
+                  ],
                 ),
                 ListView.separated(
                   shrinkWrap: true,
@@ -101,7 +120,14 @@ class MessagesPageState extends State<MessagesPage> {
                                   .sentDate!))),
                         ],
                       ),
-                      onTap: (){},
+                      onTap: () {
+                        data.setSelectedData(
+                            model: data.filteredConversationModelList[index]);
+                        Navigator.pushNamed(
+                          context,
+                          MessagesPage.route,
+                        );
+                      },
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {

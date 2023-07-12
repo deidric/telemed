@@ -4,7 +4,7 @@ import 'package:telemed/Components/PopupMenuButton.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/Home/CalendarPage.dart';
 import 'package:telemed/UI/Home/HomePage.dart';
-import 'package:telemed/UI/Home/MessagesPage.dart';
+import 'package:telemed/UI/Home/Messages/ConversationsPage.dart';
 import 'package:telemed/UI/Home/ProfilePage.dart';
 import 'package:telemed/settings.dart';
 
@@ -78,7 +78,7 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
 
           break;
         case BasePage.messagesPage:
-          currentPage = const MessagesPage();
+          currentPage = const ConversationsPage();
           _selectedPageName = TelemedStrings.messages;
 
           break;

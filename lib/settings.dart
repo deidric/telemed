@@ -188,6 +188,7 @@ class TelemedStrings {
       "Muscle or joint pain, Medication management, Preventive Health method.";
   static String home = "Home";
   static String calendar = "Calendar";
+  static String message = "Message";
   static String messages = "Messages";
   static String profile = "Profile";
 

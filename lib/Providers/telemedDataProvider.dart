@@ -12,6 +12,7 @@ import 'package:telemed/Model/DrugAllergiesModel.dart';
 import 'package:telemed/Model/HealthProfileModel.dart';
 import 'package:telemed/Model/JsendResponseModel.dart';
 import 'package:telemed/Model/MedicalConditionsModel.dart';
+import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Model/SurgeriesModel.dart';
 import 'package:telemed/Model/SymptomsModel.dart';
 import 'package:telemed/Model/UserModel.dart';
@@ -128,6 +129,11 @@ class TelemedDataProvider
   ConversationModel? get selectedConversationModel =>
       _selectedConversationModel;
 
+  // Messages
+  MessageModel? _selectedMessageModel = MessageModel();
+
+  MessageModel? get selectedMessageModel => _selectedMessageModel;
+
   void setSelectedMainReasonForVisitNull() {
     _selectedMainReasonForVisit = null;
   }
@@ -174,6 +180,9 @@ class TelemedDataProvider
     if (model is ConversationModel) {
       _selectedConversationModel = null;
     }
+    if (model is MessageModel) {
+      _selectedMessageModel = null;
+    }
     notifyListeners();
   }
 
@@ -213,6 +222,9 @@ class TelemedDataProvider
     }
     if (model is ConversationModel) {
       _selectedConversationModel = model;
+    }
+    if (model is MessageModel) {
+      _selectedMessageModel = model;
     }
     notifyListeners();
   }
@@ -307,6 +319,13 @@ class TelemedDataProvider
 
   List<ConversationModel> get filteredConversationModelList =>
       _filteredConversationModelList;
+
+  List<MessageModel> _messageModelList = [];
+  List<MessageModel> _filteredMessageModelList = [];
+
+  List<MessageModel> get messageModelList => _messageModelList;
+
+  List<MessageModel> get filteredMessageModelList => _filteredMessageModelList;
 
   void addIntoHealthProfileLists(
       {required model, bool isFamilyMedicalConditions = false}) {
@@ -408,6 +427,10 @@ class TelemedDataProvider
       _conversationModelList = modelList;
       _filteredConversationModelList = modelList;
     }
+    if (modelList is List<MessageModel>) {
+      _messageModelList = modelList;
+      _filteredMessageModelList = modelList;
+    }
 
     notifyListeners();
   }
@@ -447,6 +470,9 @@ class TelemedDataProvider
     }
     if (modelList is List<ConversationModel>) {
       _filteredConversationModelList = modelList;
+    }
+    if (modelList is List<MessageModel>) {
+      _filteredMessageModelList = modelList;
     }
     notifyListeners();
   }
@@ -516,6 +542,12 @@ class TelemedDataProvider
         break;
       case TelemedApiRoutes.apiRouteAppointmentByDate:
         list = List<AppointmentModel>.from([]);
+        break;
+      case TelemedApiRoutes.apiRouteConversationsByUserId:
+        list = List<ConversationModel>.from([]);
+        break;
+      case TelemedApiRoutes.apiRouteMessagesByConversationId:
+        list = List<MessageModel>.from([]);
         break;
     }
     setData(modelList: list);
@@ -608,6 +640,14 @@ class TelemedDataProvider
         for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
           ConversationModel model =
               ConversationModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        break;
+      case TelemedApiRoutes.apiRouteMessagesByConversationId:
+        list = List<MessageModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          MessageModel model =
+              MessageModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
         break;
@@ -873,5 +913,17 @@ class TelemedDataProvider
       token: selectedUserModel.token,
       apiRoute: TelemedApiRoutes.apiRouteConversationsByUserId,
     );
+  }
+
+  @override
+  apiRouteMessagesByConversationId({required context}) async {
+    Map<String, dynamic> param = {
+      'conversationId': _selectedConversationModel!.conversationId.toString(),
+    };
+    await _apiRead(
+        context: context,
+        token: selectedUserModel.token,
+        apiRoute: TelemedApiRoutes.apiRouteMessagesByConversationId,
+        param: param);
   }
 }
