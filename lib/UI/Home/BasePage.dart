@@ -15,9 +15,8 @@ class BasePage extends StatefulWidget {
   static const String route = '/basePage';
 
   static const homePage = 0;
-  static const calendarPage = 1;
-  static const messagesPage = 2;
-  static const profilePage = 3;
+  static const messagesPage = 1;
+  static const profilePage = 2;
 
   @override
   BasePageState createState() => BasePageState();
@@ -76,11 +75,6 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
           _selectedPageName = TelemedStrings.home;
 
           break;
-        case BasePage.calendarPage:
-          currentPage = const CalendarPage();
-          _selectedPageName = TelemedStrings.calendar;
-
-          break;
         case BasePage.messagesPage:
           currentPage = const ConversationsPage();
           _selectedPageName = TelemedStrings.messages;
@@ -115,10 +109,6 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
     addNavigationDrawerDestination(
       iconData: Icons.home,
       label: TelemedStrings.home,
-    );
-    addNavigationDrawerDestination(
-      iconData: Icons.calendar_month,
-      label: TelemedStrings.calendar,
     );
     addNavigationDrawerDestination(
       iconData: Icons.message,
