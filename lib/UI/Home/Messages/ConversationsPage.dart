@@ -44,11 +44,6 @@ class ConversationsPageState extends State<ConversationsPage> {
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
-    DateFormat dateFormat = DateFormat("dd-MM-yyyy");
-    DateTime dob = dateFormat.parse(data.selectedUserModel.dob!);
-    DateTime currentDate = DateTime.now();
-    int ageInDays = currentDate.difference(dob).inDays;
-    double ageInYears = ageInDays / 365;
     return Scaffold(
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
@@ -100,11 +95,20 @@ class ConversationsPageState extends State<ConversationsPage> {
                   shrinkWrap: true,
                   itemCount: data.filteredConversationModelList.length,
                   itemBuilder: (context, index) {
+                    String personName = "";
+                    if (data.filteredConversationModelList[index]
+                            .fromUserTypeId ==
+                        data.selectedUserModel.userTypeId) {
+                      personName =
+                          "${data.filteredConversationModelList[index].toUserFirstName!} ${data.filteredConversationModelList[index].toUserLastName!}";
+                    } else {
+                      personName =
+                          "${data.filteredConversationModelList[index].fromUserFirstName!} ${data.filteredConversationModelList[index].fromUserLastName!}";
+                    }
                     return ListTile(
                       isThreeLine: true,
                       leading: Image.asset(TelemedImage.doctorImage),
-                      title: Text(
-                          "${data.filteredConversationModelList[index].toUserFirstName!} ${data.filteredConversationModelList[index].toUserLastName!}"),
+                      title: Text(personName),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
