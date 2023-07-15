@@ -1,5 +1,6 @@
 import 'package:telemed/Model/AppointmentModel.dart';
 import 'package:telemed/Model/HealthProfileModel.dart';
+import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 
 class TelemedApi {
@@ -35,6 +36,9 @@ class TelemedApi {
   apiRouteConversationsByUserId({required context}) {}
 
   apiRouteMessagesByConversationId({required context}) {}
+
+  apiRoutecreateMessages(
+      {required context, required MessageModel messageModel}) {}
 }
 
 class TelemedApiRoutes {
@@ -81,4 +85,7 @@ class TelemedApiRoutes {
   // Get Conversation by userId
   static const String apiRouteMessagesByConversationId =
       '/messagesByConversationId';
+
+  // Create Conversation by userId
+  static const String apiRouteCreateMessages = '/createMessages';
 }

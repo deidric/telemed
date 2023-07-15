@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/PopupMenuButton.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/settings.dart';
 
@@ -15,7 +16,6 @@ class MessagesPage extends StatefulWidget {
 }
 
 class MessagesPageState extends State<MessagesPage> {
-  final _formKey = GlobalKey<FormState>();
   final Uri _url = Uri.parse("");
 
   @override
@@ -33,18 +33,52 @@ class MessagesPageState extends State<MessagesPage> {
     }
   }
 
+  Future<void> sendMessage(BuildContext context) async {
+    var data = context.read<TelemedDataProvider>();
+    MessageModel messageModel = MessageModel(
+      toUserId: data.selectedConversationModel!.toUserId,
+      sentDate: DateTime.now().toIso8601String(),
+      attachments: null,
+      message: message,
+    );
+    await data.apiRoutecreateMessages(
+        context: context, messageModel: messageModel);
+    if (mounted) {
+      await data.apiRouteMessagesByConversationId(context: context);
+      message = "";
+      setState(() {});
+    }
+  }
+
   var currentPage = const MessagesPage();
+  String message = "";
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 2),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
-      appBar: AppBar(title: Text(TelemedStrings.messages), actions: const [
-        AppBarActionsPopupMenuButton(),
+      appBar: AppBar(title: Text(TelemedStrings.messages), actions: [
+        const AppBarActionsPopupMenuButton(),
+        IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: () async {
+            await data.apiRouteMessagesByConversationId(context: context);
+          },
+        )
       ]),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
           : ListView(
+              controller: _scrollController,
               padding: const EdgeInsets.all(15.0),
               shrinkWrap: true,
               children: [
@@ -153,6 +187,10 @@ class MessagesPageState extends State<MessagesPage> {
                 ),
               ],
             ),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: _scrollDown,
+        child: const Icon(Icons.arrow_downward),
+      ),
       persistentFooterButtons: [
         Row(
           children: [
@@ -164,6 +202,11 @@ class MessagesPageState extends State<MessagesPage> {
                   }
                   return null;
                 },
+                onChanged: (value) {
+                  message = value;
+                  setState(() {});
+                },
+                initialValue: message,
                 maxLines: 2,
                 decoration: InputDecoration(
                   labelText: TelemedStrings.message,
@@ -181,7 +224,9 @@ class MessagesPageState extends State<MessagesPage> {
               icon: const Icon(Icons.attachment),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                sendMessage(context);
+              },
               icon: const Icon(Icons.send),
             ),
           ],

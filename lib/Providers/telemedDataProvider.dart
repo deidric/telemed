@@ -711,6 +711,7 @@ class TelemedDataProvider
                       TelemedSettings.dateFormat.format(DateFormat("yyyy-MM-dd")
                           .parse(
                               selectedAppointmentModel!.dateOfAppointment!)));
+
           if (result != null && result) {
             RouteSettings settings =
                 const RouteSettings(name: SignInPage.route, arguments: '');
@@ -720,6 +721,7 @@ class TelemedDataProvider
                     settings: settings, builder: (context) => const BasePage()),
                 (route) => false);
           }
+        } else if (apiRoute == TelemedApiRoutes.apiRouteCreateMessages) {
         } else {
           Navigator.pop(context, true);
         }
@@ -925,5 +927,16 @@ class TelemedDataProvider
         token: selectedUserModel.token,
         apiRoute: TelemedApiRoutes.apiRouteMessagesByConversationId,
         param: param);
+  }
+
+  @override
+  apiRoutecreateMessages(
+      {required context, required MessageModel messageModel}) async {
+    await _apiCreateOrUpdate(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteCreateMessages,
+      model: messageModel,
+    );
   }
 }
