@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
 import 'package:telemed/settings.dart';
 
@@ -92,7 +93,18 @@ class HomePageState extends State<HomePage> {
                       return ListTile(
                         leading: Image.asset(TelemedImage.doctorImage),
                         trailing: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            RouteSettings settings = const RouteSettings(
+                                name: BasePage.route, arguments: '');
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    settings: settings,
+                                    builder: (context) => const BasePage(
+                                          subRoute: BasePage.messagesPage,
+                                        )),
+                                (route) => false);
+                          },
                           icon: const Icon(Icons.message),
                         ),
                         title: Text(

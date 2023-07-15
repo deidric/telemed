@@ -5,7 +5,7 @@ part 'MessageModel.g.dart';
 @JsonSerializable()
 class MessageModel {
   int? id;
-  int? conversationId;
+  String? conversationId;
   int? fromUserId;
   int? toUserId;
   String? message;

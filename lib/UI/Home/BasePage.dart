@@ -9,8 +9,11 @@ import 'package:telemed/UI/Home/ProfilePage.dart';
 import 'package:telemed/settings.dart';
 
 class BasePage extends StatefulWidget {
-  const BasePage({Key? key}) : super(key: key);
+  final int subRoute;
+
+  const BasePage({Key? key, required this.subRoute}) : super(key: key);
   static const String route = '/basePage';
+
   static const homePage = 0;
   static const calendarPage = 1;
   static const messagesPage = 2;
@@ -37,6 +40,7 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
       if (mounted) {
         setState(() {
           addDestinations();
+          _selectedDestination = widget.subRoute;
           selectDestination(_selectedDestination);
         });
       }

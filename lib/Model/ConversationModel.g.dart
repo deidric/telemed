@@ -9,7 +9,7 @@ part of 'ConversationModel.dart';
 ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
     ConversationModel(
       id: json['id'] as int?,
-      conversationId: json['conversationId'] as int?,
+      conversationId: json['conversationId'] as String?,
       fromUserId: json['fromUserId'] as int?,
       toUserId: json['toUserId'] as int?,
       message: json['message'] as String?,

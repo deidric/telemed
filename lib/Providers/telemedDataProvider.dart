@@ -673,7 +673,10 @@ class TelemedDataProvider
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  settings: settings, builder: (context) => const BasePage()),
+                  settings: settings,
+                  builder: (context) => const BasePage(
+                        subRoute: BasePage.homePage,
+                      )),
               (route) => false);
         } else if (apiRoute == TelemedApiRoutes.apiRouteCreateAccount) {
           // this.setUserData(UserModel.fromJson(jsendResponseModel.data));
@@ -718,7 +721,10 @@ class TelemedDataProvider
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    settings: settings, builder: (context) => const BasePage()),
+                    settings: settings,
+                    builder: (context) => const BasePage(
+                          subRoute: BasePage.homePage,
+                        )),
                 (route) => false);
           }
         } else if (apiRoute == TelemedApiRoutes.apiRouteCreateMessages) {
