@@ -1,10 +1,12 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/ConversationModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
+import 'package:telemed/UI/Home/Messages/MessagesPage.dart';
 import 'package:telemed/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,6 +35,13 @@ class HomePageState extends State<HomePage> {
 
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
+    if (mounted) {
+      await data.apiRouteConversationsByUserId(context: context);
+      final uniqueConversationSet = <dynamic>{};
+      data.conversationModelList.retainWhere(
+          (element) => uniqueConversationSet.add(element.conversationId));
+      data.setData(modelList: uniqueConversationSet.toList());
+    }
     if (mounted) {
       await data.apiRouteAppointmentByDate(context: context);
     }
@@ -93,17 +102,27 @@ class HomePageState extends State<HomePage> {
                       return ListTile(
                         leading: Image.asset(TelemedImage.doctorImage),
                         trailing: IconButton(
-                          onPressed: () {
-                            RouteSettings settings = const RouteSettings(
-                                name: BasePage.route, arguments: '');
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    settings: settings,
-                                    builder: (context) => const BasePage(
-                                          subRoute: BasePage.messagesPage,
-                                        )),
-                                (route) => false);
+                          onPressed: () async {
+                            var conversationModel = data.conversationModelList
+                                .firstWhereOrNull((element) =>
+                                    element.toUserId ==
+                                    data.appointmentModelList[index].doctorId);
+
+                            if (conversationModel != null) {
+                              data.setSelectedData(model: conversationModel);
+                            } else {
+                              ConversationModel conversationModel1 =
+                                  ConversationModel(
+                                      conversationId: null,
+                                      toUserId: data.appointmentModelList[index]
+                                          .doctorId);
+                              data.setSelectedData(model: conversationModel1);
+                            }
+
+                            Navigator.pushNamed(
+                              context,
+                              MessagesPage.route,
+                            );
                           },
                           icon: const Icon(Icons.message),
                         ),

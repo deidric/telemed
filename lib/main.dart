@@ -60,10 +60,12 @@ class _MyAppState extends State<MyApp> {
         SignUpPage.route: (context) => const SignUpPage(),
         BasicInformationPage.route: (context) => const BasicInformationPage(),
         HealthInsurancePage.route: (context) => const HealthInsurancePage(),
-        MessagesPage.route: (context) => const MessagesPage(),
+        MessagesPage.route: (context) => const MessagesPage(
+              shouldPop: false,
+            ),
         BasePage.route: (context) => const BasePage(
-          subRoute: BasePage.homePage,
-        ),
+              subRoute: BasePage.homePage,
+            ),
         // HomePage.route: (context) => const HomePage(),
         // ProfilePage.route: (context) => const ProfilePage(),
         BookAppointmentsReasonForVisitPage.route: (context) =>

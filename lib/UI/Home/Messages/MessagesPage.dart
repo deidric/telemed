@@ -8,7 +8,9 @@ import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/settings.dart';
 
 class MessagesPage extends StatefulWidget {
-  const MessagesPage({Key? key}) : super(key: key);
+  final bool shouldPop;
+
+  const MessagesPage({Key? key, required this.shouldPop}) : super(key: key);
   static const String route = '/basePage/messagesPage';
 
   @override
@@ -44,13 +46,27 @@ class MessagesPageState extends State<MessagesPage> {
     await data.apiRoutecreateMessages(
         context: context, messageModel: messageModel);
     if (mounted) {
+      await data.apiRouteConversationsByUserId(context: context);
+      final uniqueConversationSet = <dynamic>{};
+      data.conversationModelList.retainWhere(
+          (element) => uniqueConversationSet.add(element.conversationId));
+      data.setData(modelList: uniqueConversationSet.toList());
+    }
+    if (mounted) {
       await data.apiRouteMessagesByConversationId(context: context);
       message = "";
       setState(() {});
     }
+    if (widget.shouldPop) {
+      if (mounted) {
+        Navigator.pop(context, true);
+      }
+    }
   }
 
-  var currentPage = const MessagesPage();
+  var currentPage = const MessagesPage(
+    shouldPop: false,
+  );
   String message = "";
   final ScrollController _scrollController = ScrollController();
 
