@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "648126554082",
+    "project_id": "telemed-flutter",
+    "storage_bucket": "telemed-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648126554082:android:50bc98cb54c69c40efe3bb",
+        "android_client_info": {
+          "package_name": "com.example.telemed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648126554082-sj1b14b6mc5kn2dc2gns72o4g0b6c0vv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR0K4jxdxGUsZtSsLhCqwE6SZ-Ro-OgGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648126554082-sj1b14b6mc5kn2dc2gns72o4g0b6c0vv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "648126554082-5e91v9embd416d3knkmh0ai02qekmj0o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.telemed.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

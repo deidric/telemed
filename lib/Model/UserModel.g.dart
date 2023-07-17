@@ -31,6 +31,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
           json['currentMedicalLicenseNumber'] as String?,
       currentMedicalLicenseNumberDateIssued:
           json['currentMedicalLicenseNumberDateIssued'] as String?,
+      device_key: json['device_key'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -57,4 +58,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'currentMedicalLicenseNumber': instance.currentMedicalLicenseNumber,
       'currentMedicalLicenseNumberDateIssued':
           instance.currentMedicalLicenseNumberDateIssued,
+      'device_key': instance.device_key,
     };

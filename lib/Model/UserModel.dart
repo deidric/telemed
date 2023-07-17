@@ -26,6 +26,7 @@ class UserModel {
   String? pdeaRegistrationNumber;
   String? currentMedicalLicenseNumber;
   String? currentMedicalLicenseNumberDateIssued;
+  String? device_key;
 
   UserModel({
     this.id,
@@ -50,6 +51,7 @@ class UserModel {
     this.pdeaRegistrationNumber,
     this.currentMedicalLicenseNumber,
     this.currentMedicalLicenseNumberDateIssued,
+    this.device_key,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -81,6 +83,7 @@ enum FieldNames {
   pdeaRegistrationNumber,
   currentMedicalLicenseNumber,
   currentMedicalLicenseNumberDateIssued,
+  device_key
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -130,6 +133,8 @@ extension FieldNamesExtension on FieldNames {
         return 'currentMedicalLicenseNumber';
       case FieldNames.currentMedicalLicenseNumberDateIssued:
         return 'currentMedicalLicenseNumberDateIssued';
+      case FieldNames.device_key:
+        return 'device_key';
     }
   }
 }

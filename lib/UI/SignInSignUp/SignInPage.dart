@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
@@ -41,7 +42,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    emailController.text = 'drrenato@gmail.com';
+    emailController.text = 'roby@gmail.com';
     passwordController.text = '1234';
   }
 
@@ -49,11 +50,15 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
     var data = context.read<TelemedDataProvider>();
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      final fcmToken = await FirebaseMessaging.instance.getToken();
       UserModel userModel = UserModel(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-
-      await data.apiRouteLogin(context: context, userModel: userModel);
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+        device_key: fcmToken,
+      );
+      if (mounted) {
+        await data.apiRouteLogin(context: context, userModel: userModel);
+      }
     }
   }
 

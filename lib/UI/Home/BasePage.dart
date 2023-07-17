@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/PopupMenuButton.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/CalendarPage.dart';
 import 'package:telemed/UI/Home/HomePage.dart';
 import 'package:telemed/UI/Home/Messages/ConversationsPage.dart';
 import 'package:telemed/UI/Home/ProfilePage.dart';
@@ -43,6 +42,7 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
           selectDestination(_selectedDestination);
         });
       }
+      // listenToFirebaseNotifications();
     });
   }
 
@@ -144,4 +144,20 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
       ),
     );
   }
+
+  // Future<void> listenToFirebaseNotifications() async {
+  //   final fcmToken = await FirebaseMessaging.instance.getToken();
+  //   print("FCM token: " + fcmToken!);
+  //   FirebaseMessaging.instance.onTokenRefresh
+  //       .listen((fcmToken) {
+  //     // TODO: If necessary send token to application server.
+  //
+  //     // Note: This callback is fired at each app startup and whenever a new
+  //     // token is generated.
+  //
+  //   })
+  //       .onError((err) {
+  //     // Error getting token.
+  //   });
+  // }
 }
