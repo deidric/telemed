@@ -77,6 +77,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ],
               ))
           .toList();
+      setState(() {});
     });
     super.initState();
   }

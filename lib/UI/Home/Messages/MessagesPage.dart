@@ -77,116 +77,111 @@ class MessagesPageState extends State<MessagesPage> {
       ]),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
-          : ListView(
-              controller: _scrollController,
-              padding: const EdgeInsets.all(15.0),
-              shrinkWrap: true,
-              children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: data.filteredMessageModelList.length,
-                  itemBuilder: (context, index) {
-                    bool isMessageFromLoggedInUser =
-                        data.selectedUserModel.userTypeId ==
-                            data.filteredMessageModelList[index].fromUserTypeId;
-                    if (!isMessageFromLoggedInUser) {
-                      return Row(
-                        children: [
-                          Expanded(
-                            child: Card(
-                              clipBehavior: Clip.antiAlias,
-                              child: Column(
+          : ListView.separated(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: data.filteredMessageModelList.length,
+            itemBuilder: (context, index) {
+              bool isMessageFromLoggedInUser =
+                  data.selectedUserModel.userTypeId ==
+                      data.filteredMessageModelList[index].fromUserTypeId;
+              if (!isMessageFromLoggedInUser) {
+                return Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              tileColor: Colors.blue,
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  ListTile(
-                                    tileColor: Colors.blue,
-                                    title: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                            "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
-                                      ],
-                                    ),
-                                    subtitle: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            data.filteredMessageModelList[index]
-                                                .message!,
-                                          ),
-                                        ),
-                                      ],
+                                  Text(
+                                      "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
+                                ],
+                              ),
+                              subtitle: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      data.filteredMessageModelList[index]
+                                          .message!,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                          Image.asset(
-                            TelemedImage.doctorImage,
-                            width: 50,
-                            height: 50,
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Row(
-                        children: [
-                          Image.asset(
-                            TelemedImage.doctorImage,
-                            width: 50,
-                            height: 50,
-                          ),
-                          Expanded(
-                            child: Card(
-                              clipBehavior: Clip.antiAlias,
-                              child: Column(
+                          ],
+                        ),
+                      ),
+                    ),
+                    Image.asset(
+                      TelemedImage.doctorImage,
+                      width: 50,
+                      height: 50,
+                    ),
+                  ],
+                );
+              } else {
+                return Row(
+                  children: [
+                    Image.asset(
+                      TelemedImage.doctorImage,
+                      width: 50,
+                      height: 50,
+                    ),
+                    Expanded(
+                      child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              tileColor: Colors.grey,
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.start,
                                 children: [
-                                  ListTile(
-                                    tileColor: Colors.grey,
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
-                                      ],
-                                    ),
-                                    subtitle: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            data.filteredMessageModelList[index]
-                                                .message!,
-                                          ),
-                                        ),
-                                      ],
+                                  Text(
+                                      "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
+                                ],
+                              ),
+                              subtitle: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      data.filteredMessageModelList[index]
+                                          .message!,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    }
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Row(
-                      children: [
-                        const Expanded(child: Divider()),
-                        Text(TelemedSettings.dateFormat.format(
-                            DateFormat("yyyy-MM-dd").parse(data
-                                .filteredMessageModelList[index].sentDate!))),
-                        const Expanded(child: Divider()),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Row(
+                children: [
+                  const Expanded(child: Divider()),
+                  Text(TelemedSettings.dateFormat.format(
+                      DateFormat("yyyy-MM-dd").parse(data
+                          .filteredMessageModelList[index].sentDate!))),
+                  const Expanded(child: Divider()),
+                ],
+              );
+            },
+          ),
       floatingActionButton: FloatingActionButton.small(
         onPressed: _scrollDown,
         child: const Icon(Icons.arrow_downward),
