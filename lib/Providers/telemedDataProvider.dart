@@ -143,7 +143,7 @@ class TelemedDataProvider
     _selectedMainReasonForVisit = selectedMainReasonForVisit;
   }
 
-  void setSelectedDataNull({model, int? typeOfUserModel}) {
+  void setSelectedDataNull(model, typeOfUserModel) {
     if (model is CaderModel) {
       _selectedCaderModel = null;
     }
@@ -182,9 +182,6 @@ class TelemedDataProvider
     }
     if (model is MessageModel) {
       _selectedMessageModel = null;
-    }
-    if (model is ConversationModel) {
-      _selectedConversationModel = null;
     }
     notifyListeners();
   }
@@ -659,11 +656,7 @@ class TelemedDataProvider
   }
 
   _apiCreateOrUpdate(
-      {required context,
-      token,
-      required apiRoute,
-      required model,
-      bool? shouldPop}) async {
+      {required context, token, required apiRoute, required model}) async {
     setLoading(true);
     APIJsend apiJsend = await APIManager().postAPI(
         token: token, apiRoute: apiRoute, param: convert.jsonEncode(model));
@@ -734,6 +727,7 @@ class TelemedDataProvider
                         )),
                 (route) => false);
           }
+        } else if (apiRoute == TelemedApiRoutes.apiRouteCreateMessages) {
         } else {
           Navigator.pop(context, true);
         }
@@ -931,14 +925,9 @@ class TelemedDataProvider
 
   @override
   apiRouteMessagesByConversationId({required context}) async {
-    Map<String, dynamic> param = {};
-    if (_selectedConversationModel != null) {
-      param = {
-        'conversationId': _selectedConversationModel!.conversationId.toString(),
-      };
-    }
-
-    // print(_selectedConversationModel!.conversationId);
+    Map<String, dynamic> param = {
+      'conversationId': _selectedConversationModel!.conversationId.toString(),
+    };
     await _apiRead(
         context: context,
         token: selectedUserModel.token,
