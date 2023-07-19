@@ -86,6 +86,7 @@ class MessagesPageState extends State<MessagesPage> {
   Future<void> sendPushMessage() async {
     var data = context.read<TelemedDataProvider>();
     String? token = data.selectedUserModel.device_key;
+    print(token);
     if (token == null) {
       print('Unable to send FCM message, no token exists.');
       return;
