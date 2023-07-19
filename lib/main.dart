@@ -36,6 +36,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(
     MultiProvider(
       providers: [
@@ -106,8 +107,11 @@ class _MyAppState extends State<MyApp> {
         // If `onMessage` is triggered with a notification, construct our own
         // local notification to show to users using the created channel.
         if (notification != null) {
-          Map<String, dynamic> jsonInput = jsonDecode(notification.body!);
-          String message = jsonInput['message'];
+          // print("The notification is: " + notification.body!);
+          // Map<String, dynamic> jsonInput = jsonDecode(notification.body!);
+
+          // String message = jsonInput['message'];
+          String message = notification.body!;
           flutterLocalNotificationsPlugin.show(
               notification.hashCode,
               notification.title,
