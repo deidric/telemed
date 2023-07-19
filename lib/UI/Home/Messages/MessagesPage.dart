@@ -80,6 +80,7 @@ class MessagesPageState extends State<MessagesPage> {
       message = "";
       setState(() {});
       await sendPushMessage();
+      _scrollDown();
     }
   }
 
