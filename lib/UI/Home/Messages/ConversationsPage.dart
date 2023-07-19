@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/ConversationModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/Home/Messages/MessagesPage.dart';
 import 'package:telemed/settings.dart';
@@ -29,10 +30,12 @@ class ConversationsPageState extends State<ConversationsPage> {
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
     if (mounted) {
-      // List<ConversationModel> conversationModelList = [];
-      // data.setData(modelList: conversationModelList);
+      List<ConversationModel> conversationModelList = [];
+      data.setData(modelList: conversationModelList);
+
       await data.apiRouteConversationsByUserId(context: context);
       final uniqueConversationSet = <dynamic>{};
+
       data.conversationModelList.retainWhere(
           (element) => uniqueConversationSet.add(element.conversationId));
       data.setData(modelList: uniqueConversationSet.toList());
@@ -81,9 +84,12 @@ class ConversationsPageState extends State<ConversationsPage> {
                     IconButton(
                       icon: const Icon(Icons.refresh),
                       onPressed: () async {
+                        List<ConversationModel> conversationModelList = [];
+                        data.setData(modelList: conversationModelList);
                         await data.apiRouteConversationsByUserId(
                             context: context);
                         final uniqueConversationSet = <dynamic>{};
+
                         data.conversationModelList.retainWhere((element) =>
                             uniqueConversationSet.add(element.conversationId));
                         data.setData(modelList: uniqueConversationSet.toList());
