@@ -30,7 +30,10 @@ String constructFCMPayload(String? token) {
 }
 
 class MessagesPage extends StatefulWidget {
-  const MessagesPage({Key? key}) : super(key: key);
+  final bool shouldPop;
+
+  const MessagesPage({Key? key, required this.shouldPop}) : super(key: key);
+
   static const String route = '/basePage/messagesPage';
 
   @override
@@ -66,6 +69,13 @@ class MessagesPageState extends State<MessagesPage> {
     await data.apiRoutecreateMessages(
         context: context, messageModel: messageModel);
     if (mounted) {
+      await data.apiRouteConversationsByUserId(context: context);
+      final uniqueConversationSet = <dynamic>{};
+      data.conversationModelList.retainWhere(
+              (element) => uniqueConversationSet.add(element.conversationId));
+      data.setData(modelList: uniqueConversationSet.toList());
+    }
+    if (mounted) {
       await data.apiRouteMessagesByConversationId(context: context);
       message = "";
       setState(() {});
@@ -75,8 +85,8 @@ class MessagesPageState extends State<MessagesPage> {
 
   Future<void> sendPushMessage() async {
     var data = context.read<TelemedDataProvider>();
-    String? _token = data.selectedUserModel.device_key;
-    if (_token == null) {
+    String? token = data.selectedUserModel.device_key;
+    if (token == null) {
       print('Unable to send FCM message, no token exists.');
       return;
     }
@@ -87,15 +97,23 @@ class MessagesPageState extends State<MessagesPage> {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: constructFCMPayload(_token),
+        body: constructFCMPayload(token),
       );
       print('FCM request for device sent!');
     } catch (e) {
       print(e);
     }
+    if (widget.shouldPop) {
+      if (mounted) {
+        Navigator.pop(context, true);
+      }
+    }
   }
 
-  var currentPage = const MessagesPage();
+  var currentPage = const MessagesPage(
+    shouldPop: false,
+  );
+
   String message = "";
   final ScrollController _scrollController = ScrollController();
 
@@ -123,108 +141,108 @@ class MessagesPageState extends State<MessagesPage> {
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
           : ListView.separated(
-              controller: _scrollController,
-              physics: const AlwaysScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: data.filteredMessageModelList.length,
-              itemBuilder: (context, index) {
-                bool isMessageFromLoggedInUser =
-                    data.selectedUserModel.userTypeId ==
-                        data.filteredMessageModelList[index].fromUserTypeId;
-                if (!isMessageFromLoggedInUser) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
+        controller: _scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: data.filteredMessageModelList.length,
+        itemBuilder: (context, index) {
+          bool isMessageFromLoggedInUser =
+              data.selectedUserModel.userTypeId ==
+                  data.filteredMessageModelList[index].fromUserTypeId;
+          if (!isMessageFromLoggedInUser) {
+            return Row(
+              children: [
+                Expanded(
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          tileColor: Colors.blue,
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              ListTile(
-                                tileColor: Colors.blue,
-                                title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                        "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
-                                  ],
-                                ),
-                                subtitle: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        data.filteredMessageModelList[index]
-                                            .message!,
-                                      ),
-                                    ),
-                                  ],
+                              Text(
+                                  "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
+                            ],
+                          ),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  data.filteredMessageModelList[index]
+                                      .message!,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                      Image.asset(
-                        TelemedImage.doctorImage,
-                        width: 50,
-                        height: 50,
-                      ),
-                    ],
-                  );
-                } else {
-                  return Row(
-                    children: [
-                      Image.asset(
-                        TelemedImage.doctorImage,
-                        width: 50,
-                        height: 50,
-                      ),
-                      Expanded(
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
+                      ],
+                    ),
+                  ),
+                ),
+                Image.asset(
+                  TelemedImage.doctorImage,
+                  width: 50,
+                  height: 50,
+                ),
+              ],
+            );
+          } else {
+            return Row(
+              children: [
+                Image.asset(
+                  TelemedImage.doctorImage,
+                  width: 50,
+                  height: 50,
+                ),
+                Expanded(
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          tileColor: Colors.grey,
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              ListTile(
-                                tileColor: Colors.grey,
-                                title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
-                                  ],
-                                ),
-                                subtitle: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        data.filteredMessageModelList[index]
-                                            .message!,
-                                      ),
-                                    ),
-                                  ],
+                              Text(
+                                  "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
+                            ],
+                          ),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  data.filteredMessageModelList[index]
+                                      .message!,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                }
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Row(
-                  children: [
-                    const Expanded(child: Divider()),
-                    Text(TelemedSettings.dateFormat.format(
-                        DateFormat("yyyy-MM-dd").parse(
-                            data.filteredMessageModelList[index].sentDate!))),
-                    const Expanded(child: Divider()),
-                  ],
-                );
-              },
-            ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return Row(
+            children: [
+              const Expanded(child: Divider()),
+              Text(TelemedSettings.dateFormat.format(
+                  DateFormat("yyyy-MM-dd").parse(
+                      data.filteredMessageModelList[index].sentDate!))),
+              const Expanded(child: Divider()),
+            ],
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton.small(
         onPressed: _scrollDown,
         child: const Icon(Icons.arrow_downward),
@@ -273,3 +291,4 @@ class MessagesPageState extends State<MessagesPage> {
     );
   }
 }
+

@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,15 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBNVO7aaHAVsLbpR2ehHB6Wfzr3noKlvQM',
+    appId: '1:648126554082:web:278a2149b4398e5fefe3bb',
+    messagingSenderId: '648126554082',
+    projectId: 'telemed-flutter',
+    authDomain: 'telemed-flutter.firebaseapp.com',
+    storageBucket: 'telemed-flutter.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCR0K4jxdxGUsZtSsLhCqwE6SZ-Ro-OgGI',
     appId: '1:648126554082:android:50bc98cb54c69c40efe3bb',
@@ -65,5 +68,15 @@ class DefaultFirebaseOptions {
     storageBucket: 'telemed-flutter.appspot.com',
     iosClientId: '648126554082-a4mdmfq1pl442hiflmtpa3lcskvpgb24.apps.googleusercontent.com',
     iosBundleId: 'com.telemed.app',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBr06f8GDLuYaRgTjbTkDz74RVnGLkSSjs',
+    appId: '1:648126554082:ios:4f3f59800c410d2cefe3bb',
+    messagingSenderId: '648126554082',
+    projectId: 'telemed-flutter',
+    storageBucket: 'telemed-flutter.appspot.com',
+    iosClientId: '648126554082-5e91v9embd416d3knkmh0ai02qekmj0o.apps.googleusercontent.com',
+    iosBundleId: 'com.example.telemed.RunnerTests',
   );
 }
