@@ -1,10 +1,11 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/ConversationModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/BasePage.dart';
-import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
+import 'package:telemed/UI/Home/Messages/MessagesPage.dart';
 import 'package:telemed/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,7 +35,16 @@ class HomePageState extends State<HomePage> {
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
     if (mounted) {
-      await data.apiRouteAppointmentByDate(context: context);
+      await data.apiRouteConversationsByUserId(context: context);
+      final uniqueConversationSet = <dynamic>{};
+      data.conversationModelList.retainWhere(
+          (element) => uniqueConversationSet.add(element.conversationId));
+      data.setData(modelList: uniqueConversationSet.toList());
+    }
+    if (mounted) {
+      if (data.selectedUserModel.userTypeId == TelemedSettings.patientId) {
+        await data.apiRouteAppointmentByDate(context: context);
+      }
     }
   }
 
@@ -85,7 +95,9 @@ class HomePageState extends State<HomePage> {
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {},
                   ),
-                if (data.appointmentModelList.isNotEmpty)
+                if (data.selectedUserModel.userTypeId ==
+                        TelemedSettings.patientId &&
+                    data.appointmentModelList.isNotEmpty)
                   ListView.separated(
                     itemCount: data.appointmentModelList.length,
                     shrinkWrap: true,
@@ -93,17 +105,27 @@ class HomePageState extends State<HomePage> {
                       return ListTile(
                         leading: Image.asset(TelemedImage.doctorImage),
                         trailing: IconButton(
-                          onPressed: () {
-                            RouteSettings settings = const RouteSettings(
-                                name: BasePage.route, arguments: '');
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    settings: settings,
-                                    builder: (context) => const BasePage(
-                                          subRoute: BasePage.messagesPage,
-                                        )),
-                                (route) => false);
+                          onPressed: () async {
+                            var conversationModel = data.conversationModelList
+                                .firstWhereOrNull((element) =>
+                                    element.toUserId ==
+                                    data.appointmentModelList[index].doctorId);
+
+                            if (conversationModel != null) {
+                              data.setSelectedData(model: conversationModel);
+                            } else {
+                              ConversationModel conversationModel1 =
+                                  ConversationModel(
+                                      conversationId: null,
+                                      toUserId: data.appointmentModelList[index]
+                                          .doctorId);
+                              data.setSelectedData(model: conversationModel1);
+                            }
+
+                            Navigator.pushNamed(
+                              context,
+                              MessagesPage.route,
+                            );
                           },
                           icon: const Icon(Icons.message),
                         ),
@@ -117,56 +139,6 @@ class HomePageState extends State<HomePage> {
                       return const Divider();
                     },
                   ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.generalNeeds,
-                      style: Theme.of(context).textTheme.titleSmall!),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.gNeeds,
-                      style: Theme.of(context).textTheme.bodySmall!),
-                ),
-                ListTile(
-                  title: Text(TelemedStrings.bookNow),
-                  subtitle: Text(TelemedStrings.generalNeedsChoosePrimary),
-                  leading: const Icon(Icons.calendar_today),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      BookAppointmentsReasonForVisitPage.route,
-                    );
-                  },
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.specificNeeds,
-                      style: Theme.of(context).textTheme.titleSmall!),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.specificNeedsPrimary,
-                      style: Theme.of(context).textTheme.bodySmall!),
-                ),
-                ListTile(
-                  title: Text(TelemedStrings.childrenHealth),
-                  subtitle: Text(TelemedStrings.childHealth),
-                  leading: const Icon(Icons.child_care),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-                const Divider(),
-                ListTile(
-                  title: Text(TelemedStrings.seniorHealth),
-                  subtitle: Text(TelemedStrings.senHealth),
-                  leading: const Icon(Icons.accessible),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-                const Divider(),
               ],
             ),
     );
