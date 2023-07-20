@@ -34,11 +34,11 @@ class ConversationsPageState extends State<ConversationsPage> {
       data.setData(modelList: conversationModelList);
 
       await data.apiRouteConversationsByUserId(context: context);
-      final uniqueConversationSet = <dynamic>{};
-
-      data.conversationModelList.retainWhere(
-          (element) => uniqueConversationSet.add(element.conversationId));
-      data.setData(modelList: uniqueConversationSet.toList());
+      // final uniqueConversationSet = <dynamic>{};
+      //
+      // data.conversationModelList.retainWhere(
+      //     (element) => uniqueConversationSet.add(element.conversationId));
+      // data.setData(modelList: uniqueConversationSet.toList());
     }
   }
 
@@ -88,11 +88,11 @@ class ConversationsPageState extends State<ConversationsPage> {
                         data.setData(modelList: conversationModelList);
                         await data.apiRouteConversationsByUserId(
                             context: context);
-                        final uniqueConversationSet = <dynamic>{};
-
-                        data.conversationModelList.retainWhere((element) =>
-                            uniqueConversationSet.add(element.conversationId));
-                        data.setData(modelList: uniqueConversationSet.toList());
+                        // final uniqueConversationSet = <dynamic>{};
+                        //
+                        // data.conversationModelList.retainWhere((element) =>
+                        //     uniqueConversationSet.add(element.conversationId));
+                        // data.setData(modelList: uniqueConversationSet.toList());
                       },
                     )
                   ],
