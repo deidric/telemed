@@ -60,6 +60,7 @@ class MessagesPageState extends State<MessagesPage> {
 
   Future<void> sendMessage(BuildContext context) async {
     var data = context.read<TelemedDataProvider>();
+    // print(data.selectedConversationModel!.toUserId);
     MessageModel messageModel = MessageModel(
       toUserId: data.selectedConversationModel!.toUserId,
       sentDate: DateTime.now().toIso8601String(),
@@ -70,10 +71,10 @@ class MessagesPageState extends State<MessagesPage> {
         context: context, messageModel: messageModel);
     if (mounted) {
       await data.apiRouteConversationsByUserId(context: context);
-      final uniqueConversationSet = <dynamic>{};
-      data.conversationModelList.retainWhere(
-              (element) => uniqueConversationSet.add(element.conversationId));
-      data.setData(modelList: uniqueConversationSet.toList());
+      // final uniqueConversationSet = <dynamic>{};
+      // data.conversationModelList.retainWhere(
+      //         (element) => uniqueConversationSet.add(element.conversationId));
+      data.setData(modelList: data.conversationModelList);
     }
     if (mounted) {
       await data.apiRouteMessagesByConversationId(context: context);
@@ -86,6 +87,16 @@ class MessagesPageState extends State<MessagesPage> {
 
   Future<void> sendPushMessage() async {
     var data = context.read<TelemedDataProvider>();
+    // bool isMessageFromLoggedInUser =
+    //     data.selectedUserModel.userTypeId ==
+    //         data.filteredMessageModelList[index].fromUserTypeId;
+    // if (!isMessageFromLoggedInUser) {
+    //
+    // }
+    // else{
+    //
+    // }
+
     String? token = data.selectedUserModel.device_key;
     print(token);
     if (token == null) {
@@ -111,10 +122,6 @@ class MessagesPageState extends State<MessagesPage> {
       }
     }
   }
-
-  var currentPage = const MessagesPage(
-    shouldPop: false,
-  );
 
   String message = "";
   final ScrollController _scrollController = ScrollController();
@@ -143,114 +150,122 @@ class MessagesPageState extends State<MessagesPage> {
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
           : ListView.separated(
-        controller: _scrollController,
-        physics: const AlwaysScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: data.filteredMessageModelList.length,
-        itemBuilder: (context, index) {
-          bool isMessageFromLoggedInUser =
-              data.selectedUserModel.userTypeId ==
-                  data.filteredMessageModelList[index].fromUserTypeId;
-          if (!isMessageFromLoggedInUser) {
-            return Row(
-              children: [
-                Expanded(
-                  child: Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          tileColor: Colors.blue,
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+              padding: const EdgeInsets.only(
+                  bottom: kFloatingActionButtonMargin + 150),
+              controller: _scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: data.filteredMessageModelList.length,
+              itemBuilder: (context, index) {
+                bool isMessageFromLoggedInUser =
+                    data.selectedUserModel.userTypeId ==
+                        data.filteredMessageModelList[index].fromUserTypeId;
+                if (!isMessageFromLoggedInUser) {
+                  String title =
+                      "${data.filteredMessageModelList[index].fromUserFirstName!} ${data.filteredMessageModelList[index].fromUserLastName!}";
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
                             children: [
-                              Text(
-                                  "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
-                            ],
-                          ),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  data.filteredMessageModelList[index]
-                                      .message!,
+                              ListTile(
+                                tileColor: Colors.blue,
+                                title: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(title),
+                                  ],
+                                ),
+                                subtitle: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        data.filteredMessageModelList[index]
+                                            .message!,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                Image.asset(
-                  TelemedImage.doctorImage,
-                  width: 50,
-                  height: 50,
-                ),
-              ],
-            );
-          } else {
-            return Row(
-              children: [
-                Image.asset(
-                  TelemedImage.doctorImage,
-                  width: 50,
-                  height: 50,
-                ),
-                Expanded(
-                  child: Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          tileColor: Colors.grey,
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                      ),
+                      Image.asset(
+                        TelemedImage.doctorImage,
+                        width: 50,
+                        height: 50,
+                      ),
+                    ],
+                  );
+                } else {
+                  String title =
+                      "${data.filteredMessageModelList[index].fromUserFirstName!} ${data.filteredMessageModelList[index].fromUserLastName!}";
+                  return Row(
+                    children: [
+                      Image.asset(
+                        TelemedImage.doctorImage,
+                        width: 50,
+                        height: 50,
+                      ),
+                      Expanded(
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
                             children: [
-                              Text(
-                                  "${data.filteredMessageModelList[index].toUserFirstName!} ${data.filteredMessageModelList[index].toUserLastName!}"),
-                            ],
-                          ),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  data.filteredMessageModelList[index]
-                                      .message!,
+                              ListTile(
+                                tileColor: Colors.grey,
+                                title: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        title),
+                                  ],
+                                ),
+                                subtitle: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        data.filteredMessageModelList[index]
+                                            .message!,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Row(
-            children: [
-              const Expanded(child: Divider()),
-              Text(TelemedSettings.dateFormat.format(
-                  DateFormat("yyyy-MM-dd").parse(
-                      data.filteredMessageModelList[index].sentDate!))),
-              const Expanded(child: Divider()),
-            ],
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton.small(
-        onPressed: _scrollDown,
-        child: const Icon(Icons.arrow_downward),
-      ),
-      persistentFooterButtons: [
-        Row(
+                      ),
+                    ],
+                  );
+                }
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Row(
+                  children: [
+                    const Expanded(child: Divider()),
+                    Text(TelemedSettings.dateFormat.format(
+                        DateFormat("yyyy-MM-dd").parse(
+                            data.filteredMessageModelList[index].sentDate!))),
+                    const Expanded(child: Divider()),
+                  ],
+                );
+              },
+            ),
+      // floatingActionButton: FloatingActionButton.small(
+      //   onPressed: _scrollDown,
+      //   child: const Icon(Icons.arrow_downward),
+      // ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 32.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
               child: TextFormField(
@@ -274,6 +289,10 @@ class MessagesPageState extends State<MessagesPage> {
               ),
             ),
             IconButton(
+              onPressed: _scrollDown,
+              icon: const Icon(Icons.arrow_downward),
+            ),
+            IconButton(
               onPressed: () {},
               icon: const Icon(Icons.emoji_emotions),
             ),
@@ -289,8 +308,8 @@ class MessagesPageState extends State<MessagesPage> {
             ),
           ],
         ),
-      ],
+      ),
+      // ],
     );
   }
 }
-

@@ -5,7 +5,6 @@ part 'ConversationModel.g.dart';
 @JsonSerializable()
 class ConversationModel {
   int? id;
-  String? conversationId;
   int? fromUserId;
   int? toUserId;
   String? message;
@@ -16,13 +15,14 @@ class ConversationModel {
   int? fromUserTypeId;
   String? fromUserFirstName;
   String? fromUserLastName;
+  String? fromUserDeviceKey;
   int? toUserTypeId;
   String? toUserFirstName;
   String? toUserLastName;
+  String? toUserDeviceKey;
 
   ConversationModel({
     this.id,
-    this.conversationId,
     this.fromUserId,
     this.toUserId,
     this.message,
@@ -33,9 +33,11 @@ class ConversationModel {
     this.fromUserTypeId,
     this.fromUserFirstName,
     this.fromUserLastName,
+    this.fromUserDeviceKey,
     this.toUserTypeId,
     this.toUserFirstName,
     this.toUserLastName,
+    this.toUserDeviceKey,
   });
 
   factory ConversationModel.fromJson(Map<String, dynamic> json) =>
@@ -46,7 +48,6 @@ class ConversationModel {
 
 enum FieldNames {
   id,
-  conversationId,
   fromUserId,
   toUserId,
   message,
@@ -57,9 +58,11 @@ enum FieldNames {
   fromUserTypeId,
   fromUserFirstName,
   fromUserLastName,
+  fromUserDeviceKey,
   toUserTypeId,
   toUserFirstName,
   toUserLastName,
+  toUserDeviceKey,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -67,8 +70,6 @@ extension FieldNamesExtension on FieldNames {
     switch (this) {
       case FieldNames.id:
         return 'id';
-      case FieldNames.conversationId:
-        return 'conversationId';
       case FieldNames.fromUserId:
         return 'fromUserId';
       case FieldNames.toUserId:
@@ -89,12 +90,16 @@ extension FieldNamesExtension on FieldNames {
         return 'fromUserFirstName';
       case FieldNames.fromUserLastName:
         return 'fromUserLastName';
+      case FieldNames.fromUserDeviceKey:
+        return 'fromUserDeviceKey';
       case FieldNames.toUserTypeId:
         return 'toUserTypeId';
       case FieldNames.toUserFirstName:
         return 'toUserFirstName';
       case FieldNames.toUserLastName:
         return 'toUserLastName';
+      case FieldNames.toUserDeviceKey:
+        return 'toUserDeviceKey';
     }
   }
 }

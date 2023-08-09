@@ -9,7 +9,7 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "235c-2001-4451-8783-1800-dbc-b4d9-cfbe-36b3.ngrok-free.app";
+  static String authority = "1e79-2001-4451-879c-3b00-cc37-8707-e908-8b65.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -61,6 +61,8 @@ class TelemedJsendStatus {
 }
 
 class TelemedStrings {
+  static String alertTitle = "Alert";
+  static String alertMessageNavToMessages = "Please navigate to the messages screen to continue the conversation.";
   static String unauthenticatedAccessTitle = "Unauthenticated Access";
   static String unauthenticatedAccessMessage =
       "Sorry. This seems like an unauthenticated access. Please verify yourself by signing in again.";

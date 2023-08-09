@@ -5,7 +5,7 @@ part 'MessageModel.g.dart';
 @JsonSerializable()
 class MessageModel {
   int? id;
-  String? conversationId;
+  int? conversationId;
   int? fromUserId;
   int? toUserId;
   String? message;
@@ -16,9 +16,11 @@ class MessageModel {
   int? fromUserTypeId;
   String? fromUserFirstName;
   String? fromUserLastName;
+  String? fromUserDeviceKey;
   int? toUserTypeId;
   String? toUserFirstName;
   String? toUserLastName;
+  String? toUserDeviceKey;
 
   MessageModel({
     this.id,
@@ -33,9 +35,11 @@ class MessageModel {
     this.fromUserTypeId,
     this.fromUserFirstName,
     this.fromUserLastName,
+    this.fromUserDeviceKey,
     this.toUserTypeId,
     this.toUserFirstName,
     this.toUserLastName,
+    this.toUserDeviceKey,
   });
 
   factory MessageModel.fromJson(Map<String, dynamic> json) =>
@@ -57,9 +61,11 @@ enum FieldNames {
   fromUserTypeId,
   fromUserFirstName,
   fromUserLastName,
+  fromUserDeviceKey,
   toUserTypeId,
   toUserFirstName,
   toUserLastName,
+  toUserDeviceKey,
 }
 
 extension FieldNamesExtension on FieldNames {
@@ -89,12 +95,16 @@ extension FieldNamesExtension on FieldNames {
         return 'fromUserFirstName';
       case FieldNames.fromUserLastName:
         return 'fromUserLastName';
+      case FieldNames.fromUserDeviceKey:
+        return 'fromUserDeviceKey';
       case FieldNames.toUserTypeId:
         return 'toUserTypeId';
       case FieldNames.toUserFirstName:
         return 'toUserFirstName';
       case FieldNames.toUserLastName:
         return 'toUserLastName';
+      case FieldNames.toUserDeviceKey:
+        return 'toUserDeviceKey';
     }
   }
 }

@@ -8,7 +8,7 @@ part of 'MessageModel.dart';
 
 MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
       id: json['id'] as int?,
-      conversationId: json['conversationId'] as String?,
+      conversationId: json['conversationId'] as int?,
       fromUserId: json['fromUserId'] as int?,
       toUserId: json['toUserId'] as int?,
       message: json['message'] as String?,
@@ -19,9 +19,11 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
       fromUserTypeId: json['fromUserTypeId'] as int?,
       fromUserFirstName: json['fromUserFirstName'] as String?,
       fromUserLastName: json['fromUserLastName'] as String?,
+      fromUserDeviceKey: json['fromUserDeviceKey'] as String?,
       toUserTypeId: json['toUserTypeId'] as int?,
       toUserFirstName: json['toUserFirstName'] as String?,
       toUserLastName: json['toUserLastName'] as String?,
+      toUserDeviceKey: json['toUserDeviceKey'] as String?,
     );
 
 Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
@@ -38,7 +40,9 @@ Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
       'fromUserTypeId': instance.fromUserTypeId,
       'fromUserFirstName': instance.fromUserFirstName,
       'fromUserLastName': instance.fromUserLastName,
+      'fromUserDeviceKey': instance.fromUserDeviceKey,
       'toUserTypeId': instance.toUserTypeId,
       'toUserFirstName': instance.toUserFirstName,
       'toUserLastName': instance.toUserLastName,
+      'toUserDeviceKey': instance.toUserDeviceKey,
     };

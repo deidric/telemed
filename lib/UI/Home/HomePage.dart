@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/ConversationModel.dart';
+import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
+import 'package:telemed/UI/Home/Messages/MessagesPage.dart';
+import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,10 +42,13 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
+      key : _scaffoldKey,
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
           : ListView(
@@ -93,17 +100,35 @@ class HomePageState extends State<HomePage> {
                       return ListTile(
                         leading: Image.asset(TelemedImage.doctorImage),
                         trailing: IconButton(
-                          onPressed: () {
+                          onPressed: () async {
                             RouteSettings settings = const RouteSettings(
                                 name: BasePage.route, arguments: '');
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    settings: settings,
-                                    builder: (context) => const BasePage(
-                                          subRoute: BasePage.messagesPage,
-                                        )),
-                                (route) => false);
+                            data.setSelectedData(
+                                model: ConversationModel(
+                                    toUserId: data
+                                        .appointmentModelList[index].doctorId));
+
+                            MessageModel messageModel = MessageModel(
+                              toUserId:
+                                  data.selectedConversationModel!.toUserId,
+                              sentDate: DateTime.now().toIso8601String(),
+                              attachments: null,
+                              message: "Hi",
+                            );
+                            if (mounted) {
+                              await data.apiRoutecreateMessages(
+                                  context: context, messageModel: messageModel);
+                            }
+
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) async {
+                              if (mounted) {
+                                await DialogUtils.displayDialogOKCallBack(
+                                    _scaffoldKey.currentContext!,
+                                    TelemedStrings.alertTitle,
+                                    TelemedStrings.alertMessageNavToMessages);
+                              }
+                            });
                           },
                           icon: const Icon(Icons.message),
                         ),

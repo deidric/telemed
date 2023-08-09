@@ -926,7 +926,7 @@ class TelemedDataProvider
   @override
   apiRouteMessagesByConversationId({required context}) async {
     Map<String, dynamic> param = {
-      'conversationId': _selectedConversationModel!.conversationId.toString(),
+      'conversationId': _selectedConversationModel!.id.toString(),
     };
     await _apiRead(
         context: context,
