@@ -61,8 +61,18 @@ class MessagesPageState extends State<MessagesPage> {
   Future<void> sendMessage(BuildContext context) async {
     var data = context.read<TelemedDataProvider>();
     // print(data.selectedConversationModel!.toUserId);
+    int? toUserId;
+    bool isMessagetoLoggedInUser =
+        data.selectedUserModel.id ==
+            data.selectedConversationModel!.toUserId;
+    if (!isMessagetoLoggedInUser) {
+      toUserId = data.selectedConversationModel!.toUserId;
+    }
+    else{
+      toUserId = data.selectedConversationModel!.fromUserId;
+    }
     MessageModel messageModel = MessageModel(
-      toUserId: data.selectedConversationModel!.toUserId,
+      toUserId: toUserId,
       sentDate: DateTime.now().toIso8601String(),
       attachments: null,
       message: message,
@@ -158,8 +168,8 @@ class MessagesPageState extends State<MessagesPage> {
               itemCount: data.filteredMessageModelList.length,
               itemBuilder: (context, index) {
                 bool isMessageFromLoggedInUser =
-                    data.selectedUserModel.userTypeId ==
-                        data.filteredMessageModelList[index].fromUserTypeId;
+                    data.selectedUserModel.id ==
+                        data.filteredMessageModelList[index].fromUserId;
                 if (!isMessageFromLoggedInUser) {
                   String title =
                       "${data.filteredMessageModelList[index].fromUserFirstName!} ${data.filteredMessageModelList[index].fromUserLastName!}";
