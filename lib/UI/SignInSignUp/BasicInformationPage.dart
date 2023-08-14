@@ -58,8 +58,8 @@ class BasicInformationPageState extends State<BasicInformationPage>
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                             "${TelemedStrings.doctor} ${TelemedStrings.basicInformation}",
-                            style: Theme.of(context)
-                                .textTheme
+                            style: data
+                                .getTelemedTextStyle(context)
                                 .titleLarge!
                                 .copyWith(fontWeight: FontWeight.bold)),
                       ),
@@ -69,15 +69,15 @@ class BasicInformationPageState extends State<BasicInformationPage>
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                             "${TelemedStrings.patient} ${TelemedStrings.basicInformation}",
-                            style: Theme.of(context)
-                                .textTheme
+                            style: data
+                                .getTelemedTextStyle(context)
                                 .titleLarge!
                                 .copyWith(fontWeight: FontWeight.bold)),
                       ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.basicInfo,
-                          style: Theme.of(context).textTheme.bodyLarge!),
+                          style: data.getTelemedTextStyle(context).bodyLarge!),
                     ),
                     Form(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -388,8 +388,9 @@ class BasicInformationPageState extends State<BasicInformationPage>
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(TelemedStrings.phoneNote,
-                                  style:
-                                      Theme.of(context).textTheme.bodySmall!),
+                                  style: data
+                                      .getTelemedTextStyle(context)
+                                      .bodySmall!),
                             ),
                             if (data.selectedUserModel.userTypeId ==
                                 TelemedSettings.doctorId)

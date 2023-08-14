@@ -70,7 +70,7 @@ class BookAppointmentsReasonForVisitPageState
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.patientConnection,
-                          style: Theme.of(context).textTheme.bodyLarge!),
+                          style: data.getTelemedTextStyle(context).bodyLarge!),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -78,7 +78,8 @@ class BookAppointmentsReasonForVisitPageState
                         children: [
                           const Icon(Icons.location_on),
                           Text("London, United Kingdom",
-                              style: Theme.of(context).textTheme.bodyLarge!),
+                              style:
+                                  data.getTelemedTextStyle(context).bodyLarge!),
                           TextButton(
                               onPressed: () {},
                               child: Text("(${TelemedStrings.change})")),
@@ -128,7 +129,9 @@ class BookAppointmentsReasonForVisitPageState
                                   ),
                             ),
                             subtitle: Text(TelemedStrings.findDoctor,
-                                style: Theme.of(context).textTheme.bodySmall!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodySmall!),
                           ),
                         ),
                         Padding(
@@ -159,7 +162,9 @@ class BookAppointmentsReasonForVisitPageState
                                   ),
                             ),
                             subtitle: Text(TelemedStrings.findDoctor,
-                                style: Theme.of(context).textTheme.bodySmall!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodySmall!),
                           ),
                         ),
                         Padding(
@@ -190,7 +195,9 @@ class BookAppointmentsReasonForVisitPageState
                                   ),
                             ),
                             subtitle: Text(TelemedStrings.talkToPharmacist,
-                                style: Theme.of(context).textTheme.bodySmall!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodySmall!),
                           ),
                         ),
                         Padding(
@@ -221,7 +228,9 @@ class BookAppointmentsReasonForVisitPageState
                                   ),
                             ),
                             subtitle: Text(TelemedStrings.findDoctor,
-                                style: Theme.of(context).textTheme.bodySmall!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodySmall!),
                           ),
                         ),
                         Padding(
@@ -252,7 +261,9 @@ class BookAppointmentsReasonForVisitPageState
                                   ),
                             ),
                             subtitle: Text(TelemedStrings.findDoctor,
-                                style: Theme.of(context).textTheme.bodySmall!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodySmall!),
                           ),
                         ),
                       ],

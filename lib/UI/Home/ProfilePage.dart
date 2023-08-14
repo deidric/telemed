@@ -27,12 +27,14 @@ class ProfilePageState extends State<ProfilePage> {
 
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
-    if(mounted){
+    if (mounted) {
       // await data.apiRouteAppointmentByDate(context: context);
     }
   }
 
   var currentPage = const ProfilePage();
+
+  int? _selectedTextSize = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,8 @@ class ProfilePageState extends State<ProfilePage> {
                     ListTile(
                       title: Text(
                           "${data.selectedUserModel.firstName!} ${data.selectedUserModel.lastName!}",
-                          style: Theme.of(context).textTheme.titleMedium!),
+                          style:
+                              data.getTelemedTextStyle(context).titleMedium!),
                       leading: const Icon(Icons.account_circle),
                       trailing: IconButton(
                         onPressed: () {},
@@ -69,7 +72,8 @@ class ProfilePageState extends State<ProfilePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.payment,
-                          style: Theme.of(context).textTheme.titleMedium!),
+                          style:
+                              data.getTelemedTextStyle(context).titleMedium!),
                     ),
                     ListTile(
                       title: Text(
@@ -85,6 +89,31 @@ class ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
+                    ),
+                    const Divider(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(TelemedStrings.textSize,
+                          style:
+                              data.getTelemedTextStyle(context).titleMedium!),
+                    ),
+                    Wrap(
+                      spacing: 10,
+                      children: List<Widget>.generate(
+                        TelemedTextSizeEnum.values.length,
+                        (int idx) {
+                          return ChoiceChip(
+                              label: Text(TelemedTextSizeEnum.values[idx].name),
+                              selected: _selectedTextSize == idx,
+                              onSelected: (bool selected) {
+                                data.setTelemedTextSize(
+                                    TelemedTextSizeEnum.values[idx]);
+                                setState(() {
+                                  _selectedTextSize = selected ? idx : null;
+                                });
+                              });
+                        },
+                      ).toList(),
                     ),
                   ],
                 ),

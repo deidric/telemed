@@ -28,6 +28,52 @@ import 'package:telemed/settings.dart';
 class TelemedDataProvider
     with ChangeNotifier, DiagnosticableTreeMixin
     implements TelemedApi {
+  TextTheme getTelemedTextStyle(BuildContext context) {
+    double increaseFontSizeBy = 1;
+    switch (telemedTextSize) {
+      case TelemedTextSizeEnum.small:
+        increaseFontSizeBy = 0.8;
+        break;
+      case TelemedTextSizeEnum.medium:
+        increaseFontSizeBy = 1;
+        break;
+      case TelemedTextSizeEnum.large:
+        increaseFontSizeBy = 1.2;
+        break;
+      default:
+        increaseFontSizeBy = 1;
+        break;
+    }
+
+    TextTheme textTheme = TextTheme(
+      displayLarge: TextStyle(fontSize: (57.0 * increaseFontSizeBy)),
+      displayMedium: TextStyle(fontSize: 45.0 * increaseFontSizeBy),
+      displaySmall: TextStyle(fontSize: 36.0 * increaseFontSizeBy),
+      headlineLarge: TextStyle(fontSize: 32.0 * increaseFontSizeBy),
+      headlineMedium: TextStyle(fontSize: 28.0 * increaseFontSizeBy),
+      headlineSmall: TextStyle(fontSize: 24.0 * increaseFontSizeBy),
+      titleLarge: TextStyle(fontSize: 22.0 * increaseFontSizeBy),
+      titleMedium: TextStyle(fontSize: 16.0 * increaseFontSizeBy),
+      titleSmall: TextStyle(fontSize: 14.0 * increaseFontSizeBy),
+      labelLarge: TextStyle(fontSize: 14.0 * increaseFontSizeBy),
+      labelMedium: TextStyle(fontSize: 12.0 * increaseFontSizeBy),
+      labelSmall: TextStyle(fontSize: 11.0 * increaseFontSizeBy),
+      bodyLarge: TextStyle(fontSize: 16.0 * increaseFontSizeBy),
+      bodyMedium: TextStyle(fontSize: 14.0 * increaseFontSizeBy),
+      bodySmall: TextStyle(fontSize: 12.0 * increaseFontSizeBy),
+    );
+    return textTheme;
+  }
+
+  TelemedTextSizeEnum _telemedTextSize = TelemedTextSizeEnum.medium;
+
+  TelemedTextSizeEnum get telemedTextSize => _telemedTextSize;
+
+  void setTelemedTextSize(TelemedTextSizeEnum telemedTextSize) {
+    _telemedTextSize = telemedTextSize;
+    notifyListeners();
+  }
+
   bool _isDark = false;
 
   bool get isDark => _isDark;

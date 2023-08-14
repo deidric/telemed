@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TelemedSettings {
@@ -9,7 +11,8 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority = "1e79-2001-4451-879c-3b00-cc37-8707-e908-8b65.ngrok-free.app";
+  static String authority =
+      "2f53-2001-4451-8777-1600-24ab-32d1-94bd-75a1.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -62,7 +65,8 @@ class TelemedJsendStatus {
 
 class TelemedStrings {
   static String alertTitle = "Alert";
-  static String alertMessageNavToMessages = "Please navigate to the messages screen to continue the conversation.";
+  static String alertMessageNavToMessages =
+      "Please navigate to the messages screen to continue the conversation.";
   static String unauthenticatedAccessTitle = "Unauthenticated Access";
   static String unauthenticatedAccessMessage =
       "Sorry. This seems like an unauthenticated access. Please verify yourself by signing in again.";
@@ -83,6 +87,7 @@ class TelemedStrings {
   static String close = "close";
   static String yearsOld = "years old";
   static String payment = "Payment";
+  static String textSize = "TextSize";
   static String date = "Date";
   static String pwdExpirationDate = "pwd expiration date";
   static String time = "Time";
@@ -310,11 +315,31 @@ class TelemedStrings {
   static String paymentReferenceNumber = "Payment reference Number";
   static String appointmentConfirmed = "Appointment confirmed";
   static String at = "At";
-  static String appointmentConfirmationDialogMessage = "Your upcoming virtual meeting has been scheduled with ";
+  static String appointmentConfirmationDialogMessage =
+      "Your upcoming virtual meeting has been scheduled with ";
 }
 
 class TelemedImage {
   static String doctorImage = "assets/images/doctor.png";
   static String clockImage = "assets/images/clock.png";
   static String logoImage = "assets/images/logo.png";
+}
+
+enum TelemedTextSizeEnum {
+  small,
+  medium,
+  large,
+}
+
+extension TelemedTextSizeExtension on TelemedTextSizeEnum {
+  String get name {
+    switch (this) {
+      case TelemedTextSizeEnum.small:
+        return "Small";
+      case TelemedTextSizeEnum.medium:
+        return "Medium";
+      case TelemedTextSizeEnum.large:
+        return "Large";
+    }
+  }
 }

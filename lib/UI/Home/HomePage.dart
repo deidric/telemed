@@ -48,7 +48,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
-      key : _scaffoldKey,
+      key: _scaffoldKey,
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
           : ListView(
@@ -76,18 +76,20 @@ class HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(TelemedStrings.supp,
-                      style: Theme.of(context).textTheme.bodyLarge!),
+                      style: data.getTelemedTextStyle(context).bodyLarge!),
                 ),
                 const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(TelemedStrings.upcomingAppointments,
-                      style: Theme.of(context).textTheme.titleSmall!),
+                      style: data.getTelemedTextStyle(context).titleSmall!),
                 ),
                 if (data.appointmentModelList.isEmpty)
                   ListTile(
-                    title: Text(TelemedStrings.scheduledAppointments),
-                    subtitle: Text(TelemedStrings.bookNow),
+                    title: Text(TelemedStrings.scheduledAppointments,
+                        style: data.getTelemedTextStyle(context).titleMedium!),
+                    subtitle: Text(TelemedStrings.bookNow,
+                        style: data.getTelemedTextStyle(context).titleSmall!),
                     leading: const Icon(Icons.calendar_month),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {},
@@ -146,16 +148,18 @@ class HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(TelemedStrings.generalNeeds,
-                      style: Theme.of(context).textTheme.titleSmall!),
+                      style: data.getTelemedTextStyle(context).titleSmall!),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(TelemedStrings.gNeeds,
-                      style: Theme.of(context).textTheme.bodySmall!),
+                      style: data.getTelemedTextStyle(context).bodySmall!),
                 ),
                 ListTile(
-                  title: Text(TelemedStrings.bookNow),
-                  subtitle: Text(TelemedStrings.generalNeedsChoosePrimary),
+                  title: Text(TelemedStrings.bookNow,
+                      style: data.getTelemedTextStyle(context).titleMedium!),
+                  subtitle: Text(TelemedStrings.generalNeedsChoosePrimary,
+                      style: data.getTelemedTextStyle(context).titleSmall!),
                   leading: const Icon(Icons.calendar_today),
                   trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
@@ -169,24 +173,28 @@ class HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(TelemedStrings.specificNeeds,
-                      style: Theme.of(context).textTheme.titleSmall!),
+                      style: data.getTelemedTextStyle(context).titleSmall!),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(TelemedStrings.specificNeedsPrimary,
-                      style: Theme.of(context).textTheme.bodySmall!),
+                      style: data.getTelemedTextStyle(context).bodySmall!),
                 ),
                 ListTile(
-                  title: Text(TelemedStrings.childrenHealth),
-                  subtitle: Text(TelemedStrings.childHealth),
+                  title: Text(TelemedStrings.childrenHealth,
+                      style: data.getTelemedTextStyle(context).titleMedium!),
+                  subtitle: Text(TelemedStrings.childHealth,
+                      style: data.getTelemedTextStyle(context).titleSmall!),
                   leading: const Icon(Icons.child_care),
                   trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {},
                 ),
                 const Divider(),
                 ListTile(
-                  title: Text(TelemedStrings.seniorHealth),
-                  subtitle: Text(TelemedStrings.senHealth),
+                  title: Text(TelemedStrings.seniorHealth,
+                      style: data.getTelemedTextStyle(context).titleMedium!),
+                  subtitle: Text(TelemedStrings.senHealth,
+                      style: data.getTelemedTextStyle(context).titleSmall!),
                   leading: const Icon(Icons.accessible),
                   trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {},

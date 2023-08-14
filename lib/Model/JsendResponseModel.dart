@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'JsendResponseModel.g.dart';
+
 @JsonSerializable()
 class JsendResponseModel {
   String status;

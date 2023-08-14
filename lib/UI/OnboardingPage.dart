@@ -38,6 +38,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
+      final data = context.read<TelemedDataProvider>();
       imageSliders = imgList
           .map((item) => Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -69,7 +70,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       Expanded(
                         child: Text(
                           item.description,
-                          style: Theme.of(context).textTheme.titleSmall!,
+                          style: data.getTelemedTextStyle(context).titleSmall!,
                         ),
                       ),
                     ],

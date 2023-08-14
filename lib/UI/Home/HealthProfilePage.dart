@@ -66,7 +66,8 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpText,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,
@@ -83,7 +84,8 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ1,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -110,7 +112,8 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ2,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Wrap(
                         children: List.generate(
@@ -145,12 +148,14 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ3,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ3text1,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -179,7 +184,8 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ4,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Wrap(
                         children: List.generate(
@@ -238,7 +244,8 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ5,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Wrap(
                         children: List.generate(
@@ -300,7 +307,8 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ7,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Wrap(
                         children: List.generate(
@@ -368,7 +376,8 @@ class HealthProfilePageState extends State<HealthProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.hpQ6,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Wrap(
                         children: List.generate(

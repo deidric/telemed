@@ -55,12 +55,14 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.bookingNote,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.doctor,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       ListTile(
                         leading: const Icon(Icons.account_circle),
@@ -75,20 +77,25 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.serviceLabel,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Row(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(data.selectedCaderModel!.cader!,
-                                style: Theme.of(context).textTheme.bodyMedium!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodyMedium!),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                                 "- ${TelemedStrings.videoConsultationFee} - (${TelemedSettings.costOfVideoConsultation})",
-                                style: Theme.of(context).textTheme.bodyMedium!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodyMedium!),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -98,7 +105,8 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                                   ? ""
                                   : data
                                       .selectedUserModel.videoConsultationFee!,
-                              style: Theme.of(context).textTheme.bodyMedium!,
+                              style:
+                                  data.getTelemedTextStyle(context).bodyMedium!,
                             ),
                           ),
                         ],
@@ -138,15 +146,17 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                             data.selectedAppointmentModel!.dateOfAppointment ==
                                     null
                                 ? Text('',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge)
+                                    style: data
+                                        .getTelemedTextStyle(context)
+                                        .titleLarge)
                                 : Text(
                                     TelemedSettings.dateFormat.format(
                                         DateFormat("yyyy-MM-dd").parse(data
                                             .selectedAppointmentModel!
                                             .dateOfAppointment!)),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge),
+                                    style: data
+                                        .getTelemedTextStyle(context)
+                                        .titleLarge),
                           ],
                         ),
                       ),
@@ -184,13 +194,15 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                             data.selectedAppointmentModel!.timeOfAppointment ==
                                     null
                                 ? Text('',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge)
+                                    style: data
+                                        .getTelemedTextStyle(context)
+                                        .titleLarge)
                                 : Text(
                                     data.selectedAppointmentModel!
                                         .timeOfAppointment!,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge),
+                                    style: data
+                                        .getTelemedTextStyle(context)
+                                        .titleLarge),
                           ],
                         ),
                       ),
@@ -201,7 +213,9 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                                 "${TelemedStrings.doctorsPhoneNumber} : ",
-                                style: Theme.of(context).textTheme.bodyMedium!),
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodyMedium!),
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -307,15 +321,17 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                                         .pwdIdExpirationDate ==
                                     null
                                 ? Text('',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge)
+                                    style: data
+                                        .getTelemedTextStyle(context)
+                                        .titleLarge)
                                 : Text(
                                     TelemedSettings.dateFormat.format(
                                         DateFormat("yyyy-MM-dd").parse(data
                                             .selectedAppointmentModel!
                                             .pwdIdExpirationDate!)),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge),
+                                    style: data
+                                        .getTelemedTextStyle(context)
+                                        .titleLarge),
                           ],
                         ),
                       ),

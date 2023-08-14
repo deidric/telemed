@@ -27,7 +27,7 @@ class CalendarPageState extends State<CalendarPage> {
 
   Future<void> loadAllAppMetaDataOnce() async {
     var data = context.read<TelemedDataProvider>();
-    if(mounted){
+    if (mounted) {
       // await data.apiRouteAppointmentByDate(context: context);
     }
   }
@@ -56,7 +56,8 @@ class CalendarPageState extends State<CalendarPage> {
                     ListTile(
                       title: Text(
                           "${data.selectedUserModel.firstName!} ${data.selectedUserModel.lastName!}",
-                          style: Theme.of(context).textTheme.titleMedium!),
+                          style:
+                              data.getTelemedTextStyle(context).titleMedium!),
                       leading: const Icon(Icons.account_circle),
                       trailing: IconButton(
                         onPressed: () {},
@@ -69,7 +70,8 @@ class CalendarPageState extends State<CalendarPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.payment,
-                          style: Theme.of(context).textTheme.titleMedium!),
+                          style:
+                              data.getTelemedTextStyle(context).titleMedium!),
                     ),
                     ListTile(
                       title: Text(

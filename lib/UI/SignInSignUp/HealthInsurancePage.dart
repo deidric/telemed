@@ -58,7 +58,7 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.hInsurance,
-                          style: Theme.of(context).textTheme.bodyLarge!),
+                          style: data.getTelemedTextStyle(context).bodyLarge!),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -77,7 +77,7 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.insuranceEx,
-                          style: Theme.of(context).textTheme.titleSmall!),
+                          style: data.getTelemedTextStyle(context).titleSmall!),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -112,7 +112,7 @@ class HealthInsurancePageState extends State<HealthInsurancePage>
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.skipIns,
-                          style: Theme.of(context).textTheme.bodyLarge!),
+                          style: data.getTelemedTextStyle(context).bodyLarge!),
                     ),
                   ],
                 ),

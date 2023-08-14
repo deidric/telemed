@@ -100,9 +100,9 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
         ),
         accountName: Text(
             "${data.selectedUserModel.firstName!} ${data.selectedUserModel.lastName!}",
-            style: Theme.of(context).textTheme.headlineSmall!),
+            style: data.getTelemedTextStyle(context).headlineSmall!),
         accountEmail: Text(data.selectedUserModel.email!,
-            style: Theme.of(context).textTheme.titleSmall!),
+            style: data.getTelemedTextStyle(context).titleSmall!),
       ),
     );
 
@@ -122,42 +122,44 @@ class BasePageState extends State<BasePage> with TickerProviderStateMixin {
 
   void addNavigationDrawerDestination(
       {required IconData iconData, required String label}) {
+    final data = context.read<TelemedDataProvider>();
     _navigationDrawerList.add(
       NavigationDrawerDestination(
         icon: Icon(iconData),
         label: Text(
           label,
-          style: Theme.of(context).textTheme.labelLarge!,
+          style: data.getTelemedTextStyle(context).labelLarge!,
         ),
       ),
     );
   }
 
   void addNavigationDrawerTitle({required String label}) {
+    final data = context.read<TelemedDataProvider>();
     _navigationDrawerList.add(
       Padding(
         padding: const EdgeInsets.only(left: 28.0),
         child: Text(
           label,
-          style: Theme.of(context).textTheme.titleSmall!,
+          style: data.getTelemedTextStyle(context).titleSmall!,
         ),
       ),
     );
   }
 
-  // Future<void> listenToFirebaseNotifications() async {
-  //   final fcmToken = await FirebaseMessaging.instance.getToken();
-  //   print("FCM token: " + fcmToken!);
-  //   FirebaseMessaging.instance.onTokenRefresh
-  //       .listen((fcmToken) {
-  //     // TODO: If necessary send token to application server.
-  //
-  //     // Note: This callback is fired at each app startup and whenever a new
-  //     // token is generated.
-  //
-  //   })
-  //       .onError((err) {
-  //     // Error getting token.
-  //   });
-  // }
+// Future<void> listenToFirebaseNotifications() async {
+//   final fcmToken = await FirebaseMessaging.instance.getToken();
+//   print("FCM token: " + fcmToken!);
+//   FirebaseMessaging.instance.onTokenRefresh
+//       .listen((fcmToken) {
+//     // TODO: If necessary send token to application server.
+//
+//     // Note: This callback is fired at each app startup and whenever a new
+//     // token is generated.
+//
+//   })
+//       .onError((err) {
+//     // Error getting token.
+//   });
+// }
 }

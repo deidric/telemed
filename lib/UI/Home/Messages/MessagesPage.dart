@@ -63,12 +63,10 @@ class MessagesPageState extends State<MessagesPage> {
     // print(data.selectedConversationModel!.toUserId);
     int? toUserId;
     bool isMessagetoLoggedInUser =
-        data.selectedUserModel.id ==
-            data.selectedConversationModel!.toUserId;
+        data.selectedUserModel.id == data.selectedConversationModel!.toUserId;
     if (!isMessagetoLoggedInUser) {
       toUserId = data.selectedConversationModel!.toUserId;
-    }
-    else{
+    } else {
       toUserId = data.selectedConversationModel!.fromUserId;
     }
     MessageModel messageModel = MessageModel(
@@ -167,9 +165,8 @@ class MessagesPageState extends State<MessagesPage> {
               shrinkWrap: true,
               itemCount: data.filteredMessageModelList.length,
               itemBuilder: (context, index) {
-                bool isMessageFromLoggedInUser =
-                    data.selectedUserModel.id ==
-                        data.filteredMessageModelList[index].fromUserId;
+                bool isMessageFromLoggedInUser = data.selectedUserModel.id ==
+                    data.filteredMessageModelList[index].fromUserId;
                 if (!isMessageFromLoggedInUser) {
                   String title =
                       "${data.filteredMessageModelList[index].fromUserFirstName!} ${data.filteredMessageModelList[index].fromUserLastName!}";
@@ -231,8 +228,7 @@ class MessagesPageState extends State<MessagesPage> {
                                 title: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
-                                        title),
+                                    Text(title),
                                   ],
                                 ),
                                 subtitle: Row(

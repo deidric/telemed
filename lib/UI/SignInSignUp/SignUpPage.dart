@@ -96,8 +96,8 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.patient,
-                            style: Theme.of(context)
-                                .textTheme
+                            style: data
+                                .getTelemedTextStyle(context)
                                 .displaySmall!
                                 .copyWith(fontWeight: FontWeight.bold)),
                       ),
@@ -106,8 +106,8 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.doctor,
-                            style: Theme.of(context)
-                                .textTheme
+                            style: data
+                                .getTelemedTextStyle(context)
                                 .displaySmall!
                                 .copyWith(fontWeight: FontWeight.bold)),
                       ),
@@ -122,7 +122,7 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.getStarted,
-                          style: Theme.of(context).textTheme.titleLarge!),
+                          style: data.getTelemedTextStyle(context).titleLarge!),
                     ),
                     Form(
                       autovalidateMode: AutovalidateMode.onUserInteraction,

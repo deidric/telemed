@@ -53,7 +53,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.reviewprofileText,
-                            style: Theme.of(context).textTheme.bodyMedium!),
+                            style:
+                                data.getTelemedTextStyle(context).bodyMedium!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,
@@ -70,7 +71,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.symptoms,
-                            style: Theme.of(context).textTheme.titleSmall!),
+                            style:
+                                data.getTelemedTextStyle(context).titleSmall!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,
@@ -89,7 +91,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.medications,
-                            style: Theme.of(context).textTheme.titleSmall!),
+                            style:
+                                data.getTelemedTextStyle(context).titleSmall!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,
@@ -110,7 +113,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.drugAllergies,
-                            style: Theme.of(context).textTheme.titleSmall!),
+                            style:
+                                data.getTelemedTextStyle(context).titleSmall!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,
@@ -148,7 +152,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.medicalConditions,
-                            style: Theme.of(context).textTheme.titleSmall!),
+                            style:
+                                data.getTelemedTextStyle(context).titleSmall!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,
@@ -184,7 +189,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.familyMedicalConditions,
-                            style: Theme.of(context).textTheme.titleSmall!),
+                            style:
+                                data.getTelemedTextStyle(context).titleSmall!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,
@@ -220,7 +226,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.surgeries,
-                            style: Theme.of(context).textTheme.titleSmall!),
+                            style:
+                                data.getTelemedTextStyle(context).titleSmall!),
                       ),
                       Card(
                         clipBehavior: Clip.antiAlias,

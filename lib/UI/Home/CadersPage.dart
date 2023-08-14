@@ -55,7 +55,8 @@ class CadersPageState extends State<CadersPage> with TickerProviderStateMixin {
                       data.filteredCaderModelList[index].caderDescription!,
                     ),
                     onTap: () async {
-                      data.setSelectedData(model: data.filteredCaderModelList[index]);
+                      data.setSelectedData(
+                          model: data.filteredCaderModelList[index]);
                       RouteSettings settings = const RouteSettings(
                           name: DoctorsPage.route, arguments: '');
                       var hasBeenClosed = await Navigator.push(

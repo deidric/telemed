@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '648126554082',
     projectId: 'telemed-flutter',
     storageBucket: 'telemed-flutter.appspot.com',
-    iosClientId: '648126554082-a4mdmfq1pl442hiflmtpa3lcskvpgb24.apps.googleusercontent.com',
+    iosClientId:
+        '648126554082-a4mdmfq1pl442hiflmtpa3lcskvpgb24.apps.googleusercontent.com',
     iosBundleId: 'com.telemed.app',
   );
 
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '648126554082',
     projectId: 'telemed-flutter',
     storageBucket: 'telemed-flutter.appspot.com',
-    iosClientId: '648126554082-5e91v9embd416d3knkmh0ai02qekmj0o.apps.googleusercontent.com',
+    iosClientId:
+        '648126554082-5e91v9embd416d3knkmh0ai02qekmj0o.apps.googleusercontent.com',
     iosBundleId: 'com.example.telemed.RunnerTests',
   );
 }

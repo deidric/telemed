@@ -97,8 +97,8 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.here2SeeYou,
-                          style: Theme.of(context)
-                              .textTheme
+                          style: data
+                              .getTelemedTextStyle(context)
                               .titleLarge!
                               .copyWith(fontWeight: FontWeight.bold)),
                     ),
@@ -107,8 +107,8 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.patient,
-                            style: Theme.of(context)
-                                .textTheme
+                            style: data
+                                .getTelemedTextStyle(context)
                                 .displaySmall!
                                 .copyWith(fontWeight: FontWeight.bold)),
                       ),
@@ -117,8 +117,8 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(TelemedStrings.doctor,
-                            style: Theme.of(context)
-                                .textTheme
+                            style: data
+                                .getTelemedTextStyle(context)
                                 .displaySmall!
                                 .copyWith(fontWeight: FontWeight.bold)),
                       ),
@@ -133,7 +133,7 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.welcomeBack,
-                          style: Theme.of(context).textTheme.titleLarge!),
+                          style: data.getTelemedTextStyle(context).titleLarge!),
                     ),
                     Form(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -230,19 +230,23 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, right: 8.0),
-                                    child: Text(TelemedStrings.noAccount),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
+                                      child: Text(TelemedStrings.noAccount),
+                                    ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        SignUpPage.route,
-                                      );
-                                    },
-                                    child: Text(TelemedStrings.signUp),
+                                  Expanded(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          SignUpPage.route,
+                                        );
+                                      },
+                                      child: Text(TelemedStrings.signUp),
+                                    ),
                                   ),
                                 ],
                               ),
