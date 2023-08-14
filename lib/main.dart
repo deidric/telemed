@@ -29,6 +29,69 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
   print("Handling a background message: ${message.messageId}");
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  print('User granted permission: ${settings.authorizationStatus}');
+
+  const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    description: 'This channel is used for important notifications.',
+    // description
+    importance: Importance.max,
+  );
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  RemoteNotification? notification = message.notification;
+  AndroidNotification? android = message.notification?.android;
+
+  print('Got a message whilst in the foreground!');
+  print('Message data: ${message.data}');
+
+  if (message.notification != null && android != null) {
+    print('Message also contained a notification: ${message.notification}');
+    var appIcon = const AndroidInitializationSettings('logo');
+    // If `onMessage` is triggered with a notification, construct our own
+    // local notification to show to users using the created channel.
+    if (notification != null) {
+      // print("The notification is: " + notification.body!);
+      // Map<String, dynamic> jsonInput = jsonDecode(notification.body!);
+
+      // String message = jsonInput['message'];
+      String message = notification.body!;
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          message,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              icon: appIcon.defaultIcon,
+              // other properties...
+            ),
+          ));
+    }
+  }
 }
 
 Future<void> main() async {
