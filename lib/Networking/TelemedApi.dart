@@ -32,6 +32,7 @@ class TelemedApi {
       {required context, required AppointmentModel appointmentModel}) {}
 
   apiRouteAppointmentByDate({required context}) {}
+  apiRouteAppointment({required context}) {}
 
   apiRouteConversationsByUserId({required context}) {}
 
@@ -78,6 +79,9 @@ class TelemedApiRoutes {
 
   // Get Appointment by date
   static const String apiRouteAppointmentByDate = '/appointmentByDate';
+
+  // Get all appointments
+  static const String apiRouteAppointment = '/appointment';
 
   // Get Conversation by userId
   static const String apiRouteConversationsByUserId = '/conversationsByUserId';

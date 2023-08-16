@@ -12,7 +12,7 @@ class TelemedSettings {
   // Server details
   // static String authority = "192.168.22.1";
   static String authority =
-      "2f53-2001-4451-8777-1600-24ab-32d1-94bd-75a1.ngrok-free.app";
+      "b61e-112-210-226-240.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -100,6 +100,8 @@ class TelemedStrings {
   static String medicalConditions = "Medical conditions";
   static String familyMedicalConditions = "Family medical conditions";
   static String surgeries = "Surgeries";
+  static String reminders = "Reminders";
+  static String dontForgetSchedule = "Don't forget schedule for upcoming appointment";
 
   // Patient Registration
   static String createAccount = "Create an account";

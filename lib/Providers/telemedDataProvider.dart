@@ -358,6 +358,15 @@ class TelemedDataProvider
   List<AppointmentModel> get filteredAppointmentModelList =>
       _filteredAppointmentModelList;
 
+  List<AppointmentModel> _allAppointmentModelList = [];
+  List<AppointmentModel> _filteredAllAppointmentModelList = [];
+
+  List<AppointmentModel> get allAppointmentModelList =>
+      _allAppointmentModelList;
+
+  List<AppointmentModel> get filteredAllAppointmentModelList =>
+      _filteredAllAppointmentModelList;
+
   List<ConversationModel> _conversationModelList = [];
   List<ConversationModel> _filteredConversationModelList = [];
 
@@ -418,7 +427,10 @@ class TelemedDataProvider
     notifyListeners();
   }
 
-  void setData({required modelList, bool isFamilyMedicalConditions = false}) {
+  void setData(
+      {required modelList,
+      bool isFamilyMedicalConditions = false,
+      bool isAllAppointments = false}) {
     if (modelList is List<CaderModel>) {
       _caderModelList = modelList;
       _filteredCaderModelList = modelList;
@@ -465,10 +477,16 @@ class TelemedDataProvider
       _filteredFamilyMedicalConditionsModelList = modelList;
     }
 
-    if (modelList is List<AppointmentModel>) {
+    if (modelList is List<AppointmentModel> && isAllAppointments == false) {
       _appointmentModelList = modelList;
       _filteredAppointmentModelList = modelList;
     }
+
+    if (modelList is List<AppointmentModel> && isAllAppointments == true) {
+      _allAppointmentModelList = modelList;
+      _filteredAllAppointmentModelList = modelList;
+    }
+
     if (modelList is List<ConversationModel>) {
       _conversationModelList = modelList;
       _filteredConversationModelList = modelList;
@@ -482,7 +500,9 @@ class TelemedDataProvider
   }
 
   void updateFilteredData(
-      {required modelList, bool isFamilyMedicalConditions = false}) {
+      {required modelList,
+      bool isFamilyMedicalConditions = false,
+      bool isAllAppointments = false}) {
     if (modelList is List<CaderModel>) {
       _filteredCaderModelList = modelList;
     }
@@ -511,8 +531,12 @@ class TelemedDataProvider
         isFamilyMedicalConditions) {
       _filteredFamilyMedicalConditionsModelList = modelList;
     }
-    if (modelList is List<AppointmentModel>) {
+    if (modelList is List<AppointmentModel> && isAllAppointments == false) {
       _filteredAppointmentModelList = modelList;
+    }
+
+    if (modelList is List<AppointmentModel> && isAllAppointments == true) {
+      _filteredAllAppointmentModelList = modelList;
     }
     if (modelList is List<ConversationModel>) {
       _filteredConversationModelList = modelList;
@@ -589,6 +613,9 @@ class TelemedDataProvider
       case TelemedApiRoutes.apiRouteAppointmentByDate:
         list = List<AppointmentModel>.from([]);
         break;
+      case TelemedApiRoutes.apiRouteAppointment:
+        list = List<AppointmentModel>.from([]);
+        break;
       case TelemedApiRoutes.apiRouteConversationsByUserId:
         list = List<ConversationModel>.from([]);
         break;
@@ -609,6 +636,7 @@ class TelemedDataProvider
           CaderModel model = CaderModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteDoctorsByCaderId:
         list = List<UserModel>.from([]);
@@ -616,6 +644,7 @@ class TelemedDataProvider
           UserModel model = UserModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteDoctorQualifications:
         list = List<DoctorQualificationsModel>.from([]);
@@ -624,6 +653,7 @@ class TelemedDataProvider
               DoctorQualificationsModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteDoctorSpecialities:
         list = List<DoctorSpecialitiesModel>.from([]);
@@ -632,6 +662,7 @@ class TelemedDataProvider
               DoctorSpecialitiesModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteDrugAllergies:
         list = List<DrugAllergiesModel>.from([]);
@@ -640,6 +671,7 @@ class TelemedDataProvider
               DrugAllergiesModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteMedicalConditions:
         list = List<MedicalConditionsModel>.from([]);
@@ -648,6 +680,7 @@ class TelemedDataProvider
               MedicalConditionsModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteSurgeries:
         list = List<SurgeriesModel>.from([]);
@@ -656,6 +689,7 @@ class TelemedDataProvider
               SurgeriesModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteSymptoms:
         list = List<SymptomsModel>.from([]);
@@ -664,6 +698,7 @@ class TelemedDataProvider
               SymptomsModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteCreateAppointment:
         list = List<AppointmentModel>.from([]);
@@ -672,6 +707,7 @@ class TelemedDataProvider
               AppointmentModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteAppointmentByDate:
         list = List<AppointmentModel>.from([]);
@@ -680,6 +716,16 @@ class TelemedDataProvider
               AppointmentModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
+        break;
+      case TelemedApiRoutes.apiRouteAppointment:
+        list = List<AppointmentModel>.from([]);
+        for (int idx = 0; idx < jsendResponseModel.data.length; idx++) {
+          AppointmentModel model =
+              AppointmentModel.fromJson(jsendResponseModel.data[idx]);
+          list.add(model);
+        }
+        setData(modelList: list, isAllAppointments: true);
         break;
       case TelemedApiRoutes.apiRouteConversationsByUserId:
         list = List<ConversationModel>.from([]);
@@ -688,6 +734,7 @@ class TelemedDataProvider
               ConversationModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
       case TelemedApiRoutes.apiRouteMessagesByConversationId:
         list = List<MessageModel>.from([]);
@@ -696,9 +743,10 @@ class TelemedDataProvider
               MessageModel.fromJson(jsendResponseModel.data[idx]);
           list.add(model);
         }
+        setData(modelList: list);
         break;
     }
-    setData(modelList: list);
+
   }
 
   _apiCreateOrUpdate(
@@ -958,6 +1006,15 @@ class TelemedDataProvider
         token: selectedUserModel.token,
         apiRoute: TelemedApiRoutes.apiRouteAppointmentByDate,
         param: param);
+  }
+
+  @override
+  apiRouteAppointment({required context}) async {
+    await _apiRead(
+      context: context,
+      token: selectedUserModel.token,
+      apiRoute: TelemedApiRoutes.apiRouteAppointment,
+    );
   }
 
   @override

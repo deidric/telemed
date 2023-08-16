@@ -40,6 +40,9 @@ class HomePageState extends State<HomePage> {
     if (mounted) {
       await data.apiRouteAppointmentByDate(context: context);
     }
+    if (mounted) {
+      await data.apiRouteAppointment(context: context);
+    }
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -82,7 +85,7 @@ class HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(TelemedStrings.upcomingAppointments,
-                      style: data.getTelemedTextStyle(context).titleSmall!),
+                      style: data.getTelemedTextStyle(context).titleMedium!),
                 ),
                 if (data.appointmentModelList.isEmpty)
                   ListTile(
@@ -145,61 +148,162 @@ class HomePageState extends State<HomePage> {
                     },
                   ),
                 const Divider(),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(TelemedStrings.generalNeeds,
+                        style: data.getTelemedTextStyle(context).titleSmall!),
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(TelemedStrings.gNeeds,
+                        style: data.getTelemedTextStyle(context).bodySmall!),
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  ListTile(
+                    title: Text(TelemedStrings.bookNow,
+                        style: data.getTelemedTextStyle(context).titleMedium!),
+                    subtitle: Text(TelemedStrings.generalNeedsChoosePrimary,
+                        style: data.getTelemedTextStyle(context).titleSmall!),
+                    leading: const Icon(Icons.calendar_today),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        BookAppointmentsReasonForVisitPage.route,
+                      );
+                    },
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  const Divider(),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(TelemedStrings.specificNeeds,
+                        style: data.getTelemedTextStyle(context).titleSmall!),
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(TelemedStrings.specificNeedsPrimary,
+                        style: data.getTelemedTextStyle(context).bodySmall!),
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  ListTile(
+                    title: Text(TelemedStrings.childrenHealth,
+                        style: data.getTelemedTextStyle(context).titleMedium!),
+                    subtitle: Text(TelemedStrings.childHealth,
+                        style: data.getTelemedTextStyle(context).titleSmall!),
+                    leading: const Icon(Icons.child_care),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  const Divider(),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  ListTile(
+                    title: Text(TelemedStrings.seniorHealth,
+                        style: data.getTelemedTextStyle(context).titleMedium!),
+                    subtitle: Text(TelemedStrings.senHealth,
+                        style: data.getTelemedTextStyle(context).titleSmall!),
+                    leading: const Icon(Icons.accessible),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                    TelemedSettings.patientId)
+                  const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.generalNeeds,
-                      style: data.getTelemedTextStyle(context).titleSmall!),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.gNeeds,
-                      style: data.getTelemedTextStyle(context).bodySmall!),
-                ),
-                ListTile(
-                  title: Text(TelemedStrings.bookNow,
+                  child: Text(TelemedStrings.reminders,
                       style: data.getTelemedTextStyle(context).titleMedium!),
-                  subtitle: Text(TelemedStrings.generalNeedsChoosePrimary,
-                      style: data.getTelemedTextStyle(context).titleSmall!),
-                  leading: const Icon(Icons.calendar_today),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      BookAppointmentsReasonForVisitPage.route,
-                    );
-                  },
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.specificNeeds,
-                      style: data.getTelemedTextStyle(context).titleSmall!),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(TelemedStrings.specificNeedsPrimary,
-                      style: data.getTelemedTextStyle(context).bodySmall!),
-                ),
-                ListTile(
-                  title: Text(TelemedStrings.childrenHealth,
-                      style: data.getTelemedTextStyle(context).titleMedium!),
-                  subtitle: Text(TelemedStrings.childHealth,
+                  child: Text(TelemedStrings.dontForgetSchedule,
                       style: data.getTelemedTextStyle(context).titleSmall!),
-                  leading: const Icon(Icons.child_care),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
                 ),
-                const Divider(),
-                ListTile(
-                  title: Text(TelemedStrings.seniorHealth,
-                      style: data.getTelemedTextStyle(context).titleMedium!),
-                  subtitle: Text(TelemedStrings.senHealth,
-                      style: data.getTelemedTextStyle(context).titleSmall!),
-                  leading: const Icon(Icons.accessible),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-                const Divider(),
+                if (data.appointmentModelList.isEmpty)
+                  ListTile(
+                    title: Text(TelemedStrings.scheduledAppointments,
+                        style: data.getTelemedTextStyle(context).titleMedium!),
+                    subtitle: Text(TelemedStrings.bookNow,
+                        style: data.getTelemedTextStyle(context).titleSmall!),
+                    leading: const Icon(Icons.calendar_month),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
+                  ),
+                if (data.selectedUserModel.userTypeId ==
+                        TelemedSettings.doctorId &&
+                    data.allAppointmentModelList.isNotEmpty)
+                  ListView.separated(
+                    itemCount: data.allAppointmentModelList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Image.asset(TelemedImage.doctorImage),
+                        trailing: IconButton(
+                          onPressed: () async {
+                            RouteSettings settings = const RouteSettings(
+                                name: BasePage.route, arguments: '');
+                            data.setSelectedData(
+                                model: ConversationModel(
+                                    toUserId: data
+                                        .appointmentModelList[index].doctorId));
+
+                            MessageModel messageModel = MessageModel(
+                              toUserId:
+                                  data.selectedConversationModel!.toUserId,
+                              sentDate: DateTime.now().toIso8601String(),
+                              attachments: null,
+                              message: "Hi",
+                            );
+                            if (mounted) {
+                              await data.apiRoutecreateMessages(
+                                  context: context, messageModel: messageModel);
+                            }
+
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) async {
+                              if (mounted) {
+                                await DialogUtils.displayDialogOKCallBack(
+                                    _scaffoldKey.currentContext!,
+                                    TelemedStrings.alertTitle,
+                                    TelemedStrings.alertMessageNavToMessages);
+                              }
+                            });
+                          },
+                          icon: const Icon(Icons.message),
+                        ),
+                        title: Text(
+                            "${data.allAppointmentModelList[index].firstName} ${data.allAppointmentModelList[index].lastName!}"),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "${data.allAppointmentModelList[index].dateOfAppointment} ${data.allAppointmentModelList[index].timeOfAppointment!}"),
+                            OutlinedButton.icon(
+                                onPressed: () {},
+                                icon: const Icon(Icons.account_circle),
+                                label: Text(TelemedStrings.profile)),
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider();
+                    },
+                  ),
               ],
             ),
     );
