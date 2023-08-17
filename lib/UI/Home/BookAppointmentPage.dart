@@ -364,6 +364,7 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
               )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
+          data.selectedAppointmentModel!.caderId = data.selectedCaderModel!.id;
           data.selectedAppointmentModel!.doctorId =
               data.selectedDoctorModel!.id;
           data.selectedAppointmentModel!.patientId = data.selectedUserModel.id;

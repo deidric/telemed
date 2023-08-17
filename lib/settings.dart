@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TelemedSettings {
@@ -12,7 +10,7 @@ class TelemedSettings {
   // Server details
   // static String authority = "192.168.22.1";
   static String authority =
-      "b61e-112-210-226-240.ngrok-free.app";
+      "d3a7-2001-4451-874c-6900-b5af-264d-e00-999c.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
 
   //
@@ -101,7 +99,8 @@ class TelemedStrings {
   static String familyMedicalConditions = "Family medical conditions";
   static String surgeries = "Surgeries";
   static String reminders = "Reminders";
-  static String dontForgetSchedule = "Don't forget schedule for upcoming appointment";
+  static String dontForgetSchedule =
+      "Don't forget schedule for upcoming appointment";
 
   // Patient Registration
   static String createAccount = "Create an account";
@@ -199,6 +198,7 @@ class TelemedStrings {
   static String calendar = "Calendar";
   static String message = "Message";
   static String messages = "Messages";
+  static String patientProfile = "Patient profile";
   static String profile = "Profile";
 
   // Book Appointment

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/BookAppointmentPage.dart';
+import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/settings.dart';
 
 class ReviewProfilePage extends StatefulWidget {
@@ -79,8 +81,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                         child: Column(
                           children: [
                             ListTile(
-                              title: Text(data.selectedHealthProfileModel!
-                                  .symptomsModelList!
+                              title: Text(data
+                                  .selectedAppointmentModel!.symptomsModelList!
                                   .map((e) => e.symptom)
                                   .toList()
                                   .join(", ")),
@@ -100,11 +102,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                           children: [
                             ListTile(
                               title: Text(
-                                data.selectedHealthProfileModel!.medications ==
+                                data.selectedAppointmentModel!.medications ==
                                         null
                                     ? ""
-                                    : data.selectedHealthProfileModel!
-                                        .medications!,
+                                    : data
+                                        .selectedAppointmentModel!.medications!,
                               ),
                             ),
                           ],
@@ -122,7 +124,7 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                           children: [
                             ListTile(
                               title: Text(
-                                data.selectedHealthProfileModel!
+                                data.selectedAppointmentModel!
                                     .drugAllergiesModelList!
                                     .map((e) => e.drugName)
                                     .toList()
@@ -136,11 +138,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .textTheme
                                           .titleSmall!),
                                   Text(
-                                    data.selectedHealthProfileModel!
+                                    data.selectedAppointmentModel!
                                                 .allergicToDrugsComplaint ==
                                             null
                                         ? ""
-                                        : data.selectedHealthProfileModel!
+                                        : data.selectedAppointmentModel!
                                             .allergicToDrugsComplaint!,
                                   ),
                                 ],
@@ -160,7 +162,7 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                         child: Column(
                           children: [
                             ListTile(
-                              title: Text(data.selectedHealthProfileModel!
+                              title: Text(data.selectedAppointmentModel!
                                   .medicalConditionsModelList!
                                   .map((e) => e.medicalCondition)
                                   .toList()
@@ -173,11 +175,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .textTheme
                                           .titleSmall!),
                                   Text(
-                                    data.selectedHealthProfileModel!
+                                    data.selectedAppointmentModel!
                                                 .medicalConditionComplaint ==
                                             null
                                         ? ""
-                                        : data.selectedHealthProfileModel!
+                                        : data.selectedAppointmentModel!
                                             .medicalConditionComplaint!,
                                   ),
                                 ],
@@ -197,7 +199,7 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                         child: Column(
                           children: [
                             ListTile(
-                              title: Text(data.selectedHealthProfileModel!
+                              title: Text(data.selectedAppointmentModel!
                                   .famMedicalConditionsModelList!
                                   .map((e) => e.medicalCondition)
                                   .toList()
@@ -210,11 +212,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .textTheme
                                           .titleSmall!),
                                   Text(
-                                    data.selectedHealthProfileModel!
+                                    data.selectedAppointmentModel!
                                                 .familyMedicalConditionComplaint ==
                                             null
                                         ? ""
-                                        : data.selectedHealthProfileModel!
+                                        : data.selectedAppointmentModel!
                                             .medicalConditionComplaint!,
                                   ),
                                 ],
@@ -234,8 +236,8 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                         child: Column(
                           children: [
                             ListTile(
-                              title: Text(data.selectedHealthProfileModel!
-                                  .surgeriesModelList!
+                              title: Text(data
+                                  .selectedAppointmentModel!.surgeriesModelList!
                                   .map((e) => e.surgeryName)
                                   .toList()
                                   .join(", ")),
@@ -247,11 +249,11 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
                                           .textTheme
                                           .titleSmall!),
                                   Text(
-                                    data.selectedHealthProfileModel!
+                                    data.selectedAppointmentModel!
                                                 .surgeryComplaint ==
                                             null
                                         ? ""
-                                        : data.selectedHealthProfileModel!
+                                        : data.selectedAppointmentModel!
                                             .surgeryComplaint!,
                                   ),
                                 ],
@@ -266,15 +268,18 @@ class ReviewProfilePageState extends State<ReviewProfilePage>
               )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          data.selectedHealthProfileModel!.caderId =
-              data.selectedCaderModel!.id;
-          // Navigator.pushNamed(
-          //   context,
-          //   CadersPage.route,
-          // );
-          await data.apiRouteCreateHealthProfile(
-              context: context,
-              healthProfileModel: data.selectedHealthProfileModel!);
+          data.selectedAppointmentModel!.caderId = data.selectedCaderModel!.id;
+          RouteSettings settings =
+              const RouteSettings(name: SignInPage.route, arguments: '');
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  settings: settings,
+                  builder: (context) => const BookAppointmentPage()),
+              (route) => false);
+          // await data.apiRouteCreateHealthProfile(
+          //     context: context,
+          //     healthProfileModel: data.selectedHealthProfileModel!);
         },
         label: Text(TelemedStrings.bookNow),
       ),

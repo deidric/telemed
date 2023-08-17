@@ -1,5 +1,4 @@
 import 'package:telemed/Model/AppointmentModel.dart';
-import 'package:telemed/Model/HealthProfileModel.dart';
 import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 
@@ -25,13 +24,11 @@ class TelemedApi {
 
   apiRouteSurgeries({required context}) {}
 
-  apiRouteCreateHealthProfile(
-      {required context, required HealthProfileModel healthProfileModel}) {}
-
   apiRouteCreateAppointment(
       {required context, required AppointmentModel appointmentModel}) {}
 
   apiRouteAppointmentByDate({required context}) {}
+
   apiRouteAppointment({required context}) {}
 
   apiRouteConversationsByUserId({required context}) {}
@@ -70,9 +67,6 @@ class TelemedApiRoutes {
 
   // Surgeries
   static const String apiRouteSurgeries = '/surgeries';
-
-  // Create health profile
-  static const String apiRouteCreateHealthProfile = '/createHealthProfile';
 
   // Create Appointment
   static const String apiRouteCreateAppointment = '/bookAppointment';

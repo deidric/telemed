@@ -9,7 +9,6 @@ import 'package:telemed/Model/ConversationModel.dart';
 import 'package:telemed/Model/DoctorQualificationsModel.dart';
 import 'package:telemed/Model/DoctorSpecialitiesModel.dart';
 import 'package:telemed/Model/DrugAllergiesModel.dart';
-import 'package:telemed/Model/HealthProfileModel.dart';
 import 'package:telemed/Model/JsendResponseModel.dart';
 import 'package:telemed/Model/MedicalConditionsModel.dart';
 import 'package:telemed/Model/MessageModel.dart';
@@ -20,7 +19,6 @@ import 'package:telemed/Networking/APIJsend.dart';
 import 'package:telemed/Networking/APIManager.dart';
 import 'package:telemed/Networking/TelemedApi.dart';
 import 'package:telemed/UI/Home/BasePage.dart';
-import 'package:telemed/UI/Home/BookAppointmentPage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
@@ -153,19 +151,13 @@ class TelemedDataProvider
 
   SymptomsModel? get selectedSymptomsModel => _selectedSymptomsModel;
 
-  // Health profile
-  HealthProfileModel? _selectedHealthProfileModel = HealthProfileModel(
+  // Appointments
+  AppointmentModel? _selectedAppointmentModel = AppointmentModel(
       surgeriesModelList: [],
       drugAllergiesModelList: [],
       medicalConditionsModelList: [],
       famMedicalConditionsModelList: [],
       symptomsModelList: []);
-
-  HealthProfileModel? get selectedHealthProfileModel =>
-      _selectedHealthProfileModel;
-
-  // Appointments
-  AppointmentModel? _selectedAppointmentModel = AppointmentModel();
 
   AppointmentModel? get selectedAppointmentModel => _selectedAppointmentModel;
 
@@ -217,9 +209,6 @@ class TelemedDataProvider
     if (model is SymptomsModel) {
       _selectedSymptomsModel = null;
     }
-    if (model is HealthProfileModel) {
-      _selectedHealthProfileModel = null;
-    }
     if (model is AppointmentModel) {
       _selectedAppointmentModel = null;
     }
@@ -259,9 +248,6 @@ class TelemedDataProvider
     }
     if (model is SymptomsModel) {
       _selectedSymptomsModel = model;
-    }
-    if (model is HealthProfileModel) {
-      _selectedHealthProfileModel = model;
     }
     if (model is AppointmentModel) {
       _selectedAppointmentModel = model;
@@ -385,19 +371,19 @@ class TelemedDataProvider
   void addIntoHealthProfileLists(
       {required model, bool isFamilyMedicalConditions = false}) {
     if (model is SymptomsModel) {
-      _selectedHealthProfileModel!.symptomsModelList!.add(model);
+      _selectedAppointmentModel!.symptomsModelList!.add(model);
     }
     if (model is DrugAllergiesModel) {
-      _selectedHealthProfileModel!.drugAllergiesModelList!.add(model);
+      _selectedAppointmentModel!.drugAllergiesModelList!.add(model);
     }
     if (model is MedicalConditionsModel && !isFamilyMedicalConditions) {
-      _selectedHealthProfileModel!.medicalConditionsModelList!.add(model);
+      _selectedAppointmentModel!.medicalConditionsModelList!.add(model);
     }
     if (model is SurgeriesModel) {
-      _selectedHealthProfileModel!.surgeriesModelList!.add(model);
+      _selectedAppointmentModel!.surgeriesModelList!.add(model);
     }
     if (model is MedicalConditionsModel && isFamilyMedicalConditions) {
-      _selectedHealthProfileModel!.famMedicalConditionsModelList!.add(model);
+      _selectedAppointmentModel!.famMedicalConditionsModelList!.add(model);
     }
     notifyListeners();
   }
@@ -405,23 +391,23 @@ class TelemedDataProvider
   void removeFromHealthProfileLists(
       {required model, bool isFamilyMedicalConditions = false}) {
     if (model is SymptomsModel) {
-      _selectedHealthProfileModel!.symptomsModelList!
+      _selectedAppointmentModel!.symptomsModelList!
           .removeWhere((element) => element.id == model.id);
     }
     if (model is DrugAllergiesModel) {
-      _selectedHealthProfileModel!.drugAllergiesModelList!
+      _selectedAppointmentModel!.drugAllergiesModelList!
           .removeWhere((element) => element.id == model.id);
     }
     if (model is MedicalConditionsModel && !isFamilyMedicalConditions) {
-      _selectedHealthProfileModel!.medicalConditionsModelList!
+      _selectedAppointmentModel!.medicalConditionsModelList!
           .removeWhere((element) => element.id == model.id);
     }
     if (model is SurgeriesModel) {
-      _selectedHealthProfileModel!.surgeriesModelList!
+      _selectedAppointmentModel!.surgeriesModelList!
           .removeWhere((element) => element.id == model.id);
     }
     if (model is MedicalConditionsModel && isFamilyMedicalConditions) {
-      _selectedHealthProfileModel!.famMedicalConditionsModelList!
+      _selectedAppointmentModel!.famMedicalConditionsModelList!
           .removeWhere((element) => element.id == model.id);
     }
     notifyListeners();
@@ -746,7 +732,6 @@ class TelemedDataProvider
         setData(modelList: list);
         break;
     }
-
   }
 
   _apiCreateOrUpdate(
@@ -781,33 +766,11 @@ class TelemedDataProvider
               MaterialPageRoute(
                   settings: settings, builder: (context) => const SignInPage()),
               (route) => false);
-        } else if (apiRoute == TelemedApiRoutes.apiRouteCreateHealthProfile) {
-          RouteSettings settings =
-              const RouteSettings(name: SignInPage.route, arguments: '');
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  settings: settings,
-                  builder: (context) => const BookAppointmentPage()),
-              (route) => false);
         } else if (apiRoute == TelemedApiRoutes.apiRouteCreateAppointment) {
-          var result =
-              await DialogUtils.displayDialogOKforAppointScheduledCallBack(
-                  context,
-                  TelemedStrings.appointmentConfirmed,
-                  TelemedStrings.appointmentConfirmationDialogMessage +
-                      "\n" +
-                      selectedDoctorModel!.firstName! +
-                      " " +
-                      selectedDoctorModel!.lastName! +
-                      "\n" +
-                      selectedAppointmentModel!.timeOfAppointment! +
-                      " " +
-                      TelemedStrings.at +
-                      " " +
-                      TelemedSettings.dateFormat.format(DateFormat("yyyy-MM-dd")
-                          .parse(
-                              selectedAppointmentModel!.dateOfAppointment!)));
+          var result = await DialogUtils.displayDialogOKforAppointScheduledCallBack(
+              context,
+              TelemedStrings.appointmentConfirmed,
+              "${TelemedStrings.appointmentConfirmationDialogMessage}\n${selectedDoctorModel!.firstName!} ${selectedDoctorModel!.lastName!}\n${selectedAppointmentModel!.timeOfAppointment!} ${TelemedStrings.at} ${TelemedSettings.dateFormat.format(DateFormat("yyyy-MM-dd").parse(selectedAppointmentModel!.dateOfAppointment!))}");
 
           if (result != null && result) {
             RouteSettings settings =
@@ -974,16 +937,16 @@ class TelemedDataProvider
     );
   }
 
-  @override
-  apiRouteCreateHealthProfile(
-      {required context,
-      required HealthProfileModel healthProfileModel}) async {
-    await _apiCreateOrUpdate(
-        context: context,
-        token: selectedUserModel.token,
-        apiRoute: TelemedApiRoutes.apiRouteCreateHealthProfile,
-        model: healthProfileModel);
-  }
+  // @override
+  // apiRouteCreateHealthProfile(
+  //     {required context,
+  //     required HealthProfileModel healthProfileModel}) async {
+  //   await _apiCreateOrUpdate(
+  //       context: context,
+  //       token: selectedUserModel.token,
+  //       apiRoute: TelemedApiRoutes.apiRouteCreateHealthProfile,
+  //       model: healthProfileModel);
+  // }
 
   @override
   apiRouteCreateAppointment(

@@ -97,9 +97,9 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             return null;
                           },
                           initialValue:
-                              data.selectedHealthProfileModel!.lengthOfFeeling,
+                              data.selectedAppointmentModel!.lengthOfFeeling,
                           onChanged: (newValue) {
-                            data.selectedHealthProfileModel!.lengthOfFeeling =
+                            data.selectedAppointmentModel!.lengthOfFeeling =
                                 newValue;
                           },
                           decoration: InputDecoration(
@@ -124,7 +124,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
                               child: FilterChip(
                                 label: Text(
                                     data.symptomsModelList[index].symptom!),
-                                selected: data.selectedHealthProfileModel!
+                                selected: data.selectedAppointmentModel!
                                     .symptomsModelList!
                                     .any((element) =>
                                         element.id ==
@@ -167,9 +167,9 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             return null;
                           },
                           initialValue:
-                              data.selectedHealthProfileModel!.medications,
+                              data.selectedAppointmentModel!.medications,
                           onChanged: (newValue) {
-                            data.selectedHealthProfileModel!.medications =
+                            data.selectedAppointmentModel!.medications =
                                 newValue;
                           },
                           maxLines: 5,
@@ -196,7 +196,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
                               child: FilterChip(
                                 label: Text(data
                                     .drugAllergiesModelList[index].drugName!),
-                                selected: data.selectedHealthProfileModel!
+                                selected: data.selectedAppointmentModel!
                                     .drugAllergiesModelList!
                                     .any((element) =>
                                         element.id ==
@@ -226,10 +226,10 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedHealthProfileModel!
+                          initialValue: data.selectedAppointmentModel!
                               .allergicToDrugsComplaint,
                           onChanged: (newValue) {
-                            data.selectedHealthProfileModel!
+                            data.selectedAppointmentModel!
                                 .allergicToDrugsComplaint = newValue;
                           },
                           maxLines: 5,
@@ -257,7 +257,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
                                 label: Text(data
                                     .medicalConditionsModelList[index]
                                     .medicalCondition!),
-                                selected: data.selectedHealthProfileModel!
+                                selected: data.selectedAppointmentModel!
                                     .medicalConditionsModelList!
                                     .any((element) =>
                                         element.id ==
@@ -288,10 +288,10 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedHealthProfileModel!
+                          initialValue: data.selectedAppointmentModel!
                               .medicalConditionComplaint,
                           onChanged: (newValue) {
-                            data.selectedHealthProfileModel!
+                            data.selectedAppointmentModel!
                                 .medicalConditionComplaint = newValue;
                           },
                           maxLines: 5,
@@ -320,7 +320,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
                                 label: Text(data
                                     .familyMedicalConditionsModelList[index]
                                     .medicalCondition!),
-                                selected: data.selectedHealthProfileModel!
+                                selected: data.selectedAppointmentModel!
                                     .famMedicalConditionsModelList!
                                     .any((element) =>
                                         element.id ==
@@ -357,10 +357,10 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             }
                             return null;
                           },
-                          initialValue: data.selectedHealthProfileModel!
+                          initialValue: data.selectedAppointmentModel!
                               .familyMedicalConditionComplaint,
                           onChanged: (newValue) {
-                            data.selectedHealthProfileModel!
+                            data.selectedAppointmentModel!
                                 .familyMedicalConditionComplaint = newValue;
                           },
                           maxLines: 5,
@@ -388,7 +388,7 @@ class HealthProfilePageState extends State<HealthProfilePage>
                               child: FilterChip(
                                 label: Text(data
                                     .surgeriesModelList[index].surgeryName!),
-                                selected: data.selectedHealthProfileModel!
+                                selected: data.selectedAppointmentModel!
                                     .surgeriesModelList!
                                     .any((element) =>
                                         element.id ==
@@ -418,9 +418,9 @@ class HealthProfilePageState extends State<HealthProfilePage>
                             return null;
                           },
                           initialValue:
-                              data.selectedHealthProfileModel!.surgeryComplaint,
+                              data.selectedAppointmentModel!.surgeryComplaint,
                           onChanged: (newValue) {
-                            data.selectedHealthProfileModel!.surgeryComplaint =
+                            data.selectedAppointmentModel!.surgeryComplaint =
                                 newValue;
                           },
                           maxLines: 5,

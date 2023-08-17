@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
 import 'package:telemed/UI/Home/CadersPage.dart';
 import 'package:telemed/UI/Home/HealthProfilePage.dart';
 import 'package:telemed/UI/Home/Messages/MessagesPage.dart';
+import 'package:telemed/UI/Home/PatientProfilePage.dart';
 import 'package:telemed/UI/Home/ReviewProfilePage.dart';
 import 'package:telemed/UI/OnboardingPage.dart';
 import 'package:telemed/UI/SignInSignUp/BasicInformationPage.dart';
@@ -19,7 +19,7 @@ import 'package:telemed/UI/SignInSignUp/HealthInsurancePage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/UI/SignInSignUp/SignUpPage.dart';
 import 'package:telemed/settings.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'firebase_options.dart';
 
 @pragma('vm:entry-point')
@@ -233,6 +233,7 @@ class _MyAppState extends State<MyApp> {
         BookAppointmentPage.route: (context) => const BookAppointmentPage(),
         HealthProfilePage.route: (context) => const HealthProfilePage(),
         ReviewProfilePage.route: (context) => const ReviewProfilePage(),
+        PatientProfilePage.route: (context) => const PatientProfilePage(),
       },
     );
   }
