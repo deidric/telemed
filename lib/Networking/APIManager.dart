@@ -3,17 +3,24 @@ import 'dart:convert' as convert;
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemed/Networking/APIJsend.dart';
 import 'package:telemed/settings.dart';
 
 class APIManager {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   Future<APIJsend> getAPI(
       {String? token,
       required String apiRoute,
       Map<String, dynamic>? param}) async {
+    final SharedPreferences prefs = await _prefs;
+    final String? authority = prefs.getString(
+        TelemedSettings.sharefPrefsAuthority);
+
     http.Client client = http.Client();
 
-    var url = Uri.http(TelemedSettings.authority,
+    var url = Uri.http(authority!,
         TelemedSettings.unencodedPath + apiRoute, param);
 
     APIJsend apiJsend;
@@ -77,8 +84,12 @@ class APIManager {
 
   Future<APIJsend> postAPI(
       {String? token, required String apiRoute, String? param}) async {
+    final SharedPreferences prefs = await _prefs;
+    final String? authority = prefs.getString(
+        TelemedSettings.sharefPrefsAuthority);
+
     http.Client client = http.Client();
-    var url = Uri.http(TelemedSettings.authority,
+    var url = Uri.http(authority!,
         TelemedSettings.unencodedPath + apiRoute, {});
 
     APIJsend apiJsend;
@@ -145,8 +156,11 @@ class APIManager {
       {String? token,
       required String apiRoute,
       Map<String, dynamic>? param}) async {
+    final SharedPreferences prefs = await _prefs;
+    final String? authority = prefs.getString(
+        TelemedSettings.sharefPrefsAuthority);
     http.Client client = http.Client();
-    var url = Uri.http(TelemedSettings.authority,
+    var url = Uri.http(authority!,
         TelemedSettings.unencodedPath + apiRoute, param);
 
     APIJsend apiJsend;

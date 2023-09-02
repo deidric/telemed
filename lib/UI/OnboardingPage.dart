@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
@@ -35,9 +36,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  SharedPreferences? prefs;
+
   @override
-  void initState() {
+  initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
+      setSharedPrefs();
       final data = context.read<TelemedDataProvider>();
       imageSliders = imgList
           .map((item) => Column(
@@ -80,8 +85,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
           .toList();
       setState(() {});
     });
+
     super.initState();
   }
+
+  TextEditingController authorityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +147,42 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return TelemedStrings.pleaseEnterText;
+                            }
+                            return null;
+                          },
+                          controller: authorityController,
+                          onChanged: (newValue) {
+                            authorityController.text = newValue;
+                            data.setNewAuthority(newValue);
+                          },
+                          decoration: InputDecoration(
+                            labelText: TelemedStrings.url,
+                            hintText: TelemedStrings.url,
+                            border: const OutlineInputBorder(),
+                            prefixIcon: const Icon(Icons.text_fields),
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await prefs!.setString(
+                            TelemedSettings.sharefPrefsAuthority,
+                            data.newAuthority);
+                      },
+                      icon: const Icon(Icons.check),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.account_circle),
                           onPressed: () {
@@ -177,6 +221,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ],
             ),
     );
+  }
+
+  Future<void> setSharedPrefs() async {
+    final data = context.read<TelemedDataProvider>();
+    prefs = await _prefs;
+    final String? authority =
+        prefs!.getString(TelemedSettings.sharefPrefsAuthority);
+
+    if (authority == null) {
+      prefs!.setString(
+          TelemedSettings.sharefPrefsAuthority, TelemedSettings.authority);
+      data.setNewAuthority(TelemedSettings.authority);
+      authorityController.text = TelemedSettings.authority;
+    } else {
+      data.setNewAuthority(authority);
+      authorityController.text = authority;
+    }
   }
 }
 

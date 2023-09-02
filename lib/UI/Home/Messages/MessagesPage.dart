@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/PopupMenuButton.dart';
@@ -8,7 +9,6 @@ import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/settings.dart';
-import 'package:http/http.dart' as http;
 
 // Crude counter to make messages unique
 int _messageCount = 0;

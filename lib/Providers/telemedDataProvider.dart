@@ -63,6 +63,15 @@ class TelemedDataProvider
     return textTheme;
   }
 
+  String _newAuthority = "";
+
+  String get newAuthority => _newAuthority;
+
+  void setNewAuthority(String newAuthority){
+    _newAuthority = newAuthority;
+    notifyListeners();
+  }
+
   TelemedTextSizeEnum _telemedTextSize = TelemedTextSizeEnum.medium;
 
   TelemedTextSizeEnum get telemedTextSize => _telemedTextSize;

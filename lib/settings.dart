@@ -10,9 +10,9 @@ class TelemedSettings {
   // Server details
   // static String authority = "192.168.22.1";
   static String authority =
-      "d3a7-2001-4451-874c-6900-b5af-264d-e00-999c.ngrok-free.app";
+      "bc19-2001-4451-8721-9b00-2996-4ad2-ded7-adca.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
-
+  static String sharefPrefsAuthority = "sharefPrefsAuthority";
   //
 
   // Reason for visit ID's
@@ -315,6 +315,7 @@ class TelemedStrings {
   static String pwdIDnumber = "PWD ID No.";
   static String pwdIDExpirationDate = "PWD No. Expiration Date";
   static String paymentReferenceNumber = "Payment reference Number";
+  static String url = "Url";
   static String appointmentConfirmed = "Appointment confirmed";
   static String at = "At";
   static String appointmentConfirmationDialogMessage =
