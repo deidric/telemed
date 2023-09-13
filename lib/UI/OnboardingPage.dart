@@ -25,12 +25,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
       description:
           "These are the Specialists in their respective fields, which includes Brain & Nervous system",
     ),
-    HomePageContent(
-      imageURI: TelemedImage.clockImage,
-      title: "Communicate in the best & effective way possible",
-      description:
-          "Time & health are two precious assets that we don't compromise on",
-    ),
+    // HomePageContent(
+    //   imageURI: TelemedImage.clockImage,
+    //   title: "Communicate in the best & effective way possible",
+    //   description:
+    //       "Time & health are two precious assets that we don't compromise on",
+    // ),
   ];
   List<Widget> imageSliders = [];
   int _current = 0;
@@ -120,33 +120,33 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: imgList.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
-                      child: Container(
-                        width: 12.0,
-                        height: 12.0,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 4.0),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color:
-                                (Theme.of(context).brightness == Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black)
-                                    .withOpacity(
-                                        _current == entry.key ? 0.9 : 0.4)),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: imgList.asMap().entries.map((entry) {
+                //     return GestureDetector(
+                //       onTap: () => _controller.animateToPage(entry.key),
+                //       child: Container(
+                //         width: 12.0,
+                //         height: 12.0,
+                //         margin: const EdgeInsets.symmetric(
+                //             vertical: 8.0, horizontal: 4.0),
+                //         decoration: BoxDecoration(
+                //             shape: BoxShape.circle,
+                //             color:
+                //                 (Theme.of(context).brightness == Brightness.dark
+                //                         ? Colors.white
+                //                         : Colors.black)
+                //                     .withOpacity(
+                //                         _current == entry.key ? 0.9 : 0.4)),
+                //       ),
+                //     );
+                //   }).toList(),
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
                         child: TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -167,16 +167,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        await prefs!.setString(
-                            TelemedSettings.sharefPrefsAuthority,
-                            data.newAuthority);
-                      },
-                      icon: const Icon(Icons.check),
-                    ),
-                  ],
+                      IconButton(
+                        onPressed: () async {
+                          await prefs!.setString(
+                              TelemedSettings.sharefPrefsAuthority,
+                              data.newAuthority);
+                        },
+                        tooltip: TelemedStrings.saveUrl,
+                        icon: const Icon(Icons.check),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [

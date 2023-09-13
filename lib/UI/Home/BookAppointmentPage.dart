@@ -212,10 +212,10 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                                "${TelemedStrings.doctorsPhoneNumber} : ",
-                                style: data
-                                    .getTelemedTextStyle(context)
-                                    .bodyMedium!),
+                              "${TelemedStrings.doctorsPhoneNumber} : ",
+                              style:
+                                  data.getTelemedTextStyle(context).bodyMedium!,
+                            ),
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -225,7 +225,8 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                             padding: const EdgeInsets.all(8.0),
                             child: data.selectedUserModel.phone == null
                                 ? const SelectableText("")
-                                : SelectableText(data.selectedUserModel.phone!),
+                                : SelectableText(
+                                    "${data.selectedUserModel.phone!.substring(0, 4)}-${data.selectedUserModel.phone!.substring(4, 7)}-${data.selectedUserModel.phone!.substring(7, 10)}"),
                           ),
                         ],
                       ),

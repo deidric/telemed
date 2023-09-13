@@ -168,22 +168,24 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                 initialValue: data.selectedUserModel.password,
                                 obscureText: _showPassword,
                                 decoration: InputDecoration(
-                                    labelText: TelemedStrings.password,
-                                    border: const OutlineInputBorder(),
-                                    prefixIcon: const Icon(Icons.lock_open),
-                                    suffixIcon: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _showPassword = !_showPassword;
-                                        });
-                                      },
-                                      child: Icon(
-                                        _showPassword
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                        color: Colors.red,
-                                      ),
-                                    )),
+                                  labelText: TelemedStrings.password,
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.lock_open),
+                                  suffixIcon: IconButton(
+                                    color: Colors.red,
+                                    onPressed: () {
+                                      setState(() {
+                                        _showPassword = !_showPassword;
+                                      });
+                                    },
+                                    tooltip: _showPassword
+                                        ? TelemedStrings.showPassword
+                                        : TelemedStrings.hidePassword,
+                                    icon: _showPassword
+                                        ? const Icon(Icons.visibility)
+                                        : const Icon(Icons.visibility_off),
+                                  ),
+                                ),
                               ),
                             ),
                             Padding(

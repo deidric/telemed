@@ -94,12 +94,9 @@ class BookAppointmentsReasonForVisitPageState
                               .titleLarge!
                               .copyWith(fontWeight: FontWeight.bold)),
                     ),
-                    GridView(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
+                    ListView(
                       shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),

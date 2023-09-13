@@ -215,6 +215,7 @@ class BasicInformationPageState extends State<BasicInformationPage>
                                             data.selectedUserModel
                                                 .bloodPressure = newValue;
                                           },
+                                          keyboardType: TextInputType.phone,
                                           decoration: InputDecoration(
                                             labelText:
                                                 TelemedStrings.bloodPressure,

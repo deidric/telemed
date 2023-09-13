@@ -62,6 +62,9 @@ class TelemedJsendStatus {
 }
 
 class TelemedStrings {
+  static String saveUrl = "Save url";
+  static String showPassword = "Show password";
+  static String hidePassword = "Hide password";
   static String alertTitle = "Alert";
   static String alertMessageNavToMessages =
       "Please navigate to the messages screen to continue the conversation.";
