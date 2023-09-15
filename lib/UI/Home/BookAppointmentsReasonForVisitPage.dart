@@ -59,20 +59,20 @@ class BookAppointmentsReasonForVisitPageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Padding(
+                /*    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.patientLocation,
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
                               .copyWith(fontWeight: FontWeight.bold)),
-                    ),
+                    ),*/
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.patientConnection,
                           style: data.getTelemedTextStyle(context).bodyLarge!),
                     ),
-                    Padding(
+                    /*Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
@@ -85,7 +85,7 @@ class BookAppointmentsReasonForVisitPageState
                               child: Text("(${TelemedStrings.change})")),
                         ],
                       ),
-                    ),
+                    ),*/
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.whatIsReasonOfVisit,
