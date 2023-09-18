@@ -149,6 +149,7 @@ class MessagesPageState extends State<MessagesPage> {
       appBar: AppBar(title: Text(TelemedStrings.messages), actions: [
         const AppBarActionsPopupMenuButton(),
         IconButton(
+          tooltip: TelemedStrings.refresh,
           icon: const Icon(Icons.refresh),
           onPressed: () async {
             await data.apiRouteMessagesByConversationId(context: context);
@@ -296,20 +297,24 @@ class MessagesPageState extends State<MessagesPage> {
             ),
             IconButton(
               onPressed: _scrollDown,
+              tooltip: TelemedStrings.godown,
               icon: const Icon(Icons.arrow_downward),
             ),
             IconButton(
               onPressed: () {},
+              tooltip: TelemedStrings.emojis,
               icon: const Icon(Icons.emoji_emotions),
             ),
             IconButton(
               onPressed: () {},
+              tooltip: TelemedStrings.attachment,
               icon: const Icon(Icons.attachment),
             ),
             IconButton(
               onPressed: () {
                 sendMessage(context);
               },
+              tooltip: TelemedStrings.sendmsg,
               icon: const Icon(Icons.send),
             ),
           ],

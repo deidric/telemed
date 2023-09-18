@@ -82,6 +82,7 @@ class ConversationsPageState extends State<ConversationsPage> {
                       ),
                     ),
                     IconButton(
+                      tooltip: TelemedStrings.refresh,
                       icon: const Icon(Icons.refresh),
                       onPressed: () async {
                         List<ConversationModel> conversationModelList = [];

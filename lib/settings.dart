@@ -65,6 +65,11 @@ class TelemedStrings {
   static String saveUrl = "Save url";
   static String showPassword = "Show password";
   static String hidePassword = "Hide password";
+  static String refresh = "Refresh";
+  static String sendmsg = "Send message";
+  static String attachment = "Attachment";
+  static String emojis = "Emojis";
+  static String godown = "Down to recent message";
   static String alertTitle = "Alert";
   static String alertMessageNavToMessages =
       "Please navigate to the messages screen to continue the conversation.";
