@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'MessageModel.g.dart';
+part 'AttachmentsModel.g.dart';
 
 @JsonSerializable()
-class MessageModel {
+class AttachmentsModel {
   int? id;
   int? conversationId;
   int? fromUserId;
@@ -12,6 +12,7 @@ class MessageModel {
   String? timeOfAppointment;
   String? sentDate;
   String? readDate;
+  String? filePathOnServer;
   int? fromUserTypeId;
   String? fromUserFirstName;
   String? fromUserLastName;
@@ -21,7 +22,7 @@ class MessageModel {
   String? toUserLastName;
   String? toUserDeviceKey;
 
-  MessageModel({
+  AttachmentsModel({
     this.id,
     this.conversationId,
     this.fromUserId,
@@ -30,6 +31,7 @@ class MessageModel {
     this.timeOfAppointment,
     this.sentDate,
     this.readDate,
+    this.filePathOnServer,
     this.fromUserTypeId,
     this.fromUserFirstName,
     this.fromUserLastName,
@@ -40,10 +42,10 @@ class MessageModel {
     this.toUserDeviceKey,
   });
 
-  factory MessageModel.fromJson(Map<String, dynamic> json) =>
-      _$MessageModelFromJson(json);
+  factory AttachmentsModel.fromJson(Map<String, dynamic> json) =>
+      _$AttachmentsModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MessageModelToJson(this);
+  Map<String, dynamic> toJson() => _$AttachmentsModelToJson(this);
 }
 
 enum FieldNames {
@@ -55,6 +57,7 @@ enum FieldNames {
   timeOfAppointment,
   sentDate,
   readDate,
+  filePathOnServer,
   fromUserTypeId,
   fromUserFirstName,
   fromUserLastName,
@@ -84,6 +87,8 @@ extension FieldNamesExtension on FieldNames {
         return 'sentDate';
       case FieldNames.readDate:
         return 'readDate';
+      case FieldNames.filePathOnServer:
+        return 'filePathOnServer';
       case FieldNames.fromUserTypeId:
         return 'fromUserTypeId';
       case FieldNames.fromUserFirstName:

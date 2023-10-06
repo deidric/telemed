@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Components/PopupMenuButton.dart';
 import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
+import 'package:telemed/Model/AttachmentsModel.dart';
 import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/settings.dart';
@@ -72,7 +75,6 @@ class MessagesPageState extends State<MessagesPage> {
     MessageModel messageModel = MessageModel(
       toUserId: toUserId,
       sentDate: DateTime.now().toIso8601String(),
-      attachments: null,
       message: message,
     );
     await data.apiRoutecreateMessages(
@@ -280,66 +282,78 @@ class MessagesPageState extends State<MessagesPage> {
                 Positioned(
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 32.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return TelemedStrings.pleaseEnterText;
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                message = value;
-                                setState(() {});
-                              },
-                              initialValue: message,
-                              maxLines: 2,
-                              decoration: InputDecoration(
-                                labelText: TelemedStrings.message,
-                                border: const OutlineInputBorder(),
-                                prefixIcon: const Icon(Icons.mail_outline),
+                    child: Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return TelemedStrings.pleaseEnterText;
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  message = value;
+                                  setState(() {});
+                                },
+                                maxLines: null,
+                                initialValue: message,
+                                decoration: InputDecoration(
+                                  labelText: TelemedStrings.message,
+                                  border: const OutlineInputBorder(),
+                                  suffixIcon: IconButton(
+                                    onPressed: () async {
+                                      FilePickerResult? result =
+                                          await FilePicker.platform.pickFiles(
+                                        type: FileType.custom,
+                                        allowedExtensions: [
+                                          'jpg',
+                                          'pdf',
+                                          'doc'
+                                        ],
+                                      );
+
+                                      if (result != null) {
+                                        PlatformFile file = result.files.first;
+                                        await data.apiRouteCreateAttachment(context: context, attachmentsModel: AttachmentsModel(), localFilePath: file.path!);
+                                      } else {
+                                        // User canceled the picker
+                                      }
+                                    },
+                                    tooltip: TelemedStrings.attachment,
+                                    icon: const Icon(Icons.attachment),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: _scrollDown,
-                            tooltip: TelemedStrings.godown,
-                            icon: const Icon(Icons.arrow_downward),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            tooltip: TelemedStrings.emojis,
-                            icon: const Icon(Icons.emoji_emotions),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            tooltip: TelemedStrings.attachment,
-                            icon: const Icon(Icons.attachment),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              sendMessage(context);
-                            },
-                            tooltip: TelemedStrings.sendmsg,
-                            icon: const Icon(Icons.send),
-                          ),
-                        ],
+                            IconButton(
+                              onPressed: () {
+                                sendMessage(context);
+                              },
+                              tooltip: TelemedStrings.sendmsg,
+                              icon: const Icon(Icons.send),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-      // floatingActionButton: FloatingActionButton.small(
-      //   onPressed: _scrollDown,
-      //   child: const Icon(Icons.arrow_downward),
-      // ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 64.0),
+        child: FloatingActionButton.small(
+          onPressed: _scrollDown,
+          child: const Icon(Icons.arrow_downward),
+        ),
+      ),
       // floatingActionButton: Padding(
       //   padding: const EdgeInsets.only(left: 32.0),
       //   child: Row(

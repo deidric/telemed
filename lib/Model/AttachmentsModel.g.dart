@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'MessageModel.dart';
+part of 'AttachmentsModel.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
+AttachmentsModel _$AttachmentsModelFromJson(Map<String, dynamic> json) =>
+    AttachmentsModel(
       id: json['id'] as int?,
       conversationId: json['conversationId'] as int?,
       fromUserId: json['fromUserId'] as int?,
@@ -15,6 +16,7 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
       timeOfAppointment: json['timeOfAppointment'] as String?,
       sentDate: json['sentDate'] as String?,
       readDate: json['readDate'] as String?,
+      filePathOnServer: json['filePathOnServer'] as String?,
       fromUserTypeId: json['fromUserTypeId'] as int?,
       fromUserFirstName: json['fromUserFirstName'] as String?,
       fromUserLastName: json['fromUserLastName'] as String?,
@@ -25,7 +27,7 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
       toUserDeviceKey: json['toUserDeviceKey'] as String?,
     );
 
-Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
+Map<String, dynamic> _$AttachmentsModelToJson(AttachmentsModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'conversationId': instance.conversationId,
@@ -35,6 +37,7 @@ Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
       'timeOfAppointment': instance.timeOfAppointment,
       'sentDate': instance.sentDate,
       'readDate': instance.readDate,
+      'filePathOnServer': instance.filePathOnServer,
       'fromUserTypeId': instance.fromUserTypeId,
       'fromUserFirstName': instance.fromUserFirstName,
       'fromUserLastName': instance.fromUserLastName,

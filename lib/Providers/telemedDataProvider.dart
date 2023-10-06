@@ -1,9 +1,13 @@
 import 'dart:convert' as convert;
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemed/Model/AppointmentModel.dart';
+import 'package:telemed/Model/AttachmentsModel.dart';
 import 'package:telemed/Model/CaderModel.dart';
 import 'package:telemed/Model/ConversationModel.dart';
 import 'package:telemed/Model/DoctorQualificationsModel.dart';
@@ -22,6 +26,7 @@ import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
+import 'package:http_parser/http_parser.dart';
 
 class TelemedDataProvider
     with ChangeNotifier, DiagnosticableTreeMixin
@@ -67,7 +72,7 @@ class TelemedDataProvider
 
   String get newAuthority => _newAuthority;
 
-  void setNewAuthority(String newAuthority){
+  void setNewAuthority(String newAuthority) {
     _newAuthority = newAuthority;
     notifyListeners();
   }
@@ -1019,5 +1024,53 @@ class TelemedDataProvider
       apiRoute: TelemedApiRoutes.apiRouteCreateMessages,
       model: messageModel,
     );
+  }
+
+  @override
+  apiRouteCreateAttachment(
+      {required context,
+      required AttachmentsModel attachmentsModel,
+      required String localFilePath}) async {
+    String jsonEncoded = convert.jsonEncode(attachmentsModel);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final String? authority =
+        prefs.getString(TelemedSettings.sharefPrefsAuthority);
+
+    http.Client client = http.Client();
+    Uri uri = Uri.http(
+        authority!,
+        TelemedSettings.unencodedPath +
+            TelemedApiRoutes.apiRouteCreateAttachment,
+        {});
+
+    Map<String, String> headers =
+        TelemedSettings.getHttpHeaders(token: selectedUserModel.token);
+
+    var request = http.MultipartRequest("POST", uri);
+    request.headers.addAll(headers);
+    // request.fields['user'] = 'blah';
+    // request.fields.addAll(attachmentsModel.toJson() as Map<String, String>);
+
+    request.files.add(
+      http.MultipartFile.fromBytes(
+        'attachmentFile',
+        await File.fromUri(Uri.parse(localFilePath)).readAsBytes(),
+        contentType: MediaType.parse("image/png"),
+        // contentType: MediaType('application', 'pdf'),
+        // contentType: MediaType('image', 'jpeg'),
+      ),
+    );
+
+    request.send().then((response) {
+      if (response.statusCode == 200) print("Uploaded!");
+    });
+
+    // await _apiCreateOrUpdate(
+    //   context: context,
+    //   token: selectedUserModel.token,
+    //   apiRoute: TelemedApiRoutes.apiRouteCreateAttachment,
+    //   model: attachmentsModel,
+    // );
   }
 }

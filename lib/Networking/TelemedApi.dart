@@ -1,4 +1,5 @@
 import 'package:telemed/Model/AppointmentModel.dart';
+import 'package:telemed/Model/AttachmentsModel.dart';
 import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Model/UserModel.dart';
 
@@ -37,6 +38,9 @@ class TelemedApi {
 
   apiRoutecreateMessages(
       {required context, required MessageModel messageModel}) {}
+
+  apiRouteCreateAttachment(
+      {required context, required AttachmentsModel attachmentsModel, required String localFilePath}) {}
 }
 
 class TelemedApiRoutes {
@@ -86,4 +90,7 @@ class TelemedApiRoutes {
 
   // Create Conversation by userId
   static const String apiRouteCreateMessages = '/createMessages';
+
+  // Create Attachment by userId
+  static const String apiRouteCreateAttachment = '/createAttachment';
 }

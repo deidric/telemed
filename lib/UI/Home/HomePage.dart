@@ -121,7 +121,6 @@ class HomePageState extends State<HomePage> {
                               toUserId:
                                   data.selectedConversationModel!.toUserId,
                               sentDate: DateTime.now().toIso8601String(),
-                              attachments: null,
                               message: "Hi",
                             );
                             if (mounted) {
@@ -174,7 +173,6 @@ class HomePageState extends State<HomePage> {
                               toUserId:
                                   data.selectedConversationModel!.toUserId,
                               sentDate: DateTime.now().toIso8601String(),
-                              attachments: null,
                               message: "Hi",
                             );
                             if (mounted) {
@@ -323,7 +321,6 @@ class HomePageState extends State<HomePage> {
                               toUserId:
                                   data.selectedConversationModel!.toUserId,
                               sentDate: DateTime.now().toIso8601String(),
-                              attachments: null,
                               message: "Hi",
                             );
                             if (mounted) {
