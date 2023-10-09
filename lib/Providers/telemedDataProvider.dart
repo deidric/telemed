@@ -1038,6 +1038,7 @@ class TelemedDataProvider
         prefs.getString(TelemedSettings.sharefPrefsAuthority);
 
     http.Client client = http.Client();
+
     Uri uri = Uri.http(
         authority!,
         TelemedSettings.unencodedPath +
@@ -1051,12 +1052,11 @@ class TelemedDataProvider
     request.headers.addAll(headers);
     // request.fields['user'] = 'blah';
     // request.fields.addAll(attachmentsModel.toJson() as Map<String, String>);
-
     request.files.add(
       http.MultipartFile.fromBytes(
         'attachmentFile',
         await File.fromUri(Uri.parse(localFilePath)).readAsBytes(),
-        contentType: MediaType.parse("image/png"),
+        contentType: MediaType.parse("image/jpg"),
         // contentType: MediaType('application', 'pdf'),
         // contentType: MediaType('image', 'jpeg'),
       ),
