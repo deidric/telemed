@@ -41,9 +41,10 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
-    emailController.text = 'roby@gmail.com';
-    passwordController.text = '1234';
+    if (TelemedSettings.devMode) {
+      emailController.text = 'roby@gmail.com';
+      passwordController.text = '1234';
+    }
   }
 
   Future<void> signIn(BuildContext context) async {

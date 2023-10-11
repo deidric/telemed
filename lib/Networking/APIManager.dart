@@ -51,6 +51,9 @@ class APIManager {
           );
           response = getResponse;
         }
+      } else {
+        response = await client.get(url,
+            headers: TelemedSettings.getHttpHeaders(token: token));
       }
       //
 
@@ -127,6 +130,9 @@ class APIManager {
               body: param);
           response = getResponse;
         }
+      } else {
+        response = await client.post(url,
+            headers: TelemedSettings.getHttpHeaders(token: token), body: param);
       }
       //
 
