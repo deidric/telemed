@@ -40,7 +40,9 @@ class TelemedApi {
       {required context, required MessageModel messageModel}) {}
 
   apiRouteCreateAttachment(
-      {required context, required AttachmentsModel attachmentsModel, required String localFilePath}) {}
+      {required context,
+      required AttachmentsModel attachmentsModel,
+      required String localFilePath}) {}
 }
 
 class TelemedApiRoutes {

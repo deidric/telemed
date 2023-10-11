@@ -59,7 +59,7 @@ class BookAppointmentsReasonForVisitPageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                /*    Padding(
+                    /*    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.patientLocation,
                           style: Theme.of(context)

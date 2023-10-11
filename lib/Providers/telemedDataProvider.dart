@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telemed/Model/AppointmentModel.dart';
@@ -26,7 +27,6 @@ import 'package:telemed/UI/Home/BasePage.dart';
 import 'package:telemed/UI/SignInSignUp/SignInPage.dart';
 import 'package:telemed/Utils/DialogUtils.dart';
 import 'package:telemed/settings.dart';
-import 'package:http_parser/http_parser.dart';
 
 class TelemedDataProvider
     with ChangeNotifier, DiagnosticableTreeMixin
@@ -1045,8 +1045,8 @@ class TelemedDataProvider
             TelemedApiRoutes.apiRouteCreateAttachment,
         {});
 
-    Map<String, String> headers =
-        TelemedSettings.getFileAttachmentHttpHeaders(token: selectedUserModel.token);
+    Map<String, String> headers = TelemedSettings.getFileAttachmentHttpHeaders(
+        token: selectedUserModel.token);
 
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
@@ -1056,7 +1056,7 @@ class TelemedDataProvider
       http.MultipartFile.fromBytes(
         'attachmentFile',
         await File.fromUri(Uri.parse(localFilePath)).readAsBytes(),
-          contentType: MediaType('*', '*'),
+        contentType: MediaType('*', '*'),
         // contentType: MediaType.parse("image/jpg"),
         // contentType: MediaType('application', 'pdf'),
         // contentType: MediaType('image', 'jpeg'),

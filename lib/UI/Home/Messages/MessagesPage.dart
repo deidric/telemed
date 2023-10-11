@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -321,7 +320,11 @@ class MessagesPageState extends State<MessagesPage> {
 
                                       if (result != null) {
                                         PlatformFile file = result.files.first;
-                                        await data.apiRouteCreateAttachment(context: context, attachmentsModel: AttachmentsModel(), localFilePath: file.path!);
+                                        await data.apiRouteCreateAttachment(
+                                            context: context,
+                                            attachmentsModel:
+                                                AttachmentsModel(),
+                                            localFilePath: file.path!);
                                       } else {
                                         // User canceled the picker
                                       }

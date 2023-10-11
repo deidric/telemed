@@ -14,10 +14,12 @@ class TelemedSettings {
 
   // Server details
   // static String authority = "192.168.22.1";
-  static String authority =
-      "2634-2001-4451-87c5-600-d10f-9f35-eaba-5d12.ngrok-free.app";
-  static String unencodedPath = "telemed/public/api";
+  // static String authority =
+  //     "2634-2001-4451-87c5-600-d10f-9f35-eaba-5d12.ngrok-free.app";
+  static String authority = getAuthority();
+  static String unencodedPath = getEncodedPath();
   static String sharefPrefsAuthority = "sharefPrefsAuthority";
+
   //
 
   // Reason for visit ID's
@@ -57,6 +59,62 @@ class TelemedSettings {
           HttpHeaders.authorizationHeader, () => 'Bearer $token');
     }
     return httpHeaders;
+  }
+
+  static String getAuthority() {
+    /*
+  SERVER PATH
+   */
+    // static String authority = "www.jagadishpoultryfarm.in";
+    // static String unencodedPath = "api";
+    /*
+  SERVER PATH
+   */
+
+    String authority;
+    if (devMode) {
+      // authority = "192.168.0.104";
+      // authority = "192.168.0.103";
+      // authority = "192.168.1.103";
+      // authority = "192.168.0.100";
+      // authority = "192.168.0.102";
+      // authority = "192.168.0.108";
+      // authority = "64.227.164.38";
+      // authority = "192.168.0.107";
+//
+//       authority = "192.168.0.109";
+      authority = "192.168.0.106";
+//
+//       authority = "192.168.0.110";
+//       authority = "192.168.0.111";
+      // authority = "192.168.0.112";
+      // authority = "192.168.0.113";
+//
+      // authority = "192.168.0.110";
+      // authority = "192.168.66.41";
+//
+      // authority = "192.168.0.105";
+      // authority = "192.168.43.41";
+      // authority = "192.168.43.41";
+//
+      // authority = "192.168.1.101";
+//
+      // authority = "192.168.43.41";
+      // authority = "192.168.43.41";
+    } else {
+      authority = "www.telemedph.com";
+    }
+    return authority;
+  }
+
+  static String getEncodedPath() {
+    String unencodedPath;
+    if (devMode) {
+      unencodedPath = "telemed/public/api";
+    } else {
+      unencodedPath = "api";
+    }
+    return unencodedPath;
   }
 
   static getFileAttachmentHttpHeaders({String? token}) {

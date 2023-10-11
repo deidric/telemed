@@ -142,43 +142,44 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 //     );
                 //   }).toList(),
                 // ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return TelemedStrings.pleaseEnterText;
-                            }
-                            return null;
-                          },
-                          controller: authorityController,
-                          onChanged: (newValue) {
-                            authorityController.text = newValue;
-                            data.setNewAuthority(newValue);
-                          },
-                          decoration: InputDecoration(
-                            labelText: TelemedStrings.url,
-                            hintText: TelemedStrings.url,
-                            border: const OutlineInputBorder(),
-                            prefixIcon: const Icon(Icons.text_fields),
+                if (TelemedSettings.devMode)
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TelemedStrings.pleaseEnterText;
+                              }
+                              return null;
+                            },
+                            controller: authorityController,
+                            onChanged: (newValue) {
+                              authorityController.text = newValue;
+                              data.setNewAuthority(newValue);
+                            },
+                            decoration: InputDecoration(
+                              labelText: TelemedStrings.url,
+                              hintText: TelemedStrings.url,
+                              border: const OutlineInputBorder(),
+                              prefixIcon: const Icon(Icons.text_fields),
+                            ),
                           ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          await prefs!.setString(
-                              TelemedSettings.sharefPrefsAuthority,
-                              data.newAuthority);
-                        },
-                        tooltip: TelemedStrings.saveUrl,
-                        icon: const Icon(Icons.check),
-                      ),
-                    ],
+                        IconButton(
+                          onPressed: () async {
+                            await prefs!.setString(
+                                TelemedSettings.sharefPrefsAuthority,
+                                data.newAuthority);
+                          },
+                          tooltip: TelemedStrings.saveUrl,
+                          icon: const Icon(Icons.check),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
                 Row(
                   children: [
                     Expanded(
