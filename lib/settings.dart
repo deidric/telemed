@@ -3,6 +3,11 @@ import 'dart:io';
 import 'package:intl/intl.dart';
 
 class TelemedSettings {
+  /*
+  Turn the following false during deployment
+   */
+  static bool devMode = false;
+
   static String appName = "Telemed";
   static String initialCountryCode = "PH";
   static String CONTANT_UNAUTHENTICATED = "Unauthenticated";
@@ -10,7 +15,7 @@ class TelemedSettings {
   // Server details
   // static String authority = "192.168.22.1";
   static String authority =
-      "ce14-112-204-168-5.ngrok-free.app";
+      "2634-2001-4451-87c5-600-d10f-9f35-eaba-5d12.ngrok-free.app";
   static String unencodedPath = "telemed/public/api";
   static String sharefPrefsAuthority = "sharefPrefsAuthority";
   //
@@ -47,6 +52,17 @@ class TelemedSettings {
     Map<String, String> httpHeaders = {};
     httpHeaders.putIfAbsent(
         HttpHeaders.contentTypeHeader, () => 'application/json; charset=UTF-8');
+    if (token != null) {
+      httpHeaders.putIfAbsent(
+          HttpHeaders.authorizationHeader, () => 'Bearer $token');
+    }
+    return httpHeaders;
+  }
+
+  static getFileAttachmentHttpHeaders({String? token}) {
+    Map<String, String> httpHeaders = {};
+    // httpHeaders.putIfAbsent(
+    //     HttpHeaders.contentTypeHeader, () => 'multipart/form-data; application/json; charset=UTF-8; boundary=<calculated when request is sent>');
     if (token != null) {
       httpHeaders.putIfAbsent(
           HttpHeaders.authorizationHeader, () => 'Bearer $token');

@@ -1046,7 +1046,7 @@ class TelemedDataProvider
         {});
 
     Map<String, String> headers =
-        TelemedSettings.getHttpHeaders(token: selectedUserModel.token);
+        TelemedSettings.getFileAttachmentHttpHeaders(token: selectedUserModel.token);
 
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
@@ -1056,7 +1056,8 @@ class TelemedDataProvider
       http.MultipartFile.fromBytes(
         'attachmentFile',
         await File.fromUri(Uri.parse(localFilePath)).readAsBytes(),
-        contentType: MediaType.parse("image/jpg"),
+          contentType: MediaType('*', '*'),
+        // contentType: MediaType.parse("image/jpg"),
         // contentType: MediaType('application', 'pdf'),
         // contentType: MediaType('image', 'jpeg'),
       ),
