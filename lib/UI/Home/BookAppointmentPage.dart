@@ -108,10 +108,11 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                                 data.selectedUserModel.videoConsultationFee ==
                                         null
                                     ? ""
-                                    : data
-                                        .selectedUserModel.videoConsultationFee!,
-                                style:
-                                    data.getTelemedTextStyle(context).bodyMedium!,
+                                    : data.selectedUserModel
+                                        .videoConsultationFee!,
+                                style: data
+                                    .getTelemedTextStyle(context)
+                                    .bodyMedium!,
                               ),
                             ),
                           ),

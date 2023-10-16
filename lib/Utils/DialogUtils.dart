@@ -88,9 +88,13 @@ class DialogUtils {
                 height: 24,
               ),
             ),
-            Text(title),
+            Expanded(child: Text(title)),
           ]),
-          content: Text(message),
+          content: Row(
+            children: [
+              Expanded(child: Text(message)),
+            ],
+          ),
           actions: <Widget>[
             TextButton(
               child: Text(TelemedStrings.ok.toUpperCase()),
