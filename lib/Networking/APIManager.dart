@@ -15,15 +15,16 @@ class APIManager {
       required String apiRoute,
       Map<String, dynamic>? param}) async {
     final SharedPreferences prefs = await _prefs;
-    final String? authority =
-        prefs.getString(TelemedSettings.sharefPrefsAuthority);
+    final String authority =
+        prefs.getString(TelemedSettings.sharefPrefsAuthority) ??
+            TelemedSettings.authority;
 
     http.Client client = http.Client();
 
     Uri url;
     if (TelemedSettings.devMode) {
-      url = Uri.http(TelemedSettings.authority,
-          TelemedSettings.unencodedPath + apiRoute, param);
+      url =
+          Uri.http(authority, TelemedSettings.unencodedPath + apiRoute, param);
     } else {
       url = Uri.https(TelemedSettings.authority,
           TelemedSettings.unencodedPath + apiRoute, param);
@@ -94,14 +95,14 @@ class APIManager {
   Future<APIJsend> postAPI(
       {String? token, required String apiRoute, String? param}) async {
     final SharedPreferences prefs = await _prefs;
-    final String? authority =
-        prefs.getString(TelemedSettings.sharefPrefsAuthority);
+    final String authority =
+        prefs.getString(TelemedSettings.sharefPrefsAuthority) ??
+            TelemedSettings.authority;
 
     http.Client client = http.Client();
     Uri url;
     if (TelemedSettings.devMode) {
-      url = Uri.http(TelemedSettings.authority,
-          TelemedSettings.unencodedPath + apiRoute, {});
+      url = Uri.http(authority, TelemedSettings.unencodedPath + apiRoute, {});
     } else {
       url = Uri.https(TelemedSettings.authority,
           TelemedSettings.unencodedPath + apiRoute, {});
@@ -175,13 +176,14 @@ class APIManager {
       required String apiRoute,
       Map<String, dynamic>? param}) async {
     final SharedPreferences prefs = await _prefs;
-    final String? authority =
-        prefs.getString(TelemedSettings.sharefPrefsAuthority);
+    final String authority =
+        prefs.getString(TelemedSettings.sharefPrefsAuthority) ??
+            TelemedSettings.authority;
     http.Client client = http.Client();
     Uri url;
     if (TelemedSettings.devMode) {
-      url = Uri.http(TelemedSettings.authority,
-          TelemedSettings.unencodedPath + apiRoute, param);
+      url =
+          Uri.http(authority, TelemedSettings.unencodedPath + apiRoute, param);
     } else {
       url = Uri.https(TelemedSettings.authority,
           TelemedSettings.unencodedPath + apiRoute, param);

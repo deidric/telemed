@@ -82,31 +82,37 @@ class BookAppointmentPageState extends State<BookAppointmentPage>
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(data.selectedCaderModel!.cader!,
-                                style: data
-                                    .getTelemedTextStyle(context)
-                                    .bodyMedium!),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(data.selectedCaderModel!.cader!,
+                                  style: data
+                                      .getTelemedTextStyle(context)
+                                      .bodyMedium!),
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                                "- ${TelemedStrings.videoConsultationFee} - (${TelemedSettings.costOfVideoConsultation})",
-                                style: data
-                                    .getTelemedTextStyle(context)
-                                    .bodyMedium!),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                  "- ${TelemedStrings.videoConsultationFee} - (${TelemedSettings.costOfVideoConsultation})",
+                                  style: data
+                                      .getTelemedTextStyle(context)
+                                      .bodyMedium!),
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              data.selectedUserModel.videoConsultationFee ==
-                                      null
-                                  ? ""
-                                  : data
-                                      .selectedUserModel.videoConsultationFee!,
-                              style:
-                                  data.getTelemedTextStyle(context).bodyMedium!,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                data.selectedUserModel.videoConsultationFee ==
+                                        null
+                                    ? ""
+                                    : data
+                                        .selectedUserModel.videoConsultationFee!,
+                                style:
+                                    data.getTelemedTextStyle(context).bodyMedium!,
+                              ),
                             ),
                           ),
                         ],
