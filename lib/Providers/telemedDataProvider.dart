@@ -1039,7 +1039,8 @@ class TelemedDataProvider
 
     http.Client client = http.Client();
 
-    Uri uri = Uri.http(
+
+    Uri uri = Uri.https(
         authority!,
         TelemedSettings.unencodedPath +
             TelemedApiRoutes.apiRouteCreateAttachment,
@@ -1056,7 +1057,8 @@ class TelemedDataProvider
       http.MultipartFile.fromBytes(
         'attachmentFile',
         await File.fromUri(Uri.parse(localFilePath)).readAsBytes(),
-        contentType: MediaType('*', '*'),
+        filename: "attachmentFile"
+        // contentType: MediaType('*', '*'),
         // contentType: MediaType.parse("image/jpg"),
         // contentType: MediaType('application', 'pdf'),
         // contentType: MediaType('image', 'jpeg'),
