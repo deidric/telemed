@@ -77,6 +77,15 @@ class TelemedDataProvider
     notifyListeners();
   }
 
+  String? _channelName = "";
+
+  String? get channelName => _channelName;
+
+  void setChannelName(String? newChannelName){
+    _channelName = newChannelName;
+    notifyListeners();
+  }
+
   TelemedTextSizeEnum _telemedTextSize = TelemedTextSizeEnum.medium;
 
   TelemedTextSizeEnum get telemedTextSize => _telemedTextSize;

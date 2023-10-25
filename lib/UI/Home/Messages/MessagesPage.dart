@@ -10,6 +10,7 @@ import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Model/AttachmentsModel.dart';
 import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/Messages/VideoCallPage.dart';
 import 'package:telemed/settings.dart';
 
 // Crude counter to make messages unique
@@ -148,6 +149,17 @@ class MessagesPageState extends State<MessagesPage> {
     final data = context.watch<TelemedDataProvider>();
     return Scaffold(
       appBar: AppBar(title: Text(TelemedStrings.messages), actions: [
+        IconButton(
+          tooltip: TelemedStrings.videoCall,
+          icon: const Icon(Icons.video_call),
+          onPressed: () async {
+            data.setChannelName(null);
+            Navigator.pushNamed(
+              context,
+              VideoCallPage.route,
+            );
+          },
+        ),
         const AppBarActionsPopupMenuButton(),
         IconButton(
           tooltip: TelemedStrings.refresh,
@@ -155,7 +167,7 @@ class MessagesPageState extends State<MessagesPage> {
           onPressed: () async {
             await data.apiRouteMessagesByConversationId(context: context);
           },
-        )
+        ),
       ]),
       body: data.isLoading
           ? const TelemedLoadingProgressDialog()
@@ -246,14 +258,58 @@ class MessagesPageState extends State<MessagesPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          Flexible(
-                                            child: Text(
-                                              data
-                                                  .filteredMessageModelList[
-                                                      index]
-                                                  .message!,
+                                          if (!data
+                                              .filteredMessageModelList[index]
+                                              .message!
+                                              .contains(TelemedSettings
+                                                  .uniqueDistinguish))
+                                            Flexible(
+                                              child: Text(
+                                                data
+                                                    .filteredMessageModelList[
+                                                        index]
+                                                    .message!,
+                                              ),
                                             ),
-                                          ),
+                                          if (data
+                                              .filteredMessageModelList[index]
+                                              .message!
+                                              .contains(TelemedSettings
+                                                  .uniqueDistinguish))
+                                            Flexible(
+                                              flex: 2,
+                                              fit: FlexFit.tight,
+                                              child: Text(
+                                                TelemedStrings
+                                                    .videoCallRequested,
+                                              ),
+                                            ),
+                                          if (data
+                                              .filteredMessageModelList[index]
+                                              .message!
+                                              .contains(TelemedSettings
+                                                  .uniqueDistinguish))
+                                            Flexible(
+                                              flex: 1,
+                                              fit: FlexFit.tight,
+                                              child: IconButton(
+                                                tooltip:
+                                                    TelemedStrings.videoCall,
+                                                icon: const Icon(
+                                                    Icons.video_call),
+                                                onPressed: () async {
+                                                  // Update the channel name.
+                                                  String channelName = data
+                                                      .filteredMessageModelList[index]
+                                                      .message!.split(TelemedSettings.uniqueDistinguish)[1];
+                                                  data.setChannelName(channelName);
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    VideoCallPage.route,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                         ],
                                       ),
                                     ),

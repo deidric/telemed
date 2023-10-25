@@ -7,7 +7,7 @@ class TelemedSettings {
   Turn the following false during deployment
    */
   static bool devMode = true;
-
+  static String uniqueDistinguish = "~Jona";
   static String appName = "Telemed";
   static String initialCountryCode = "PH";
   static String CONTANT_UNAUTHENTICATED = "Unauthenticated";
@@ -83,7 +83,7 @@ class TelemedSettings {
       // authority = "192.168.0.107";
 //
 //       authority = "192.168.0.109";
-      authority = "7032-2001-4451-87ae-7400-d49d-17e4-e20a-4468.ngrok-free.app";
+      authority = "4d8e-112-210-230-83.ngrok-free.app";
 //
 //       authority = "192.168.0.110";
 //       authority = "192.168.0.111";
@@ -136,6 +136,8 @@ class TelemedJsendStatus {
 }
 
 class TelemedStrings {
+  static String videoCallRequested = "A video call was requested. Please click on the icon to join.";
+  static String videoCall = "Video call";
   static String saveUrl = "Save url";
   static String showPassword = "Show password";
   static String hidePassword = "Hide password";
