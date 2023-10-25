@@ -77,7 +77,7 @@ class TelemedDataProvider
     notifyListeners();
   }
 
-  String? _channelName = "";
+  String? _channelName;
 
   String? get channelName => _channelName;
 
