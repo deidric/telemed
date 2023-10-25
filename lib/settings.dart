@@ -7,7 +7,7 @@ class TelemedSettings {
   Turn the following false during deployment
    */
   static bool devMode = true;
-  static String uniqueDistinguish = "~Jona";
+  static String uniqueDistinguish = "~Jona~";
   static String appName = "Telemed";
   static String initialCountryCode = "PH";
   static String CONTANT_UNAUTHENTICATED = "Unauthenticated";

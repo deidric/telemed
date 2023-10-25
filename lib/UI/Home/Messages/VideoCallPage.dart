@@ -23,12 +23,12 @@ class _VideoCallPageState extends State<VideoCallPage> {
     final data = context.read<TelemedDataProvider>();
     String uniqueChannelName = "";
     if(data.channelName == null){
-      uniqueChannelName = TelemedSettings.uniqueDistinguish + "." + UniqueKey().toString();
+      uniqueChannelName = TelemedSettings.uniqueDistinguish + UniqueKey().toString();
     }
     else{
-      uniqueChannelName = TelemedSettings.uniqueDistinguish + "." + data.channelName!;
+      uniqueChannelName = TelemedSettings.uniqueDistinguish + data.channelName!;
     }
-
+    print(uniqueChannelName);
     // print(data.selectedConversationModel!.toUserId);
     int? toUserId;
     bool isMessagetoLoggedInUser =
