@@ -199,23 +199,71 @@ class MessagesPageState extends State<MessagesPage> {
                                       tileColor: Colors.blue,
                                       title: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(title),
                                         ],
                                       ),
                                       subtitle: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.start,
                                         children: [
-                                          Flexible(
-                                            child: Text(
-                                              data
-                                                  .filteredMessageModelList[
-                                                      index]
-                                                  .message!,
+                                          if (!data
+                                              .filteredMessageModelList[index]
+                                              .message!
+                                              .contains(TelemedSettings
+                                                  .uniqueDistinguish))
+                                            Flexible(
+                                              child: Text(
+                                                data
+                                                    .filteredMessageModelList[
+                                                        index]
+                                                    .message!,
+                                              ),
                                             ),
-                                          ),
+                                          if (data
+                                              .filteredMessageModelList[index]
+                                              .message!
+                                              .contains(TelemedSettings
+                                                  .uniqueDistinguish))
+                                            Flexible(
+                                              flex: 2,
+                                              fit: FlexFit.tight,
+                                              child: Text(
+                                                TelemedStrings
+                                                    .videoCallRequested,
+                                              ),
+                                            ),
+                                          if (data
+                                              .filteredMessageModelList[index]
+                                              .message!
+                                              .contains(TelemedSettings
+                                                  .uniqueDistinguish))
+                                            Flexible(
+                                              flex: 1,
+                                              fit: FlexFit.tight,
+                                              child: IconButton(
+                                                tooltip:
+                                                    TelemedStrings.videoCall,
+                                                icon: const Icon(
+                                                    Icons.video_call),
+                                                onPressed: () async {
+                                                  // Update the channel name.
+                                                  String channelName = data
+                                                      .filteredMessageModelList[
+                                                          index]
+                                                      .message!
+                                                      .split(TelemedSettings
+                                                          .uniqueDistinguish)[1];
+                                                  data.setChannelName(
+                                                      channelName);
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    VideoCallPage.route,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                         ],
                                       ),
                                     ),
@@ -300,9 +348,13 @@ class MessagesPageState extends State<MessagesPage> {
                                                 onPressed: () async {
                                                   // Update the channel name.
                                                   String channelName = data
-                                                      .filteredMessageModelList[index]
-                                                      .message!.split(TelemedSettings.uniqueDistinguish)[1];
-                                                  data.setChannelName(channelName);
+                                                      .filteredMessageModelList[
+                                                          index]
+                                                      .message!
+                                                      .split(TelemedSettings
+                                                          .uniqueDistinguish)[1];
+                                                  data.setChannelName(
+                                                      channelName);
                                                   Navigator.pushNamed(
                                                     context,
                                                     VideoCallPage.route,
