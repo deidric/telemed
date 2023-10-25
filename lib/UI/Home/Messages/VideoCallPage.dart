@@ -26,7 +26,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
       uniqueChannelName = TelemedSettings.uniqueDistinguish + "." + UniqueKey().toString();
     }
     else{
-      uniqueChannelName = data.channelName!;
+      uniqueChannelName = TelemedSettings.uniqueDistinguish + "." + data.channelName!;
     }
 
     // print(data.selectedConversationModel!.toUserId);
