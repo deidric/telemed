@@ -26,7 +26,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
       uniqueChannelName = TelemedSettings.uniqueDistinguish + "." + UniqueKey().toString();
     }
     else{
-      uniqueChannelName = TelemedSettings.uniqueDistinguish + "." + data.channelName!;
+      uniqueChannelName = data.channelName!;
     }
 
     // print(data.selectedConversationModel!.toUserId);
@@ -53,7 +53,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
       agoraConnectionData: AgoraConnectionData(
         appId: "6c859c545f27425aa2ebc6cbbe30b1fa",
         channelName: uniqueChannelName,
-        tempToken: data.selectedUserModel.token,
+        // tempToken: data.selectedUserModel.token,
       ),
       enabledPermission: [
         Permission.camera,
