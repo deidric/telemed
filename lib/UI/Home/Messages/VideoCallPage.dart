@@ -52,7 +52,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
     client = AgoraClient(
       agoraConnectionData: AgoraConnectionData(
         appId: "6c859c545f27425aa2ebc6cbbe30b1fa",
-        channelName: uniqueChannelName,
+        channelName: uniqueChannelName,uid: data.selectedUserModel.id
         // tempToken: data.selectedUserModel.token,
       ),
       enabledPermission: [

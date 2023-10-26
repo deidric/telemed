@@ -83,7 +83,7 @@ class TelemedSettings {
       // authority = "192.168.0.107";
 //
 //       authority = "192.168.0.109";
-      authority = "4d8e-112-210-230-83.ngrok-free.app";
+      authority = "b043-112-210-230-83.ngrok-free.app";
 //
 //       authority = "192.168.0.110";
 //       authority = "192.168.0.111";
