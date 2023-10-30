@@ -1,13 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/settings.dart';
 import 'package:videosdk/videosdk.dart';
 import './ParticipantTile.dart';
+import 'package:http/http.dart' as http;
 
 class RoomScreen extends StatefulWidget {
-  const RoomScreen(
-      {super.key});
+  const RoomScreen({super.key});
 
   static const String route = '/basePage/messagesPage/videoCallPage';
 
@@ -25,28 +27,63 @@ class _RoomScreenState extends State<RoomScreen> {
   void initState() {
     final data = context.read<TelemedDataProvider>();
     String uniqueChannelName = "";
-    if(data.channelName == null){
-      uniqueChannelName = TelemedSettings.uniqueDistinguish + UniqueKey().toString();
-    }
-    else{
-      uniqueChannelName = TelemedSettings.uniqueDistinguish + data.channelName!;
-    }
-    print(uniqueChannelName);
-    // create room
-    _room = VideoSDK.createRoom(
-      // roomId: "9rn9-5f51-mwim",
-      roomId: uniqueChannelName,
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2MjJkOGMxNy0wMTExLTQzZjgtOWFhNC1iNzJkYjc1NzZmYjEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY5ODY4Mzk5MSwiZXhwIjoxNjk4NzcwMzkxfQ.JizuAh2yAnEfwClrY0qQGaBGFycNydVo74NKu6CExJo",
-      displayName: "daedric's Org",
-      micEnabled: true,
-      camEnabled: true,
-      defaultCameraIndex:
-      1, // Index of MediaDevices will be used to set default camera
+
+    // // create room
+    // _room = VideoSDK.createRoom(
+    //   // roomId: "9rn9-5f51-mwim",
+    //   roomId: uniqueChannelName,
+    //   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2MjJkOGMxNy0wMTExLTQzZjgtOWFhNC1iNzJkYjc1NzZmYjEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY5ODY4Mzk5MSwiZXhwIjoxNjk4NzcwMzkxfQ.JizuAh2yAnEfwClrY0qQGaBGFycNydVo74NKu6CExJo",
+    //   displayName: "daedric's Org",
+    //   micEnabled: true,
+    //   camEnabled: true,
+    //   defaultCameraIndex:
+    //   1, // Index of MediaDevices will be used to set default camera
+    // );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (data.channelName == null) {
+        String roomId = await createMeeting();
+        data.setChannelName(roomId);
+
+        uniqueChannelName = TelemedSettings.uniqueDistinguish + roomId;
+      } else {
+        uniqueChannelName =
+            TelemedSettings.uniqueDistinguish + data.channelName!;
+      }
+      print(uniqueChannelName);
+
+      // create room
+      _room = VideoSDK.createRoom(
+        // roomId: "9rn9-5f51-mwim",
+        roomId: uniqueChannelName,
+        token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2MjJkOGMxNy0wMTExLTQzZjgtOWFhNC1iNzJkYjc1NzZmYjEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY5ODY4Mzk5MSwiZXhwIjoxNjk4NzcwMzkxfQ.JizuAh2yAnEfwClrY0qQGaBGFycNydVo74NKu6CExJo",
+        displayName: "daedric's Org",
+        micEnabled: true,
+        camEnabled: true,
+        defaultCameraIndex:
+            1, // Index of MediaDevices will be used to set default camera
+      );
+
+      //set up event listener which will give any updates happening in the room
+      setRoomEventListener();
+    });
+
+    super.initState();
+  }
+
+  // API call to create meeting
+  Future<String> createMeeting() async {
+    final http.Response httpResponse = await http.post(
+      Uri.parse("https://api.videosdk.live/v2/rooms"),
+      headers: {
+        'Authorization':
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2MjJkOGMxNy0wMTExLTQzZjgtOWFhNC1iNzJkYjc1NzZmYjEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY5ODY4Mzk5MSwiZXhwIjoxNjk4NzcwMzkxfQ.JizuAh2yAnEfwClrY0qQGaBGFycNydVo74NKu6CExJo"
+      },
     );
 
-    //set up event listener which will give any updates happening in the room
-    setRoomEventListener();
-    super.initState();
+//Destructuring the roomId from the response
+    return json.decode(httpResponse.body)['roomId'];
   }
 
   // listening to room events
@@ -63,9 +100,9 @@ class _RoomScreenState extends State<RoomScreen> {
     //Event called when new participant joins
     _room.on(
       Events.participantJoined,
-          (Participant participant) {
+      (Participant participant) {
         setState(
-              () => participants.putIfAbsent(participant.id, () => participant),
+          () => participants.putIfAbsent(participant.id, () => participant),
         );
       },
     );
@@ -73,7 +110,7 @@ class _RoomScreenState extends State<RoomScreen> {
     _room.on(Events.participantLeft, (String participantId) {
       if (participants.containsKey(participantId)) {
         setState(
-              () => participants.remove(participantId),
+          () => participants.remove(participantId),
         );
       }
     });
@@ -103,37 +140,38 @@ class _RoomScreenState extends State<RoomScreen> {
           padding: const EdgeInsets.all(8.0),
           child: joined != null
               ? joined == "JOINED"
-              ? Column(
-            children: [
-              //render all participants in the room
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ParticipantTile(
-                        participant:
-                        participants.values.elementAt(index));
-                  },
-                  itemCount: participants.length,
-                ),
-              )
-            ],
-          ): const Text("JOINING the Room",
-              style: TextStyle(color: Colors.white))
+                  ? Column(
+                      children: [
+                        //render all participants in the room
+                        Expanded(
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ParticipantTile(
+                                  participant:
+                                      participants.values.elementAt(index));
+                            },
+                            itemCount: participants.length,
+                          ),
+                        )
+                      ],
+                    )
+                  : const Text("JOINING the Room",
+                      style: TextStyle(color: Colors.white))
               : ElevatedButton(
-              onPressed: () {
-                //Method to join the room
-                _room.join();
-                setState(() {
-                  joined = "JOINING";
-                });
-              },
-              child: const Text("Join the Room")),
+                  onPressed: () {
+                    //Method to join the room
+                    _room.join();
+                    setState(() {
+                      joined = "JOINING";
+                    });
+                  },
+                  child: const Text("Join the Room")),
         ),
       ),
     );
