@@ -54,8 +54,8 @@ class _RoomScreenState extends State<RoomScreen> {
 
       // create room
       _room = VideoSDK.createRoom(
-        // roomId: "9rn9-5f51-mwim",
-        roomId: uniqueChannelName,
+        roomId: "9rn9-5f51-mwim",
+        // roomId: uniqueChannelName,
         token:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2MjJkOGMxNy0wMTExLTQzZjgtOWFhNC1iNzJkYjc1NzZmYjEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY5ODY4Mzk5MSwiZXhwIjoxNjk4NzcwMzkxfQ.JizuAh2yAnEfwClrY0qQGaBGFycNydVo74NKu6CExJo",
         displayName: "daedric's Org",

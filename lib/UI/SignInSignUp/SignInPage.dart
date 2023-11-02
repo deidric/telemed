@@ -93,14 +93,17 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                   children: [
                     RotationTransition(
                       turns: _animation,
-                      child: Image.asset(TelemedImage.logoImage),
+                      child: Image.asset(TelemedImage.logoImage,
+                        width: 100, // Set the desired width
+                        height: 100, // Set the desired height
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.here2SeeYou,
                           style: data
                               .getTelemedTextStyle(context)
-                              .titleLarge!
+                              .titleMedium!
                               .copyWith(fontWeight: FontWeight.bold)),
                     ),
                     if (data.selectedUserModel.userTypeId ==
@@ -125,16 +128,22 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                       ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.signInToYourAccount,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(fontWeight: FontWeight.bold)),
+                      child: Text(
+                        TelemedStrings.signInToYourAccount,
+                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25, // Adjust the value to make the text smaller
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(TelemedStrings.welcomeBack,
-                          style: data.getTelemedTextStyle(context).titleLarge!),
+                      child: Text(
+                        TelemedStrings.welcomeBack,
+                        style: data.getTelemedTextStyle(context).titleLarge!.copyWith(
+                          fontSize: 15, // Adjust the value to make the text smaller
+                        ),
+                      ),
                     ),
                     Form(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -197,19 +206,25 @@ class SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                               children: [
                                 Expanded(
                                   child: CheckboxListTile(
-                                      title: Text(TelemedStrings.remember),
-                                      value: rememberFor30days,
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          rememberFor30days = newValue!;
-                                        });
-                                      }),
+                                    title: Text(
+                                      TelemedStrings.remember,
+                                      style: TextStyle(fontSize: 12), // Adjust the value to change the font size
+                                    ),
+                                    value: rememberFor30days,
+                                    controlAffinity: ListTileControlAffinity.leading,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        rememberFor30days = newValue!;
+                                      });
+                                    },
+                                  ),
                                 ),
                                 TextButton(
                                   onPressed: () {},
-                                  child: Text(TelemedStrings.forgotPassword),
+                                  child: Text(
+                                    TelemedStrings.forgotPassword,
+                                    style: TextStyle(fontSize: 12), // Adjust the value to change the font size
+                                  ),
                                 ),
                               ],
                             ),
