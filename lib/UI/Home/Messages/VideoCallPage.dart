@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:agora_uikit/agora_uikit.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
 import 'package:telemed/settings.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class VideoCallPage extends StatefulWidget {
   const VideoCallPage({super.key});
@@ -15,17 +15,17 @@ class VideoCallPage extends StatefulWidget {
 }
 
 class _VideoCallPageState extends State<VideoCallPage> {
-  late final AgoraClient client;
+  String uniqueChannelName = "";
 
   @override
   void initState() {
     super.initState();
     final data = context.read<TelemedDataProvider>();
-    String uniqueChannelName = "";
-    if(data.channelName == null){
-      uniqueChannelName = TelemedSettings.uniqueDistinguish + UniqueKey().toString();
-    }
-    else{
+
+    if (data.channelName == null) {
+      uniqueChannelName =
+          TelemedSettings.uniqueDistinguish + UniqueKey().toString();
+    } else {
       uniqueChannelName = TelemedSettings.uniqueDistinguish + data.channelName!;
     }
     print(uniqueChannelName);
@@ -48,50 +48,23 @@ class _VideoCallPageState extends State<VideoCallPage> {
       await data.apiRoutecreateMessages(
           context: context, messageModel: messageModel);
     });
-
-    client = AgoraClient(
-      agoraConnectionData: AgoraConnectionData(
-        appId: "6c859c545f27425aa2ebc6cbbe30b1fa",
-        channelName: uniqueChannelName,uid: data.selectedUserModel.id
-        // tempToken: data.selectedUserModel.token,
-      ),
-      enabledPermission: [
-        Permission.camera,
-        Permission.microphone,
-      ],
-    );
-    initAgora();
-  }
-
-  void initAgora() async {
-    await client.initialize();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: SafeArea(
-          child: Stack(
-            children: [
-              AgoraVideoViewer(
-                client: client,
-                layoutType: Layout.floating,
-                showNumberOfUsers: true,
-                showAVState: true,
-                enableHostControls: true, // Add this to enable host controls
-              ),
-              AgoraVideoButtons(
-                client: client,
-                onDisconnect: () {
-                  Navigator.pop(context);
-                },
-                addScreenSharing: false, // Add this to enable screen sharing
-              ),
-            ],
-          ),
-        ),
-      ),
+    return ZegoUIKitPrebuiltCall(
+      appID: 1364334216,
+      // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+      appSign:
+          "28ff2565e57521c80d1e13f50e362ab54f03a645aad2697f28e0a3796aaae6c5",
+      // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+      userID: 'user_id',
+      userName: 'user_name',
+      // callID: callID,
+      callID: uniqueChannelName,
+      // You can also use groupVideo/groupVoice/oneOnOneVoice to make more types of calls.
+      config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+        ..onOnlySelfInRoom = (context) => Navigator.of(context).pop(),
     );
   }
 }

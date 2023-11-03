@@ -137,6 +137,7 @@ class TelemedJsendStatus {
 
 class TelemedStrings {
   static String videoCallRequested = "A video call was requested. Please click on the icon to join.";
+  static String selectUser = "Please select your role or type of user:";
   static String videoCall = "Video call";
   static String saveUrl = "Save url";
   static String showPassword = "Show password";

@@ -46,8 +46,9 @@ dependencies:
   flutter_local_notifications: ^15.1.0+1
   shared_preferences: ^2.2.1
   file_picker: ^5.5.0
-  permission_handler: ^11.0.1
-  videosdk: ^1.1.7
+  permission_handler: ^10.0.2
+  zego_uikit: ^2.14.0
+  zego_uikit_prebuilt_call: ^3.16.0
 
 dev_dependencies:
   flutter_test:
