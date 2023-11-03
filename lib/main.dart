@@ -11,7 +11,7 @@ import 'package:telemed/UI/Home/BookAppointmentsReasonForVisitPage.dart';
 import 'package:telemed/UI/Home/CadersPage.dart';
 import 'package:telemed/UI/Home/HealthProfilePage.dart';
 import 'package:telemed/UI/Home/Messages/MessagesPage.dart';
-import 'package:telemed/UI/Home/Messages/VideoCallPage.dart';
+import 'package:telemed/UI/Home/Messages/RoomScreen.dart';
 import 'package:telemed/UI/Home/PatientProfilePage.dart';
 import 'package:telemed/UI/Home/ReviewProfilePage.dart';
 import 'package:telemed/UI/OnboardingPage.dart';
@@ -235,7 +235,7 @@ class _MyAppState extends State<MyApp> {
         HealthProfilePage.route: (context) => const HealthProfilePage(),
         ReviewProfilePage.route: (context) => const ReviewProfilePage(),
         PatientProfilePage.route: (context) => const PatientProfilePage(),
-        VideoCallPage.route: (context) => const VideoCallPage(),
+        RoomScreen.route: (context) => const RoomScreen(),
       },
     );
   }

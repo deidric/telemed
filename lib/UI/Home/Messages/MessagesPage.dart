@@ -10,7 +10,7 @@ import 'package:telemed/Components/TelemedLoadingProgressDialog.dart';
 import 'package:telemed/Model/AttachmentsModel.dart';
 import 'package:telemed/Model/MessageModel.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
-import 'package:telemed/UI/Home/Messages/VideoCallPage.dart';
+import 'package:telemed/UI/Home/Messages/RoomScreen.dart';
 import 'package:telemed/settings.dart';
 
 // Crude counter to make messages unique
@@ -156,7 +156,7 @@ class MessagesPageState extends State<MessagesPage> {
             data.setChannelName(null);
             Navigator.pushNamed(
               context,
-              VideoCallPage.route,
+              RoomScreen.route,
             );
           },
         ),
@@ -259,7 +259,7 @@ class MessagesPageState extends State<MessagesPage> {
                                                       channelName);
                                                   Navigator.pushNamed(
                                                     context,
-                                                    VideoCallPage.route,
+                                                    RoomScreen.route,
                                                   );
                                                 },
                                               ),
@@ -357,7 +357,7 @@ class MessagesPageState extends State<MessagesPage> {
                                                       channelName);
                                                   Navigator.pushNamed(
                                                     context,
-                                                    VideoCallPage.route,
+                                                    RoomScreen.route,
                                                   );
                                                 },
                                               ),

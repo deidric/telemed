@@ -6,10 +6,10 @@
 
 #import "GeneratedPluginRegistrant.h"
 
-#if __has_include(<audioplayers_darwin/AudioplayersDarwinPlugin.h>)
-#import <audioplayers_darwin/AudioplayersDarwinPlugin.h>
+#if __has_include(<device_info_plus/FLTDeviceInfoPlusPlugin.h>)
+#import <device_info_plus/FLTDeviceInfoPlusPlugin.h>
 #else
-@import audioplayers_darwin;
+@import device_info_plus;
 #endif
 
 #if __has_include(<file_picker/FilePickerPlugin.h>)
@@ -30,10 +30,10 @@
 @import firebase_messaging;
 #endif
 
-#if __has_include(<flutter_callkit_incoming_yoer/FlutterCallkitIncomingPlugin.h>)
-#import <flutter_callkit_incoming_yoer/FlutterCallkitIncomingPlugin.h>
+#if __has_include(<flutter_foreground_task/FlutterForegroundTaskPlugin.h>)
+#import <flutter_foreground_task/FlutterForegroundTaskPlugin.h>
 #else
-@import flutter_callkit_incoming_yoer;
+@import flutter_foreground_task;
 #endif
 
 #if __has_include(<flutter_local_notifications/FlutterLocalNotificationsPlugin.h>)
@@ -42,34 +42,10 @@
 @import flutter_local_notifications;
 #endif
 
-#if __has_include(<flutter_logs/FlutterLogsPlugin.h>)
-#import <flutter_logs/FlutterLogsPlugin.h>
+#if __has_include(<flutter_webrtc/FlutterWebRTCPlugin.h>)
+#import <flutter_webrtc/FlutterWebRTCPlugin.h>
 #else
-@import flutter_logs;
-#endif
-
-#if __has_include(<flutter_vibrate/VibratePlugin.h>)
-#import <flutter_vibrate/VibratePlugin.h>
-#else
-@import flutter_vibrate;
-#endif
-
-#if __has_include(<is_lock_screen2/IsLockScreenPlugin.h>)
-#import <is_lock_screen2/IsLockScreenPlugin.h>
-#else
-@import is_lock_screen2;
-#endif
-
-#if __has_include(<native_device_orientation/NativeDeviceOrientationPlugin.h>)
-#import <native_device_orientation/NativeDeviceOrientationPlugin.h>
-#else
-@import native_device_orientation;
-#endif
-
-#if __has_include(<package_info_plus/FPPPackageInfoPlusPlugin.h>)
-#import <package_info_plus/FPPPackageInfoPlusPlugin.h>
-#else
-@import package_info_plus;
+@import flutter_webrtc;
 #endif
 
 #if __has_include(<path_provider_foundation/PathProviderPlugin.h>)
@@ -90,65 +66,26 @@
 @import shared_preferences_foundation;
 #endif
 
-#if __has_include(<sqflite/SqflitePlugin.h>)
-#import <sqflite/SqflitePlugin.h>
+#if __has_include(<videosdk/VideosdkPlugin.h>)
+#import <videosdk/VideosdkPlugin.h>
 #else
-@import sqflite;
-#endif
-
-#if __has_include(<wakelock_plus/WakelockPlusPlugin.h>)
-#import <wakelock_plus/WakelockPlusPlugin.h>
-#else
-@import wakelock_plus;
-#endif
-
-#if __has_include(<zego_express_engine/ZegoExpressEnginePlugin.h>)
-#import <zego_express_engine/ZegoExpressEnginePlugin.h>
-#else
-@import zego_express_engine;
-#endif
-
-#if __has_include(<zego_uikit_signaling_plugin/ZegoUikitSignalingPlugin.h>)
-#import <zego_uikit_signaling_plugin/ZegoUikitSignalingPlugin.h>
-#else
-@import zego_uikit_signaling_plugin;
-#endif
-
-#if __has_include(<zego_zim/ZegoZimPlugin.h>)
-#import <zego_zim/ZegoZimPlugin.h>
-#else
-@import zego_zim;
-#endif
-
-#if __has_include(<zego_zpns/ZegoZpnsPlugin.h>)
-#import <zego_zpns/ZegoZpnsPlugin.h>
-#else
-@import zego_zpns;
+@import videosdk;
 #endif
 
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [AudioplayersDarwinPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersDarwinPlugin"]];
+  [FLTDeviceInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTDeviceInfoPlusPlugin"]];
   [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
-  [FlutterCallkitIncomingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterCallkitIncomingPlugin"]];
+  [FlutterForegroundTaskPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterForegroundTaskPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
-  [FlutterLogsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLogsPlugin"]];
-  [VibratePlugin registerWithRegistrar:[registry registrarForPlugin:@"VibratePlugin"]];
-  [IsLockScreenPlugin registerWithRegistrar:[registry registrarForPlugin:@"IsLockScreenPlugin"]];
-  [NativeDeviceOrientationPlugin registerWithRegistrar:[registry registrarForPlugin:@"NativeDeviceOrientationPlugin"]];
-  [FPPPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPPackageInfoPlusPlugin"]];
+  [FlutterWebRTCPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterWebRTCPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
   [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
-  [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
-  [WakelockPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"WakelockPlusPlugin"]];
-  [ZegoExpressEnginePlugin registerWithRegistrar:[registry registrarForPlugin:@"ZegoExpressEnginePlugin"]];
-  [ZegoUikitSignalingPlugin registerWithRegistrar:[registry registrarForPlugin:@"ZegoUikitSignalingPlugin"]];
-  [ZegoZimPlugin registerWithRegistrar:[registry registrarForPlugin:@"ZegoZimPlugin"]];
-  [ZegoZpnsPlugin registerWithRegistrar:[registry registrarForPlugin:@"ZegoZpnsPlugin"]];
+  [VideosdkPlugin registerWithRegistrar:[registry registrarForPlugin:@"VideosdkPlugin"]];
 }
 
 @end

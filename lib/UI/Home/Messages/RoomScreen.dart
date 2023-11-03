@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemed/Providers/telemedDataProvider.dart';
+import 'package:telemed/UI/Home/Messages/ParticipantTile.dart';
 import 'package:telemed/settings.dart';
 import 'package:videosdk/videosdk.dart';
-import './ParticipantTile.dart';
 import 'package:http/http.dart' as http;
 
 class RoomScreen extends StatefulWidget {
