@@ -83,7 +83,7 @@ class TelemedSettings {
       // authority = "192.168.0.107";
 //
 //       authority = "192.168.0.109";
-      authority = "5d24-112-210-230-83.ngrok-free.app";
+      authority = "b043-112-210-230-83.ngrok-free.app";
 //
 //       authority = "192.168.0.110";
 //       authority = "192.168.0.111";
@@ -137,8 +137,8 @@ class TelemedJsendStatus {
 
 class TelemedStrings {
   static String videoCallRequested = "A video call was requested. Please click on the icon to join.";
-  static String videoCall = "Start a Video call";
-  static String saveUrl = "Save server url";
+  static String videoCall = "Video call";
+  static String saveUrl = "Save url";
   static String showPassword = "Show password";
   static String hidePassword = "Hide password";
   static String refresh = "Refresh";
@@ -194,9 +194,8 @@ class TelemedStrings {
   static String password = "Password";
   static String here2SeeYou = "Here2SeeU";
   static String signInToYourAccount = "Sign in to your account";
-  static String selectUser = "Please select your role or type of user:";
   static String welcomeBack = "Welcome back! You have been missed.";
-  static String remember = "Stay signed in";
+  static String remember = "Remember for 30 days";
   static String forgotPassword = "Forgot Password?";
   static String signInWith = "or Sign In with";
   static String noAccount = "Don't have an account?";
