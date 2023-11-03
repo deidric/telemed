@@ -21,9 +21,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final List<HomePageContent> imgList = [
     HomePageContent(
       imageURI: TelemedImage.doctorImage,
-      title: "Experience personalized care and support, right at your fingertips.",
+      title: "Video consult top doctors from the comfort of your home",
       description:
-          "Seamlessly navigate, connect, and empower yourself, all with the power of TalkBack.",
+          "These are the Specialists in their respective fields, which includes Brain & Nervous system",
     ),
     // HomePageContent(
     //   imageURI: TelemedImage.clockImage,
@@ -180,16 +180,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       ],
                     ),
                   ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      TelemedStrings.selectUser,
-                      style: TextStyle(fontSize: 10),
-                    ),
-                  ),
-                ),
                 Row(
                   children: [
                     Expanded(

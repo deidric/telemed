@@ -95,8 +95,8 @@ class HomePageState extends State<HomePage> {
                     subtitle: Text(TelemedStrings.bookNow,
                         style: data.getTelemedTextStyle(context).titleSmall!),
                     leading: const Icon(Icons.calendar_month),
-                    // trailing: const Icon(Icons.arrow_forward_ios),
-                    // onTap: () {},
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
                   ),
                 if (data.appointmentModelList.isNotEmpty &&
                     data.selectedUserModel.userTypeId ==
@@ -258,8 +258,8 @@ class HomePageState extends State<HomePage> {
                     subtitle: Text(TelemedStrings.childHealth,
                         style: data.getTelemedTextStyle(context).titleSmall!),
                     leading: const Icon(Icons.child_care),
-                    // trailing: const Icon(Icons.arrow_forward_ios),
-                    // onTap: () {},
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
                   ),
                 if (data.selectedUserModel.userTypeId ==
                     TelemedSettings.patientId)
@@ -272,8 +272,8 @@ class HomePageState extends State<HomePage> {
                     subtitle: Text(TelemedStrings.senHealth,
                         style: data.getTelemedTextStyle(context).titleSmall!),
                     leading: const Icon(Icons.accessible),
-                    // trailing: const Icon(Icons.arrow_forward_ios),
-                    // onTap: () {},
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
                   ),
                 if (data.selectedUserModel.userTypeId ==
                     TelemedSettings.patientId)
@@ -295,8 +295,8 @@ class HomePageState extends State<HomePage> {
                     subtitle: Text(TelemedStrings.bookNow,
                         style: data.getTelemedTextStyle(context).titleSmall!),
                     leading: const Icon(Icons.calendar_month),
-                    // trailing: const Icon(Icons.arrow_forward_ios),
-                    // onTap: () {},
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {},
                   ),
                 if (data.selectedUserModel.userTypeId ==
                         TelemedSettings.doctorId &&

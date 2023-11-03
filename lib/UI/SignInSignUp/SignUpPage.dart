@@ -81,17 +81,14 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                   children: [
                     RotationTransition(
                       turns: _animation,
-                      child: Image.asset(TelemedImage.logoImage,
-                        width: 100, // Set the desired width
-                        height: 100,
-                      ),
+                      child: Image.asset(TelemedImage.logoImage),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(TelemedStrings.here2SeeYou,
                           style: Theme.of(context)
                               .textTheme
-                              .titleMedium!
+                              .titleLarge!
                               .copyWith(fontWeight: FontWeight.bold)),
                     ),
                     if (data.selectedUserModel.userTypeId ==
@@ -116,22 +113,16 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                       ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        TelemedStrings.createAccount,
-                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25, // Adjust the value to make the text smaller or larger
-                        ),
-                      ),
+                      child: Text(TelemedStrings.createAccount,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(fontWeight: FontWeight.bold)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        TelemedStrings.getStarted,
-                        style: data.getTelemedTextStyle(context).titleLarge!.copyWith(
-                          fontSize: 14, // Adjust the value to make the text smaller or larger
-                        ),
-                      ),
+                      child: Text(TelemedStrings.getStarted,
+                          style: data.getTelemedTextStyle(context).titleLarge!),
                     ),
                     Form(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -198,27 +189,15 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(1.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Text(TelemedStrings.passwordStrength,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelSmall!),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          _displayText,
-                                          style: const TextStyle(fontSize: 10),
-                                        ),
-                                      ],
-                                    ),
+                                            .labelLarge!),
                                   ),
                                   Expanded(
                                     child: LinearProgressIndicator(
@@ -231,8 +210,19 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                               : _strength == 3 / 4
                                                   ? Colors.blue
                                                   : Colors.green,
-                                      minHeight: 8,
+                                      minHeight: 15,
                                     ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    _displayText,
+                                    style: const TextStyle(fontSize: 18),
                                   ),
                                 ],
                               ),
@@ -266,7 +256,7 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   Text(TelemedStrings.toProceed,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodySmall!),
+                                          .bodyLarge!),
                                   TextButton(
                                     style: TextButton.styleFrom(
                                       minimumSize: Size.zero,
@@ -280,7 +270,7 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
                                   Text(TelemedStrings.and,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodySmall!),
+                                          .bodyLarge!),
                                   TextButton(
                                     style: TextButton.styleFrom(
                                       minimumSize: Size.zero,
@@ -329,17 +319,17 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
     if (_password.isEmpty) {
       setState(() {
         _strength = 0;
-        _displayText = 'password is empty';
+        _displayText = 'Please enter you password';
       });
     } else if (_password.length < 6) {
       setState(() {
         _strength = 1 / 4;
-        _displayText = 'Too short';
+        _displayText = 'Your password is too short';
       });
     } else if (_password.length < 8) {
       setState(() {
         _strength = 2 / 4;
-        _displayText = 'Acceptable but not strong';
+        _displayText = 'Your password is acceptable but not strong';
       });
     } else {
       if (!letterReg.hasMatch(_password) || !numReg.hasMatch(_password)) {
@@ -347,14 +337,14 @@ class SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
           // Password length >= 8
           // But doesn't contain both letter and digit characters
           _strength = 3 / 4;
-          _displayText = 'Strong';
+          _displayText = 'Your password is strong';
         });
       } else {
         // Password length >= 8
         // Password contains both letter and digit characters
         setState(() {
           _strength = 1;
-          _displayText = 'Awesome';
+          _displayText = 'Your password is great';
         });
       }
     }
