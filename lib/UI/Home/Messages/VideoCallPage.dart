@@ -78,12 +78,14 @@ class _VideoCallPageState extends State<VideoCallPage> {
                 client: client,
                 layoutType: Layout.floating,
                 showNumberOfUsers: true,
-                showAVState: true,
-                enableHostControls: true, // Add this to enable host controls
+                showAVState: false,
+                enableHostControls: false, // Add this to enable host controls
               ),
               AgoraVideoButtons(
                 client: client,
                 onDisconnect: () {
+                  client.engine.release();
+                  client.engine.leaveChannel();
                   Navigator.pop(context);
                 },
                 addScreenSharing: false, // Add this to enable screen sharing
