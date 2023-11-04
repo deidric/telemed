@@ -3,10 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  agora_rtc_engine
   firebase_core
-  flutter_webrtc
+  iris_method_channel
   permission_handler_windows
-  videosdk
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
