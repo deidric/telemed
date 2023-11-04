@@ -21,9 +21,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final List<HomePageContent> imgList = [
     HomePageContent(
       imageURI: TelemedImage.doctorImage,
-      title: "Video consult top doctors from the comfort of your home",
+      title: "Experience personalized care and support, right at your fingertips.",
       description:
-          "These are the Specialists in their respective fields, which includes Brain & Nervous system",
+      "Seamlessly navigate, connect, and empower yourself, all with the power of TalkBack.",
     ),
     // HomePageContent(
     //   imageURI: TelemedImage.clockImage,
