@@ -18,7 +18,7 @@ class VideoCallPage extends StatefulWidget {
 class _VideoCallPageState extends State<VideoCallPage> {
   String appId = "6c859c545f27425aa2ebc6cbbe30b1fa";
   String uniqueChannelName = "";
-  String token = "";
+  String token = "12345";
 
   int uid = 0; // uid of the local user
 
