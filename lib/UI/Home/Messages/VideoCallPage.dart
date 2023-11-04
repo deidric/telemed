@@ -76,7 +76,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
             children: [
               AgoraVideoViewer(
                 client: client,
-                layoutType: Layout.oneToOne,
+                layoutType: Layout.grid,
                 showNumberOfUsers: true,
                 showAVState: false,
                 enableHostControls: false, // Add this to enable host controls
