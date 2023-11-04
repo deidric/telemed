@@ -194,6 +194,23 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  ThemeData lightThemeData = ThemeData(
+      useMaterial3: true,
+      // Comment the following when using material 3
+      // primarySwatch: Colors.deepPurple,
+      //
+      colorSchemeSeed: Colors.blue,
+    );
+
+  ThemeData darkThemeData = ThemeData(
+      useMaterial3: true,
+      // Comment the following when using material 3
+      // primarySwatch: Colors.deepPurple,
+      //
+      // colorSchemeSeed: Colors.deepPurple,
+    );
+
+
   @override
   Widget build(BuildContext context) {
     var data = context.watch<TelemedDataProvider>();
@@ -209,8 +226,8 @@ class _MyAppState extends State<MyApp> {
       //   //
       //   colorSchemeSeed: Colors.deepPurple,
       // ),
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: true),
+      theme: lightThemeData,
+      darkTheme: darkThemeData,
       themeMode: data.isDark ? ThemeMode.dark : ThemeMode.light,
       initialRoute: OnboardingPage.route,
       routes: {
