@@ -6,7 +6,7 @@ class TelemedSettings {
   /*
   Turn the following false during deployment
    */
-  static bool devMode = true;
+  static bool devMode = false;
   static String uniqueDistinguish = "~Jona~";
   static String appName = "Telemed";
   static String initialCountryCode = "PH";
