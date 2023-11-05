@@ -195,20 +195,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   ThemeData lightThemeData = ThemeData(
-      useMaterial3: true,
-      // Comment the following when using material 3
-      // primarySwatch: Colors.deepPurple,
-      //
-      colorSchemeSeed: Colors.blue,
-    );
+    useMaterial3: true,
+    colorScheme: ColorScheme.light(
+      background: Colors.blue.shade100, // Set the background color to blue
+      // Add other theme properties as needed
+    ),
+  );
 
   ThemeData darkThemeData = ThemeData(
-      useMaterial3: true,
-      // Comment the following when using material 3
-      // primarySwatch: Colors.deepPurple,
-      //
-      // colorSchemeSeed: Colors.deepPurple,
-    );
+    useMaterial3: true,
+    colorScheme: ColorScheme.dark(
+      background: Colors.black54, // Set the background color to blue
+      // Add other theme properties as needed
+    ),
+  );
 
 
   @override

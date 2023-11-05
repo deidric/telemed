@@ -180,6 +180,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       ],
                     ),
                   ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      TelemedStrings.selectUser,
+                      style: TextStyle(fontSize: 10),
+                    ),
+                  ),
+                ),
                 Row(
                   children: [
                     Expanded(
