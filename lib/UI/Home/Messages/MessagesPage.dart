@@ -390,7 +390,7 @@ class MessagesPageState extends State<MessagesPage> {
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: Container(
-                      color: Colors.white,
+                      color: Colors.blue.shade100,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(

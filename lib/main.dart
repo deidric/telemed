@@ -205,7 +205,7 @@ class _MyAppState extends State<MyApp> {
   ThemeData darkThemeData = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.dark(
-      background: Colors.black54, // Set the background color to blue
+      // background: Colors.black54, // Set the background color to blue
       // Add other theme properties as needed
     ),
   );
