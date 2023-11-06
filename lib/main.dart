@@ -97,16 +97,17 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => TelemedDataProvider()),
       ],
-      child: const MyApp(),
+      child: MaterialApp( // Add MaterialApp here
+        debugShowCheckedModeBanner: false,
+        home: const MyApp(),
+      ),
     ),
   );
 }
@@ -123,8 +124,45 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showPopupMessage(); // Show the pop-up message after the frame has been rendered
       loadAllAppMetaDataOnce();
     });
+  }
+
+  Future<void> _showPopupMessage() async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Welcome!'),
+          content: Text('Navigate your device with TalkBack''\n'
+              '\n'
+              'TalkBack is an accessibility feature in Android designed to assist users who are blind or visually impaired in navigating and interacting with their devices. Here are some basic instructions on how to use TalkBack gestures:''\n'
+              '\n'
+              'Explore by Touch: Drag your finger across the screen to explore the content. TalkBack will provide audio feedback about the items you touch.''\n'
+              '\n'
+              'Single Tap: Tap once on an item to select it. This is equivalent to a regular touch or tap on the screen.''\n'
+              '\n'
+              'Double Tap: Quickly double-tap on an item to activate it or open it. For example, to open an app, double-tap its icon.''\n'
+              '\n'
+              'Scroll: Use two fingers to scroll through content, such as web pages or lists. Move your two fingers up or down to scroll.''\n'
+              '\n'
+              // 'Swipe Right/Left: Swipe one finger right or left to navigate between items or elements, such as buttons, links, or text.''\n'
+              // '\n'
+              // 'Swipe Up/Down: Swipe one finger up or down to cycle through different navigation modes or move to the next or previous item.''\n'
+              '\n'
+              'Long Press and Hold: To access additional options for an item, long-press and hold it for a few seconds. TalkBack will announce available actions.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> loadAllAppMetaDataOnce() async {
@@ -205,11 +243,10 @@ class _MyAppState extends State<MyApp> {
   ThemeData darkThemeData = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.dark(
-      // background: Colors.black54, // Set the background color to blue
-      // Add other theme properties as needed
-    ),
+        // background: Colors.black54, // Set the background color to blue
+        // Add other theme properties as needed
+        ),
   );
-
 
   @override
   Widget build(BuildContext context) {
