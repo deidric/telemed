@@ -1,6 +1,11 @@
-# telemed
+# Here2SeeU: Telemed for the blind
 
-A new Flutter med project for blind.
+Thesis project of three (3) BSIT student with the help of Mr Jagadish Nallapa. Huge thanks to him and the team! :)
+
+Developed a telemedicine application with an appointment system that implements the needs of visually
+impaired people and to design the telemedicine application to be easy to use for visually impaired
+people with accessible functionalities and readable buttons [>Prototype<](https://www.figma.com/proto/Uzbzu9TtxjXISAKRR6BE81/Telemed-for-the-blind?node-id=0-1&t=ybjyE1MKrK9KUP2X-1)
+
 
 ## Getting Started
 
