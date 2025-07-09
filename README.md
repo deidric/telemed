@@ -4,7 +4,7 @@ Thesis project of three (3) BSIT students with the help of Mr Jagadish Nallapa. 
 
 Developed a telemedicine application with an appointment system that implements the needs of visually
 impaired people and to design the telemedicine application to be easy to use for visually impaired
-people with accessible functionalities and readable buttons [>Prototype<](https://www.figma.com/proto/Uzbzu9TtxjXISAKRR6BE81/Telemed-for-the-blind?node-id=0-1&t=ybjyE1MKrK9KUP2X-1)
+people with accessible functionalities and readable buttons [>Prototype<](https://www.figma.com/proto/SDDLRq0MNQlegLvcxvHXi4/Telemed-for-the-blind-wj?node-id=13-65&p=f&t=kuSt5F5Mj5b9lO1N-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A729)
 
 
 ## Getting Started
