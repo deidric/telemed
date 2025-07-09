@@ -1,6 +1,6 @@
 # Here2SeeU: Telemed for the blind
 
-Thesis project of three (3) BSIT student with the help of Mr Jagadish Nallapa. Huge thanks to him and the team! :)
+Thesis project of three (3) BSIT students with the help of Mr Jagadish Nallapa. Huge thanks to him and the team! :)
 
 Developed a telemedicine application with an appointment system that implements the needs of visually
 impaired people and to design the telemedicine application to be easy to use for visually impaired
